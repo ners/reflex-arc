@@ -1,0 +1,51 @@
+name: reflex-arc
+version: 0.1.0.0
+synopsis: A design system for Reflex Dom
+description: See README at <https://github.com/ners/reflex-arc#readme>
+maintainer: ners <ners@gmx.ch>
+github: ners/reflex-arc
+category: Graphics
+license-file: LICENCE
+
+dependencies:
+  - aeson
+  - base
+  - base64
+  - bytestring
+  - clay
+  - containers
+  - data-default
+  - directory
+  - file-embed
+  - gi-gdk
+  - gi-gio
+  - gi-glib
+  - gi-gtk
+  - gi-javascriptcore
+  - gi-webkit2
+  - haskell-gi-base
+  - jsaddle
+  - jsaddle-dom
+  - jsaddle-webkit2gtk
+  - mime-types
+  - reflex
+  - reflex-dom
+  - reflex-dom-mdi
+  - text
+  - unix
+
+library:
+  source-dirs: src
+  ld-options: -fuse-ld=gold
+
+executable:
+  main: Main.hs
+  source-dirs: app
+  dependencies:
+    - reflex-arc
+  ld-options: -fuse-ld=gold
+
+default-extensions:
+  - OverloadedStrings
+  - RecordWildCards
+  - TypeApplications

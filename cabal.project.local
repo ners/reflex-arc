@@ -1,0 +1,9 @@
+ignore-project: False
+
+package *
+  gcc-location: clang
+  ld-location: clang
+
+program-locations
+  gcc-location: clang
+  ld-location: clang

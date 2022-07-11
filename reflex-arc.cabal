@@ -1,0 +1,118 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.7.
+--
+-- see: https://github.com/sol/hpack
+
+name:               reflex-arc
+version:            0.1.0.0
+synopsis:           A design system for Reflex Dom
+description:        See README at <https://github.com/ners/reflex-arc#readme>
+homepage:           https://github.com/ners/reflex-arc#readme
+bug-reports:        https://github.com/ners/reflex-arc/issues
+build-type:         Simple
+maintainer:         ners <ners@gmx.ch>
+license:            Apache-2.0
+license-file:       LICENCE
+category:           Graphics
+
+source-repository head
+    type: git
+    location: https://github.com/ners/reflex-arc
+
+library
+    exposed-modules:
+        Arc.Clay.App
+        Arc.Clay.Buttons
+        Arc.Clay.Colours
+        Arc.Clay.Fonts
+        Arc.Clay.Icons
+        Arc.Clay.Inputs
+        Arc.Clay.Inputs.Checkbox
+        Arc.Clay.Inputs.Radio
+        Arc.Clay.Inputs.Text
+        Arc.Clay.Util
+        Arc.Main
+        Arc.Tokens.Size
+        Arc.Util
+        Arc.Widgets.Button
+        Arc.Widgets.Icon
+        Arc.Widgets.OptionGroup
+        Arc.Widgets.Svg
+        Arc.Widgets.Text
+    other-modules:
+        Paths_reflex_arc
+    build-depends:
+        aeson,
+        base,
+        base64,
+        bytestring,
+        clay,
+        containers,
+        data-default,
+        directory,
+        file-embed,
+        gi-gdk,
+        gi-gio,
+        gi-glib,
+        gi-gtk,
+        gi-javascriptcore,
+        gi-webkit2,
+        haskell-gi-base,
+        jsaddle,
+        jsaddle-dom,
+        jsaddle-webkit2gtk,
+        mime-types,
+        reflex,
+        reflex-dom,
+        reflex-dom-mdi,
+        text,
+        unix
+    hs-source-dirs:
+        src
+    default-extensions:
+        OverloadedStrings
+        RecordWildCards
+        TypeApplications
+    ld-options: -fuse-ld=gold
+    default-language: Haskell2010
+
+executable reflex-arc
+    main-is: Main.hs
+    other-modules:
+        Paths_reflex_arc
+    hs-source-dirs:
+        app
+    default-extensions:
+        OverloadedStrings
+        RecordWildCards
+        TypeApplications
+    ld-options: -fuse-ld=gold
+    build-depends:
+        aeson,
+        base,
+        base64,
+        bytestring,
+        clay,
+        containers,
+        data-default,
+        directory,
+        file-embed,
+        gi-gdk,
+        gi-gio,
+        gi-glib,
+        gi-gtk,
+        gi-javascriptcore,
+        gi-webkit2,
+        haskell-gi-base,
+        jsaddle,
+        jsaddle-dom,
+        jsaddle-webkit2gtk,
+        mime-types,
+        reflex,
+        reflex-arc,
+        reflex-dom,
+        reflex-dom-mdi,
+        text,
+        unix
+    default-language: Haskell2010
