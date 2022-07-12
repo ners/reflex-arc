@@ -1,9 +1,8 @@
-{ haskellPackages
-, material-design
-, ...
-}:
+{ haskellPackages, reflex-dom, material-design, ... }:
 
-let mdi = haskellPackages.callCabal2nix "reflex-dom-mdi" ./. { };
+let
+  mdi =
+    haskellPackages.callCabal2nix "reflex-dom-mdi" ./. { inherit reflex-dom; };
 in
 mdi.overrideAttrs (attrs: {
   patchPhase = ''

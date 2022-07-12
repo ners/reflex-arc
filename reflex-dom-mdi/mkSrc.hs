@@ -19,17 +19,21 @@ pascalCase = Text.concat . fmap p
 
 handleSvg :: Text -> IO ()
 handleSvg path = do
-    svg <- Text.readFile $ Text.unpack path
-    let id = between "id=\"" "\"" svg
-    let viewBox = between "viewBox=\"" "\"" svg
-    let path = between "path d=\"" "\"" svg
-    let functionName = camelCase $ Text.splitOn "-" id
-    Text.putStrLn $
-        Text.unlines $
-            Text.unwords
-                <$> [ [functionName, "::", "(DomBuilder t m, PostBuild t m)", "=>", "m ()"]
-                    , [functionName, "=", "mkMdiIcon", "\"" <> viewBox <> "\"", "\"" <> path <> "\""]
-                    ]
+    let filename = last $ Text.splitOn "/" path
+    if filename `elem` ["trash-can.svg", "trophy.svg", "star.svg", "alert-rhombus.svg", "account-circle.svg"]
+        then do
+            svg <- Text.readFile $ Text.unpack path
+            let id = between "id=\"" "\"" svg
+            let viewBox = between "viewBox=\"" "\"" svg
+            let path = between "path d=\"" "\"" svg
+            let functionName = camelCase $ Text.splitOn "-" id
+            Text.putStrLn $
+                Text.unlines $
+                    Text.unwords
+                        <$> [ [functionName, "::", "(DomBuilder t m, PostBuild t m)", "=>", "m ()"]
+                            , [functionName, "=", "mkMdiIcon", "\"" <> viewBox <> "\"", "\"" <> path <> "\""]
+                            ]
+        else return ()
 
 main :: IO ()
 main = Text.getContents >>= mapM_ handleSvg . Text.lines

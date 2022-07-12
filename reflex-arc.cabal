@@ -43,38 +43,23 @@ library
     other-modules:
         Paths_reflex_arc
     build-depends:
-        aeson,
         base,
         base64,
         bytestring,
         clay,
         containers,
         data-default,
-        directory,
         file-embed,
-        gi-gdk,
-        gi-gio,
-        gi-glib,
-        gi-gtk,
-        gi-javascriptcore,
-        gi-webkit2,
-        haskell-gi-base,
-        jsaddle,
-        jsaddle-dom,
-        jsaddle-webkit2gtk,
-        mime-types,
         reflex,
         reflex-dom,
         reflex-dom-mdi,
-        text,
-        unix
+        text
     hs-source-dirs:
         src
     default-extensions:
         OverloadedStrings
         RecordWildCards
         TypeApplications
-    ld-options: -fuse-ld=gold
     default-language: Haskell2010
 
 executable reflex-arc
@@ -87,32 +72,17 @@ executable reflex-arc
         OverloadedStrings
         RecordWildCards
         TypeApplications
-    ld-options: -fuse-ld=gold
     build-depends:
-        aeson,
         base,
         base64,
         bytestring,
         clay,
         containers,
         data-default,
-        directory,
         file-embed,
-        gi-gdk,
-        gi-gio,
-        gi-glib,
-        gi-gtk,
-        gi-javascriptcore,
-        gi-webkit2,
-        haskell-gi-base,
-        jsaddle,
-        jsaddle-dom,
-        jsaddle-webkit2gtk,
-        mime-types,
         reflex,
         reflex-arc,
         reflex-dom,
         reflex-dom-mdi,
-        text,
-        unix
+        text
     default-language: Haskell2010

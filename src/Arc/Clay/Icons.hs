@@ -13,9 +13,12 @@ iconStyle :: Css
 iconStyle = do
     display inlineBlock
     margin2 (em 0) (em 0.3)
+    position relative
     ".small" & (self <> svg) ? squareSize (em 1)
     ".medium" & (self <> svg) ? squareSize (em 1.5)
     ".large" & (self <> svg) ? squareSize (em 2)
     svg ? do
+        left nil
+        position absolute
         "path" ? do
             key "fill" $ Value "currentColor"

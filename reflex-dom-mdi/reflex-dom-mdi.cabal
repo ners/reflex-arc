@@ -24,7 +24,6 @@ library
       Paths_reflex_dom_mdi
   hs-source-dirs:
       src
-  ld-options: -fuse-ld=gold
   build-depends:
       base
     , reflex-dom

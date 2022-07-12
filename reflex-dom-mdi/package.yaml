@@ -12,4 +12,3 @@ dependencies:
 
 library:
   source-dirs: src
-  ld-options: -fuse-ld=gold
