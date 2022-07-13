@@ -25,27 +25,10 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        lib = pkgs.lib;
         haskellPackages = pkgs.haskellPackages;
-        callCabal2nix = haskellPackages.callCabal2nix;
-        jsaddle-wkwebview = (callCabal2nix "jsaddle-wkwebview"
-          "${inputs.jsaddle}/jsaddle-wkwebview" { }).overrideAttrs (attrs: {
-            buildInputs = (attrs.buildInputs or [ ])
-              ++ lib.optionals pkgs.stdenv.isDarwin
-              (with pkgs.darwin.apple_sdk.frameworks; [
-                Cocoa
-                CoreServices
-                WebKit
-              ]);
-          });
-        reflex-dom =
-          (callCabal2nix "reflex-dom" "${inputs.reflex-dom}/reflex-dom" {
-            inherit jsaddle-wkwebview;
-          }).overrideAttrs (attrs: {
-            patchPhase = (attrs.patchPhase or "") + ''
-              sed -i 's/base .*,/base,/' *.cabal
-            '';
-          });
+        reflex-dom = pkgs.callPackage ./nix/reflex-dom.nix {
+          inherit inputs haskellPackages;
+        };
         reflex-dom-mdi = pkgs.callPackage ./reflex-dom-mdi {
           inherit reflex-dom material-design;
         };
@@ -54,9 +37,10 @@
         };
         haskellDeps = drv:
           builtins.foldl'
-          (acc: type: acc ++ drv.getCabalDeps."${type}HaskellDepends")
-          [ ] [ "executable" "library" "test" ];
-      in {
+            (acc: type: acc ++ drv.getCabalDeps."${type}HaskellDepends")
+            [ ] [ "executable" "library" "test" ];
+      in
+      {
         inherit pkgs;
         packages = {
           # inherit reflex-dom;
@@ -71,6 +55,7 @@
             haskellPackages.cabal-install
             haskellPackages.haskell-language-server
             haskellPackages.hpack
+            pkgs.clang
           ];
         };
 
