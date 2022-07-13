@@ -33,4 +33,4 @@ instance Default Icon where
 icon :: (DomBuilder t m, PostBuild t m) => Icon -> m ()
 icon Icon{..} = span iconImage
   where
-    span = elDynAttr "span" $ mkDynAttrs [("role", "img"), ("class", Text.unwords ["icon", tshow iconSize])]
+    span = elDynAttr "span" $ mkDynAttrs [Just ("role", "img"), Just ("class", "icon " <> tshow iconSize)]

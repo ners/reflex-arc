@@ -33,4 +33,6 @@ executable:
 default-extensions:
   - OverloadedStrings
   - RecordWildCards
+  - ScopedTypeVariables
+  - TupleSections
   - TypeApplications

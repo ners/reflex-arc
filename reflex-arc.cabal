@@ -36,10 +36,13 @@ library
         Arc.Tokens.Size
         Arc.Util
         Arc.Widgets.Button
+        Arc.Widgets.Checkbox
+        Arc.Widgets.Form
         Arc.Widgets.Icon
         Arc.Widgets.OptionGroup
         Arc.Widgets.Svg
         Arc.Widgets.Text
+        Arc.Widgets.Textarea
     other-modules:
         Paths_reflex_arc
     build-depends:
@@ -59,18 +62,24 @@ library
     default-extensions:
         OverloadedStrings
         RecordWildCards
+        ScopedTypeVariables
+        TupleSections
         TypeApplications
     default-language: Haskell2010
 
 executable reflex-arc
     main-is: Main.hs
     other-modules:
+        Page
+        Signup
         Paths_reflex_arc
     hs-source-dirs:
         app
     default-extensions:
         OverloadedStrings
         RecordWildCards
+        ScopedTypeVariables
+        TupleSections
         TypeApplications
     build-depends:
         base,

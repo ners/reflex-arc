@@ -1,9 +1,9 @@
 module Arc.Clay.App where
 
-import Arc.Clay.Icons
-import Arc.Clay.Fonts
-import Arc.Clay.Inputs
 import Arc.Clay.Buttons
+import Arc.Clay.Fonts
+import Arc.Clay.Icons
+import Arc.Clay.Inputs
 import Arc.Clay.Util
 import Clay
 import Clay.Stylesheet (key)

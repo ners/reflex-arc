@@ -9,12 +9,14 @@ import Clay
 inputs :: Css
 inputs = do
     input ? inputStyle
+    textarea ? textareaStyle
     ".input-group" ? inputGroupStyle
 
 inputStyle :: Css
 inputStyle = do
     "type" @= "text" & textInputStyle
-    "type" @= "password" & textInputStyle
+    "type" @= "email" & emailInputStyle
+    "type" @= "password" & passwordInputStyle
     "type" @= "radio" & radioInputStyle
     "type" @= "checkbox" & checkboxStyle
 
@@ -22,5 +24,17 @@ inputGroupStyle :: Css
 inputGroupStyle = do
     position relative
     margin2 (em 0.5) nil
-    ".radio" & radioInputGroupStyle
-    ".checkbox" & radioInputGroupStyle
+    ".radio" & do
+        radioInputGroupStyle
+        input ? "type" @= "radio" & do
+            position absolute
+            top $ em 0.35
+            left nil
+            marginAll nil
+    ".checkbox" & do
+        radioInputGroupStyle
+        input ? "type" @= "checkbox" & do
+            position absolute
+            top $ em 0.35
+            left nil
+            marginAll nil

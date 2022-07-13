@@ -1,11 +1,11 @@
 module Arc.Widgets.Svg where
 
-import Arc.Util
 import Arc.Tokens.Size
+import Arc.Util
 
-import Reflex.Dom
 import Data.Text (Text)
 import qualified Data.Text as Text
+import Reflex.Dom
 
 data ViewBox = ViewBox
     { minX :: Int
@@ -15,9 +15,9 @@ data ViewBox = ViewBox
     }
 
 instance Show ViewBox where
-    show (ViewBox {..}) = show minX <> " " <> show minY <> " " <> show width <> " " <> show height 
+    show (ViewBox{..}) = show minX <> " " <> show minY <> " " <> show width <> " " <> show height
 
-data Path = Path Text
+newtype Path = Path Text
 
 instance Show Path where
     show (Path p) = Text.unpack p
@@ -31,14 +31,16 @@ data Svg = Svg
 
 svg :: (DomBuilder t m, PostBuild t m) => Svg -> m ()
 svg Svg{..} = svgEl $ pathEl blank
-    where
-        xmlns = "http://www.w3.org/2000/svg"
-        svgEl = elDynAttrNS 
+  where
+    xmlns = "http://www.w3.org/2000/svg"
+    svgEl =
+        elDynAttrNS
             (Just xmlns)
-            "svg" $ mkDynAttrs
-                [ ("viewBox", tshow svgViewBox)
-                , ("width", tshow svgWidth)
-                , ("height", tshow svgHeight)
-                , ("xmlns", xmlns)
+            "svg"
+            $ mkDynAttrs
+                [ Just ("viewBox", tshow svgViewBox)
+                , Just ("width", tshow svgWidth)
+                , Just ("height", tshow svgHeight)
+                , Just ("xmlns", xmlns)
                 ]
-        pathEl = elDynAttrNS (Just xmlns) "path" $ mkDynAttrs [("d", tshow svgPath), ("fill", "currentColor")]
+    pathEl = elDynAttrNS (Just xmlns) "path" $ mkDynAttrs [Just ("d", tshow svgPath)]

@@ -13,10 +13,6 @@ checkboxStyle = do
     border (em 0.1) solid radioBorderUnchecked
     transition "border" (ms 100) easeInOut (sec 0)
     transition "background" (ms 100) easeInOut (sec 0)
-    position absolute
-    top $ em 0.35
-    left nil
-    marginAll nil
     --marginRight $ em 0.5
     checked & do
         border (em 0.3) solid radioBorderChecked

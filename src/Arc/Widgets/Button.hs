@@ -10,7 +10,7 @@ import qualified Data.Text as Text
 import Reflex.Dom
 import qualified Reflex.Dom as ReflexDom
 
-data ButtonVariant = Default | Primary | Warning | Danger
+data ButtonVariant = DefaultButton | PrimaryButton | WarningButton | DangerButton
     deriving (Show)
 
 data Button = Button
@@ -22,12 +22,12 @@ data Button = Button
     }
 
 instance Default Button where
-    def = Button "" Default Nothing Nothing False
+    def = Button "" DefaultButton Nothing Nothing False
 
 button :: (DomBuilder t m, PostBuild t m) => Button -> m (Event t ())
 button Button{..} = buttonEl >>= \(e, _) -> return $ domEvent Click e
   where
-    attrs = mkDynAttrs $ ("class", Text.unwords [tshow buttonVariant]) : [("disabled", "disabled") | buttonDisabled]
+    attrs = mkDynAttrs [Just ("class", tshow buttonVariant), maybeDisabled buttonDisabled]
     buttonEl = elDynAttr' "button" attrs $ do
         mapM_ iconEl buttonLeftIcon
         el "span" $ text buttonContent
