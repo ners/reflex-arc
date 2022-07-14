@@ -9,14 +9,14 @@ checkboxStyle = do
     width $ em 0.8
     height $ em 0.8
     borderRadiusAll $ em 0.15
-    backgroundColor radioBackground
-    border (em 0.1) solid radioBorderUnchecked
+    backgroundColor $ rgba 250 251 252 1
+    border (em 0.1) solid borderUnchecked
     transition "border" (ms 100) easeInOut (sec 0)
     transition "background" (ms 100) easeInOut (sec 0)
     checked & do
-        border (em 0.3) solid radioBorderChecked
+        border (em 0.3) solid borderChecked
     disabled & do
-        backgroundColor radioBorderUnchecked
+        backgroundColor borderUnchecked
         sibling label ? do
             cursor notAllowed
             opacity 0.5
@@ -24,6 +24,14 @@ checkboxStyle = do
         transition "opacity" (ms 100) easeInOut (sec 0)
         cursor pointer
   where
-    radioBorderUnchecked = rgba 223 225 230 1
-    radioBackground = rgba 250 251 252 1
-    radioBorderChecked = primaryBlue
+    borderUnchecked = rgba 223 225 230 1
+    borderChecked = primaryBlue
+
+checkboxInputGroupStyle :: Css
+checkboxInputGroupStyle = do
+    paddingLeft (em 2.25)
+    self |> input ? do
+        position absolute
+        top (em 0.4)
+        left (em 0.75)
+        marginAll nil

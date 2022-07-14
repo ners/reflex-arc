@@ -11,8 +11,8 @@ import qualified Data.Text as Text
 import Reflex.Dom
 import qualified Reflex.Dom as ReflexDom
 
-data ButtonVariant = DefaultButton | PrimaryButton | WarningButton | DangerButton
-    deriving (Show)
+data ButtonVariant = GhostButton | DefaultButton | PrimaryButton | WarningButton | DangerButton
+    deriving (Show, Bounded, Enum)
 
 data Button = Button
     { buttonContent :: Text

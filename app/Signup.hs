@@ -1,6 +1,8 @@
 module Signup where
 
+import Arc.Clay.Buttons (buttonStyle)
 import Arc.Util
+import Arc.Widgets.Button
 import Arc.Widgets.Checkbox
 import Arc.Widgets.Form
 import Arc.Widgets.OptionGroup
@@ -8,7 +10,7 @@ import Arc.Widgets.Text
 import Arc.Widgets.Textarea
 import Data.Maybe (catMaybes)
 import Data.Text (Text)
-import Reflex.Dom hiding (checkbox, textInput)
+import Reflex.Dom hiding (button, checkbox, textInput)
 
 newtype Username = Username Text
 newtype Password = Password Text
@@ -132,6 +134,9 @@ instance Form SignupForm where
         b <- formField @Bio
         n <- checkboxFormField @Newsletter
         l <- checkboxFormField @Eula
+        divClass "buttons" $ do
+            button $ def{buttonContent = "Cancel", buttonVariant = GhostButton}
+            button $ def{buttonContent = "Submit", buttonVariant = PrimaryButton}
         return $
             SignupForm
                 <$> u

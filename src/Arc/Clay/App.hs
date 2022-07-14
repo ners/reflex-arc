@@ -1,7 +1,9 @@
 module Arc.Clay.App where
 
 import Arc.Clay.Buttons
+import Arc.Clay.Fieldset
 import Arc.Clay.Fonts
+import Arc.Clay.Form
 import Arc.Clay.Icons
 import Arc.Clay.Inputs
 import Arc.Clay.Normalise
@@ -15,7 +17,10 @@ appStyle = do
     --star ? globalStyle
     body ? bodyStyle
     fonts
+    fieldset_
+    forms
     icons
+    iconWithTexts
     inputs
     buttons
 

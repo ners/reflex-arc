@@ -8,7 +8,8 @@ import Arc.Util
 import Arc.Widgets.Button
 import Arc.Widgets.Form
 import Arc.Widgets.Icon
-import Control.Monad (forM_)
+import Control.Monad (forM_, void)
+import Debug.Trace (traceM)
 import Reflex.Dom hiding (button)
 import Reflex.Dom.MDI
 import Signup
@@ -18,27 +19,11 @@ data MainPage
 
 instance PageLayout MainPage where
     pageHeader = Just $
-        el "h1" $ do
-            icon $ def{iconImage = mdiChartArc, iconSize = LargeSize}
-            el "span" $ text "Reflex Arc Design System"
-    pageMain = do
-        form @SignupForm
-        forM_
-            [ (icon1, icon2, disabled)
-            | icon1 <- [Nothing, Just $ def{iconImage = mdiStar}]
-            , icon2 <- [Nothing, Just $ def{iconImage = mdiStar}]
-            , disabled <- [False, True]
-            ]
-            $ \(icon1, icon2, disabled) -> div $
-                forM_ [DangerButton, WarningButton, PrimaryButton, DefaultButton] $ \variant ->
-                    button $
-                        Button
-                            { buttonContent = "Button"
-                            , buttonVariant = variant
-                            , buttonLeftIcon = icon1
-                            , buttonRightIcon = icon2
-                            , buttonDisabled = disabled
-                            }
+        forM_ [(tag, size) | tag <- ["h1"], size <- reverse [LargeSize]] $ \(tag, size) -> do
+            el tag $ do
+                iconWithText (def{iconImage = mdiChartArc, iconSize = size}) "Reflex Arc"
+                el "span" $ text "Design System"
+    pageMain = void $ form @SignupForm
 
 page :: forall w. Widget w ()
 page = pageLayout @MainPage

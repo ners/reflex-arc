@@ -22,6 +22,12 @@ buttonStyle = do
     position relative
     self |> (star <> ".icon") ? do
         margin2 (em 0) (em 0.3)
+    ".GhostButton" & do
+        color $ rgb 66 82 110
+        backgroundColor transparent
+        fontWeight normal
+        hover & backgroundColor (rgba 9 30 66 0.04)
+        active & backgroundColor (rgba 9 30 66 0.08)
     ".DefaultButton" & do
         color $ rgb 66 82 110
         backgroundColor $ rgba 9 30 66 0.04

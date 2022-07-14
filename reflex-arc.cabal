@@ -25,7 +25,9 @@ library
         Arc.Clay.App
         Arc.Clay.Buttons
         Arc.Clay.Colours
+        Arc.Clay.Fieldset
         Arc.Clay.Fonts
+        Arc.Clay.Form
         Arc.Clay.Icons
         Arc.Clay.Inputs
         Arc.Clay.Inputs.Checkbox
@@ -86,7 +88,7 @@ executable reflex-arc
         ScopedTypeVariables
         TupleSections
         TypeApplications
-    ghc-options: -threaded
+    ghc-options: -dynamic -threaded
     build-depends:
         base,
         base64,

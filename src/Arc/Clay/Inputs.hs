@@ -26,17 +26,7 @@ inputGroupStyle :: Css
 inputGroupStyle = do
     position relative
     margin2 (em 0.5) nil
+    ".checkbox" & do
+        checkboxInputGroupStyle
     ".radio" & do
         radioInputGroupStyle
-        input ? "type" @= "radio" & do
-            position absolute
-            top $ em 0.3
-            left nil
-            marginAll nil
-    ".checkbox" & do
-        radioInputGroupStyle
-        input ? "type" @= "checkbox" & do
-            position absolute
-            top $ em 0.3
-            left nil
-            marginAll nil

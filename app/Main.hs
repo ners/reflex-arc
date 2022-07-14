@@ -5,6 +5,7 @@ import Arc.Clay.Normalise
 import Arc.Clay.Util
 import Arc.Main
 import Clay
+import Clay.Font
 import qualified Data.Text.IO as Text
 import Page
 
@@ -15,13 +16,13 @@ main = do
 
 css :: Css
 css = do
+    h1 <> h2 <> h3 ? fontWeight (FontWeight $ Value "500")
     header ? do
+        fontSize (pct 50)
+        h1 ? marginAll nil
         color $ rgba 0 0 0 0.75
         position relative
-        paddingAll (em 1)
-        h1 <> h2 <> h3 ? do
-            marginAll nil
-            fontWeight normal
+        padding2 (em 0.5) (em 1.5)
         after & do
             height (em 0.3)
             position absolute
@@ -31,5 +32,6 @@ css = do
             background [vGradient transparent (rgba 0 0 0 0.05)]
             content $ stringContent ""
     main_ ? paddingAll (em 2)
-
---rgba(0, 0, 0, 0) linear-gradient(rgba(9, 30, 66, 0.13) 0px, rgba(9, 30, 66, 0.13) 1px, rgba(9, 30, 66, 0.08) 1px, rgba(9, 30, 66, 0) 4px) repeat scroll 0% 0%
+    form ? do
+        maxWidth (em 30)
+        margin2 nil auto

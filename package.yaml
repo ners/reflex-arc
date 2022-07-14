@@ -28,7 +28,9 @@ executable:
   source-dirs: app
   dependencies:
     - reflex-arc
-  ghc-options: -threaded
+  ghc-options:
+    - -dynamic
+    - -threaded
 
 default-extensions:
   - OverloadedStrings
