@@ -23,8 +23,8 @@ instance Show Path where
     show (Path p) = Text.unpack p
 
 data Svg = Svg
-    { svgWidth :: Size
-    , svgHeight :: Size
+    { svgWidth :: Maybe Int
+    , svgHeight :: Maybe Int
     , svgViewBox :: ViewBox
     , svgPath :: Path
     }
@@ -39,8 +39,7 @@ svg Svg{..} = svgEl $ pathEl blank
             "svg"
             $ mkAttrs
                 [ Just ("viewBox", tshow svgViewBox)
-                , Just ("width", tshow svgWidth)
-                , Just ("height", tshow svgHeight)
-                , Just ("xmlns", xmlns)
+                , ("width",) . tshow <$> svgWidth
+                , ("height",) . tshow <$> svgHeight
                 ]
     pathEl = elAttrNS (Just xmlns) "path" $ mkAttrs [Just ("d", tshow svgPath)]

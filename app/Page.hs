@@ -3,6 +3,7 @@
 module Page where
 
 import Arc.Layouts.Page
+import Arc.Tokens.Size
 import Arc.Util
 import Arc.Widgets.Button
 import Arc.Widgets.Form
@@ -16,9 +17,9 @@ import Prelude hiding (div)
 data MainPage
 
 instance PageLayout MainPage where
-    pageHeader = Just $ do
+    pageHeader = Just $
         el "h1" $ do
-            icon $ def{iconImage = mdiFlare}
+            icon $ def{iconImage = mdiChartArc, iconSize = LargeSize}
             el "span" $ text "Reflex Arc Design System"
     pageMain = do
         form @SignupForm
@@ -32,7 +33,7 @@ instance PageLayout MainPage where
                 forM_ [DangerButton, WarningButton, PrimaryButton, DefaultButton] $ \variant ->
                     button $
                         Button
-                            { buttonContent = tshow variant
+                            { buttonContent = "Button"
                             , buttonVariant = variant
                             , buttonLeftIcon = icon1
                             , buttonRightIcon = icon2

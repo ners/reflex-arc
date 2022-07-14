@@ -123,7 +123,7 @@ data SignupForm = SignupForm
     }
 
 instance Form SignupForm where
-    formTitle = Just "Sign in"
+    formTitle = Just "Sign up"
     formFields = do
         u <- formField @Username
         e <- formField @Email

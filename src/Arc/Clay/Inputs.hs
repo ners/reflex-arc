@@ -15,6 +15,7 @@ inputs = do
 
 inputStyle :: Css
 inputStyle = do
+    appearance noneValue
     "type" @= "text" & textInputStyle
     "type" @= "email" & emailInputStyle
     "type" @= "password" & passwordInputStyle
@@ -29,13 +30,13 @@ inputGroupStyle = do
         radioInputGroupStyle
         input ? "type" @= "radio" & do
             position absolute
-            top $ em 0.35
+            top $ em 0.3
             left nil
             marginAll nil
     ".checkbox" & do
         radioInputGroupStyle
         input ? "type" @= "checkbox" & do
             position absolute
-            top $ em 0.35
+            top $ em 0.3
             left nil
             marginAll nil

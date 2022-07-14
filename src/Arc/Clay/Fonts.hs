@@ -23,29 +23,14 @@ fonts = do
     --     ]
     face
         "Inter"
-        [ (normal, "https://fonts.googleapis.com/css2?family=Inter:wght@100..700&display=swap")
-        ]
+        "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
     face
-        "Source Sans"
-        [ (normal, "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@100..700&display=swap")
-        , (italic, "https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@100..700&display=swap")
-        ]
-    face
-        "Source Serif"
-        [ (normal, "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@200..700&display=swap")
-        , (italic, "https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@100..700&display=swap")
-        ]
-    face
-        "Source Code"
-        [ (normal, "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200..700&display=swap")
-        , (italic, "https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@100..700&display=swap")
-        ]
+        "Lora"
+        "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
   where
-    srcUrl c = key "src" [urlContent c, techContent "variations"]
+    --srcUrl c = key "src" $ mconcat [urlContent c, formatContent "woff2", techContent "variations"]
+    srcUrl c = key "src" $ urlContent c
     --woff2 = ("data:application/font-woff2;charset=utf-8;base64," <>) . BS.encodeBase64
-    face name = fmap Prelude.head $
-        fmap $ \(style, content) ->
-            fontFace $ do
-                fontFamily [name] []
-                fontStyle style
-                srcUrl content
+    face name content = fontFace $ do
+        fontFamily [name] []
+        srcUrl content

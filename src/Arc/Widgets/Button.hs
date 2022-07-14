@@ -1,7 +1,8 @@
 module Arc.Widgets.Button where
 
+import Arc.Tokens.Size
 import Arc.Util
-import Arc.Widgets.Icon (Icon (Icon, iconSize), IconSize (Small), icon)
+import Arc.Widgets.Icon
 import Control.Monad (forM_, when)
 import Data.Default
 import Data.Maybe (fromJust, isJust)
@@ -32,4 +33,4 @@ button Button{..} = buttonEl >>= \(e, _) -> return $ domEvent Click e
         mapM_ iconEl buttonLeftIcon
         el "span" $ text buttonContent
         mapM_ iconEl buttonRightIcon
-    iconEl i = icon $ i{iconSize = Small}
+    iconEl i = icon $ i{iconSize = SmallSize}

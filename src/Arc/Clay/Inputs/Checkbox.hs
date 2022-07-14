@@ -13,7 +13,6 @@ checkboxStyle = do
     border (em 0.1) solid radioBorderUnchecked
     transition "border" (ms 100) easeInOut (sec 0)
     transition "background" (ms 100) easeInOut (sec 0)
-    --marginRight $ em 0.5
     checked & do
         border (em 0.3) solid radioBorderChecked
     disabled & do

@@ -21,7 +21,6 @@ buttonStyle = do
     cursor pointer
     position relative
     self |> (star <> ".icon") ? do
-        verticalAlign middle
         margin2 (em 0) (em 0.3)
     ".DefaultButton" & do
         color $ rgb 66 82 110

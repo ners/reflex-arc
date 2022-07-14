@@ -20,7 +20,7 @@ pascalCase = Text.concat . fmap p
 handleSvg :: Text -> IO ()
 handleSvg path = do
     let filename = last $ Text.splitOn "/" path
-    if filename `elem` ["trash-can.svg", "trophy.svg", "star.svg", "alert-rhombus.svg", "account-circle.svg", "flare.svg"]
+    if filename `elem` ["trash-can.svg", "trophy.svg", "star.svg", "alert-rhombus.svg", "account-circle.svg", "chart-arc.svg"]
         then do
             svg <- Text.readFile $ Text.unpack path
             let id = between "id=\"" "\"" svg

@@ -4,13 +4,15 @@ import Arc.Clay.Buttons
 import Arc.Clay.Fonts
 import Arc.Clay.Icons
 import Arc.Clay.Inputs
+import Arc.Clay.Normalise
 import Arc.Clay.Util
 import Clay
 import Clay.Stylesheet (key)
 
 appStyle :: Css
 appStyle = do
-    star ? globalStyle
+    normalise
+    --star ? globalStyle
     body ? bodyStyle
     fonts
     icons

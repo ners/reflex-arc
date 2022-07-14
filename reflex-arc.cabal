@@ -32,6 +32,7 @@ library
         Arc.Clay.Inputs.Radio
         Arc.Clay.Inputs.Text
         Arc.Clay.Inputs.Textarea
+        Arc.Clay.Normalise
         Arc.Clay.Util
         Arc.Layouts.Page
         Arc.Main

@@ -1,6 +1,7 @@
 module Arc.Clay.Util where
 
 import Clay
+import Clay.Stylesheet (key, prefixed)
 import Clay.Text
 import Data.ByteString (ByteString)
 import Data.Text (Text)
@@ -23,6 +24,9 @@ marginAll s = margin s s s s
 margin2 :: Size a -> Size a -> Css
 margin2 y x = margin y x y x
 
+paddingAll :: Size a -> Css
+paddingAll s = padding s s s s
+
 padding2 :: Size a -> Size a -> Css
 padding2 y x = padding y x y x
 
@@ -35,8 +39,23 @@ self = ""
 sibling :: Selector -> Selector
 sibling = (self |~)
 
+instance Semigroup Content where
+    (Content c1) <> (Content c2) = Content $ c1 <> " " <> c2
+
+instance Monoid Content where
+    mempty = Content ""
+
 formatContent :: Text -> Content
 formatContent f = Content ("format(" <> value (Literal f) <> ")")
 
 techContent :: Text -> Content
 techContent t = Content ("tech(" <> value (Literal t) <> ")")
+
+appearance :: Val v => v -> Css
+appearance = prefixed (browsers <> "appearance")
+
+tableDisplay :: Display
+tableDisplay = Display "table"
+
+inheritFont :: Required a
+inheritFont = Required inherit Nothing [] []

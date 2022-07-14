@@ -10,5 +10,6 @@ textareaStyle :: Css
 textareaStyle = do
     textInputStyle
     display block
-    key "resize" $ Value "none"
+    key "resize" noneValue
     width $ pct 100
+    minHeight $ em 5
