@@ -1,6 +1,7 @@
 module Arc.Clay.Util where
 
 import Clay
+import Clay.Text
 import Data.ByteString (ByteString)
 import Data.Text (Text)
 import qualified Data.Text as Text
@@ -33,3 +34,9 @@ self = ""
 
 sibling :: Selector -> Selector
 sibling = (self |~)
+
+formatContent :: Text -> Content
+formatContent f = Content ("format(" <> value (Literal f) <> ")")
+
+techContent :: Text -> Content
+techContent t = Content ("tech(" <> value (Literal t) <> ")")

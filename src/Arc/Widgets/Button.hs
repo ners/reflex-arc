@@ -24,11 +24,11 @@ data Button = Button
 instance Default Button where
     def = Button "" DefaultButton Nothing Nothing False
 
-button :: (DomBuilder t m, PostBuild t m) => Button -> m (Event t ())
+button :: DomBuilder t m => Button -> m (Event t ())
 button Button{..} = buttonEl >>= \(e, _) -> return $ domEvent Click e
   where
-    attrs = mkDynAttrs [Just ("class", tshow buttonVariant), maybeDisabled buttonDisabled]
-    buttonEl = elDynAttr' "button" attrs $ do
+    attrs = mkAttrs [Just ("class", tshow buttonVariant), maybeDisabled buttonDisabled]
+    buttonEl = elAttr' "button" attrs $ do
         mapM_ iconEl buttonLeftIcon
         el "span" $ text buttonContent
         mapM_ iconEl buttonRightIcon

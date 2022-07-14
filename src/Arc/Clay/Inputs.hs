@@ -3,6 +3,7 @@ module Arc.Clay.Inputs where
 import Arc.Clay.Inputs.Checkbox
 import Arc.Clay.Inputs.Radio
 import Arc.Clay.Inputs.Text
+import Arc.Clay.Inputs.Textarea
 import Arc.Clay.Util
 import Clay
 

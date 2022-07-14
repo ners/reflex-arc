@@ -32,5 +32,6 @@ bodyStyle :: Css
 bodyStyle = do
     fontSize $ px 16
     fontWeight $ weight 400
-    fontFamily ["Source Sans"] []
+    fontFamily ["Inter"] []
+    key "font-stretch" $ Value "50%"
     lineHeight $ em 1.5

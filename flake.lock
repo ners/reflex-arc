@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "clay": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650726635,
+        "narHash": "sha256-PdBw85T7debswcYBTh82g5Kuft71N6707/S+aSOivyk=",
+        "owner": "sebastiaanvisser",
+        "repo": "clay",
+        "rev": "92d73d81720d5eba958ab26a0aebed4ea6ae714a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sebastiaanvisser",
+        "repo": "clay",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -97,6 +113,7 @@
     },
     "root": {
       "inputs": {
+        "clay": "clay",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "jsaddle": "jsaddle",

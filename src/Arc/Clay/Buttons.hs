@@ -11,13 +11,13 @@ buttonStyle :: Css
 buttonStyle = do
     borderWidth $ em 0
     borderStyle none
-    borderRadiusAll $ em 0.2
+    borderRadiusAll $ em 0.1875
     display inlineBlock
     height $ em 2
     lineHeight $ em 2
     marginAll $ em 0.2
     padding2 (em 0) (em 1)
-    fontWeight $ weight 550
+    fontWeight $ weight 500
     cursor pointer
     position relative
     self |> (star <> ".icon") ? do

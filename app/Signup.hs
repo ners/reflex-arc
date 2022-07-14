@@ -19,6 +19,7 @@ newtype Newsletter = Newsletter Bool
 newtype Eula = Eula Bool
 
 instance OptionGroup Gender where
+    groupLegend = Just "Gender"
     groupName = "gender"
     groupType = RadioType
     optionId MaleGender = "MaleGender"
@@ -28,6 +29,7 @@ instance OptionGroup Gender where
     optionLabel FemaleGender = "Female"
     optionLabel (OtherGender _) = "Other"
     groupInputMultiEl = el "fieldset" $ do
+        maybe blank (el "legend" . text) $ groupLegend @Gender
         options <- do
             mf <- mapM optionInputGroupEl [MaleGender, FemaleGender]
             o <- otherEl
@@ -128,8 +130,8 @@ instance Form SignupForm where
         g <- groupInputSingleEl @Gender
         p <- formField @Password
         b <- formField @Bio
-        n <- formField @Newsletter
-        l <- formField @Eula
+        n <- checkboxFormField @Newsletter
+        l <- checkboxFormField @Eula
         return $
             SignupForm
                 <$> u

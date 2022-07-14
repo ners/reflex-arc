@@ -31,7 +31,9 @@ library
         Arc.Clay.Inputs.Checkbox
         Arc.Clay.Inputs.Radio
         Arc.Clay.Inputs.Text
+        Arc.Clay.Inputs.Textarea
         Arc.Clay.Util
+        Arc.Layouts.Page
         Arc.Main
         Arc.Tokens.Size
         Arc.Util
@@ -61,6 +63,7 @@ library
         src
     default-extensions:
         OverloadedStrings
+        RankNTypes
         RecordWildCards
         ScopedTypeVariables
         TupleSections
@@ -77,10 +80,12 @@ executable reflex-arc
         app
     default-extensions:
         OverloadedStrings
+        RankNTypes
         RecordWildCards
         ScopedTypeVariables
         TupleSections
         TypeApplications
+    ghc-options: -threaded
     build-depends:
         base,
         base64,

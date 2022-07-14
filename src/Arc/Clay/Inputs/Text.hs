@@ -3,11 +3,10 @@ module Arc.Clay.Inputs.Text where
 import Arc.Clay.Colours
 import Arc.Clay.Util
 import Clay
-import Clay.Stylesheet (key)
 
 textInputStyle :: Css
 textInputStyle = do
-    border (em 0.1) solid (rgb 223 225 230)
+    border (em 0.125) solid (rgb 223 225 230)
     borderRadius (em 0.3) (em 0.3) (em 0.3) (em 0.3)
     padding (em 0) (em 0.3) (em 0) (em 0.3)
     transition "border" (ms 100) easeInOut (sec 0)
@@ -19,13 +18,6 @@ textInputStyle = do
     ".TextInputInline" & do
         width $ em 10
         margin2 (em 0) (em 0.3)
-
-textareaStyle :: Css
-textareaStyle = do
-    textInputStyle
-    display block
-    key "resize" $ Value "none"
-    width $ pct 100
 
 emailInputStyle :: Css
 emailInputStyle = textInputStyle

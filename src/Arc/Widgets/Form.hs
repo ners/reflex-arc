@@ -6,20 +6,23 @@ import Arc.Util
 import Data.Text (Text)
 import Reflex.Dom hiding (Checkbox)
 
+class FormField f where
+    fieldRequired :: Bool
+    fieldRequired = False
+    fieldInputElement :: DomBuilder t m => m (Dynamic t f)
+
+formField :: forall f t m. (FormField f, DomBuilder t m) => m (Dynamic t f)
+formField = divClass "form-field input-group" $ fieldInputElement @f
+
+checkboxFormField :: forall f t m. (FormField f, DomBuilder t m) => m (Dynamic t f)
+checkboxFormField = divClass "form-field input-group checkbox" $ fieldInputElement @f
+
 class Form f where
     formTitle :: Maybe Text
     formTitle = Nothing
     formSubtitle :: Maybe Text
     formSubtitle = Nothing
     formFields :: DomBuilder t m => m (Dynamic t f)
-
-formField :: forall f t m. (FormField f, DomBuilder t m) => m (Dynamic t f)
-formField = divClass "form-field" $ fieldInputElement @f
-
-class FormField f where
-    fieldRequired :: Bool
-    fieldRequired = False
-    fieldInputElement :: DomBuilder t m => m (Dynamic t f)
 
 form :: forall f t m. (Form f, DomBuilder t m) => m (Dynamic t f)
 form = el "form" $ do

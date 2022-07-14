@@ -19,6 +19,8 @@ type OptionGroupType = CheckboxType
 
 class OptionGroup g where
     groupName :: Text
+    groupLegend :: Maybe Text
+    groupLegend = Nothing
     groupType :: OptionGroupType
     inputGroup :: DomBuilder t m => m a -> m a
     inputGroup = divClass $ "input-group " <> showType (groupType @g)
@@ -52,6 +54,7 @@ class OptionGroup g where
     groupInputMultiEl :: DomBuilder t m => m (Dynamic t [g])
     default groupInputMultiEl :: (Bounded g, Enum g, DomBuilder t m, PostBuild t m) => m (Dynamic t [g])
     groupInputMultiEl = el "fieldset" $ do
+        maybe blank (el "legend" . text) $ groupLegend @g
         inputs :: [Dynamic t (Maybe g)] <- mapM optionInputGroupEl [minBound .. maxBound]
         let checked :: Dynamic t [g] = catMaybes <$> sequence inputs
         return checked

@@ -1,5 +1,3 @@
-{-# LANGUAGE RankNTypes #-}
-
 module Arc.Widgets.Icon where
 
 import Arc.Tokens.Size
@@ -24,13 +22,13 @@ instance IsSize IconSize where
 
 data Icon = Icon
     { iconSize :: IconSize
-    , iconImage :: forall t m. (DomBuilder t m, PostBuild t m) => m ()
+    , iconImage :: forall t m. DomBuilder t m => m ()
     }
 
 instance Default Icon where
     def = Icon Small blank
 
-icon :: (DomBuilder t m, PostBuild t m) => Icon -> m ()
+icon :: DomBuilder t m => Icon -> m ()
 icon Icon{..} = span iconImage
   where
-    span = elDynAttr "span" $ mkDynAttrs [Just ("role", "img"), Just ("class", "icon " <> tshow iconSize)]
+    span = elAttr "span" $ mkAttrs [Just ("role", "img"), Just ("class", "icon " <> tshow iconSize)]

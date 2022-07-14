@@ -29,18 +29,18 @@ data Svg = Svg
     , svgPath :: Path
     }
 
-svg :: (DomBuilder t m, PostBuild t m) => Svg -> m ()
+svg :: DomBuilder t m => Svg -> m ()
 svg Svg{..} = svgEl $ pathEl blank
   where
     xmlns = "http://www.w3.org/2000/svg"
     svgEl =
-        elDynAttrNS
+        elAttrNS
             (Just xmlns)
             "svg"
-            $ mkDynAttrs
+            $ mkAttrs
                 [ Just ("viewBox", tshow svgViewBox)
                 , Just ("width", tshow svgWidth)
                 , Just ("height", tshow svgHeight)
                 , Just ("xmlns", xmlns)
                 ]
-    pathEl = elDynAttrNS (Just xmlns) "path" $ mkDynAttrs [Just ("d", tshow svgPath)]
+    pathEl = elAttrNS (Just xmlns) "path" $ mkAttrs [Just ("d", tshow svgPath)]

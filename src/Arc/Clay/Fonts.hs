@@ -22,6 +22,10 @@ fonts = do
     --     , (italic, woff2 $(embedFile "./src/Arc/Typography/woff2/SourceCodeVariable-Italic.otf.woff2"))
     --     ]
     face
+        "Inter"
+        [ (normal, "https://fonts.googleapis.com/css2?family=Inter:wght@100..700&display=swap")
+        ]
+    face
         "Source Sans"
         [ (normal, "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@100..700&display=swap")
         , (italic, "https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@100..700&display=swap")
@@ -37,7 +41,7 @@ fonts = do
         , (italic, "https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@100..700&display=swap")
         ]
   where
-    srcUrl = key "src" . urlContent
+    srcUrl c = key "src" [urlContent c, techContent "variations"]
     --woff2 = ("data:application/font-woff2;charset=utf-8;base64," <>) . BS.encodeBase64
     face name = fmap Prelude.head $
         fmap $ \(style, content) ->

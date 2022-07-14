@@ -18,47 +18,53 @@
       url = "github:ghcjs/jsaddle";
       flake = false;
     };
+    clay = {
+      url = "github:sebastiaanvisser/clay";
+      flake = false;
+    };
   };
 
-  outputs = inputs:
-    with inputs;
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-        haskellPackages = pkgs.haskellPackages;
-        reflex-dom = pkgs.callPackage ./nix/reflex-dom.nix {
-          inherit inputs haskellPackages;
-        };
-        reflex-dom-mdi = pkgs.callPackage ./reflex-dom-mdi {
-          inherit reflex-dom material-design;
-        };
-        reflex-arc = pkgs.callPackage ./default.nix {
-          inherit reflex-dom reflex-dom-mdi;
-        };
-        haskellDeps = drv:
-          builtins.foldl'
-            (acc: type: acc ++ drv.getCabalDeps."${type}HaskellDepends")
-            [ ] [ "executable" "library" "test" ];
-      in
-      {
-        inherit pkgs;
-        packages = {
-          # inherit reflex-dom;
-          inherit reflex-dom-mdi;
-          inherit reflex-arc;
-          default = reflex-arc;
-        };
+  outputs = inputs: inputs.flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = import inputs.nixpkgs { inherit system; };
+      haskellPackages = pkgs.haskellPackages;
+      reflex-dom = pkgs.callPackage ./nix/reflex-dom.nix {
+        inherit inputs haskellPackages;
+      };
+      clay = pkgs.callPackage ./nix/clay.nix {
+        inherit inputs haskellPackages;
+      };
+      reflex-dom-mdi = pkgs.callPackage ./reflex-dom-mdi {
+        inherit reflex-dom;
+        inherit (inputs) material-design;
+      };
+      reflex-arc = pkgs.callPackage ./default.nix {
+        inherit reflex-dom reflex-dom-mdi clay;
+      };
+      haskellDeps = drv:
+        builtins.foldl'
+          (acc: type: acc ++ drv.getCabalDeps."${type}HaskellDepends")
+          [ ] [ "executable" "library" "test" ];
+    in
+    {
+      inherit pkgs;
+      packages = {
+        # inherit reflex-dom;
+        inherit reflex-dom-mdi;
+        inherit reflex-arc;
+        default = reflex-arc;
+      };
 
-        devShells.default = pkgs.mkShell {
-          nativeBuildInputs = [
-            (haskellPackages.ghcWithPackages (ps: haskellDeps reflex-arc))
-            haskellPackages.cabal-install
-            haskellPackages.haskell-language-server
-            haskellPackages.hpack
-            pkgs.clang
-          ];
-        };
+      devShells.default = pkgs.mkShell {
+        nativeBuildInputs = [
+          (haskellPackages.ghcWithPackages (ps: haskellDeps reflex-arc))
+          haskellPackages.cabal-install
+          haskellPackages.haskell-language-server
+          haskellPackages.hpack
+          pkgs.clang
+        ];
+      };
 
-        # formatter = pkgs.nixfmt;
-      });
+      # formatter = pkgs.nixfmt;
+    });
 }
