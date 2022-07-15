@@ -1,5 +1,6 @@
 module Arc.Clay.Util where
 
+import Arc.Util (ClassName (className))
 import Clay
 import Clay.Stylesheet (key, prefixed)
 import Clay.Text
@@ -59,3 +60,6 @@ tableDisplay = Display "table"
 
 inheritFont :: Required a
 inheritFont = Required inherit Nothing [] []
+
+class_ :: ClassName c => c -> Refinement
+class_ = byClass . className

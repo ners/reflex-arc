@@ -36,18 +36,21 @@ library
         Arc.Clay.Inputs.Textarea
         Arc.Clay.Layouts
         Arc.Clay.Layouts.ListDetail
+        Arc.Clay.Message
         Arc.Clay.Normalise
         Arc.Clay.Util
         Arc.Layouts.ListDetail
         Arc.Layouts.Page
         Arc.Main
         Arc.Tokens.ArcLogo
+        Arc.Tokens.Colour
         Arc.Tokens.Size
         Arc.Util
         Arc.Widgets.Button
         Arc.Widgets.Checkbox
         Arc.Widgets.Form
         Arc.Widgets.Icon
+        Arc.Widgets.Message
         Arc.Widgets.Nav
         Arc.Widgets.OptionGroup
         Arc.Widgets.Svg

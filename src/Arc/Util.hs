@@ -102,3 +102,8 @@ class Eq e => Selectable e where
         let className = d <&> \f -> if Just e == f then "selected" else ""
         c <- elDynClass (selectableTag @e) className (clickable e)
         return $ e <$ c
+
+class ClassName c where
+    className :: c -> Text
+    default className :: Show c => c -> Text
+    className = tshow
