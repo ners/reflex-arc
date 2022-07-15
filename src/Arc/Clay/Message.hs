@@ -2,12 +2,12 @@ module Arc.Clay.Message where
 
 import Arc.Clay.Util
 import Arc.Util
-import Arc.Widgets.Message (MessageVariant (..))
+import Arc.Widgets.Message (MessageVariant (..), Message (Message))
 import Clay
 import Clay.Stylesheet (key)
 
 messages :: Css
-messages = ".message" ? messageStyle
+messages = baseClass_ @Message ? messageStyle
 
 messageStyle :: Css
 messageStyle = do

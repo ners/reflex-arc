@@ -1,6 +1,8 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+
 module Arc.Clay.Util where
 
-import Arc.Util (ClassName (className))
+import Arc.Util
 import Clay
 import Clay.Stylesheet (key, prefixed)
 import Clay.Text
@@ -9,6 +11,7 @@ import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text (encodeUtf8)
 import qualified Data.Text.Lazy as Text (toStrict)
+import Data.String (IsString (fromString))
 
 renderText :: Css -> Text
 renderText = Text.toStrict . render
@@ -61,5 +64,8 @@ tableDisplay = Display "table"
 inheritFont :: Required a
 inheritFont = Required inherit Nothing [] []
 
-class_ :: ClassName c => c -> Refinement
-class_ = byClass . className
+class_ :: forall c s. (ClassName c, IsString s) => c -> s
+class_ c = fromString $ "." <> className @c c
+
+baseClass_ :: forall c s. (BaseClassName c, IsString s) => s
+baseClass_ = fromString $ "." <> baseClassName @c

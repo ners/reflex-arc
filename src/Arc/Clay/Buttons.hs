@@ -3,6 +3,8 @@ module Arc.Clay.Buttons where
 import Arc.Clay.Colours
 import Arc.Clay.Util
 import Clay
+import Arc.Widgets.Button (ButtonVariant(..))
+import Arc.Widgets.Icon
 
 buttons :: Css
 buttons = button ? buttonStyle
@@ -20,30 +22,30 @@ buttonStyle = do
     fontWeight $ weight 500
     cursor pointer
     position relative
-    self |> (star <> ".icon") ? do
+    self |> (star <> baseClass_ @Icon) ? do
         margin2 (em 0) (em 0.3)
-    ".GhostButton" & do
+    class_ GhostButton & do
         color $ rgb 66 82 110
         backgroundColor transparent
         fontWeight normal
         hover & backgroundColor (rgba 9 30 66 0.04)
         active & backgroundColor (rgba 9 30 66 0.08)
-    ".DefaultButton" & do
+    class_ DefaultButton & do
         color $ rgb 66 82 110
         backgroundColor $ rgba 9 30 66 0.04
         hover & backgroundColor (rgba 9 30 66 0.08)
         active & backgroundColor (rgba 179 212 255 0.6)
-    ".PrimaryButton" & do
+    class_ PrimaryButton & do
         color primaryWhite
         backgroundColor primaryBlue
         hover & backgroundColor (rgb 0 101 255)
         active & backgroundColor (rgb 7 71 166)
-    ".WarningButton" & do
+    class_ WarningButton & do
         color $ rgb 23 43 77
         backgroundColor $ rgb 255 171 0
         hover & backgroundColor (rgb 255 196 0)
         active & backgroundColor (rgb 255 153 31)
-    ".DangerButton" & do
+    class_ DangerButton & do
         color primaryWhite
         backgroundColor $ rgb 222 53 11
         hover & backgroundColor (rgb 255 86 48)

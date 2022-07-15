@@ -5,22 +5,24 @@ module Arc.Clay.Icons where
 import Arc.Clay.Util
 import Clay
 import Clay.Stylesheet (key)
+import Arc.Widgets.Icon (Icon(..))
+import Arc.Tokens.Size (SizeToken(..))
 
 icons :: Css
-icons = ".icon" ? iconStyle
+icons = baseClass_ @Icon ? iconStyle
 
 iconStyle :: Css
 iconStyle = do
     display inlineBlock
     position relative
     margin2 (em 0) (em 0.3)
-    ".small" & do
+    class_ SmallSize & do
         (self <> svg) ? squareSize (em 1)
         top (em 0.125)
-    ".medium" & do
+    class_ MediumSize & do
         (self <> svg) ? squareSize (em 1.5)
         top (em 0.3)
-    ".large" & do
+    class_ LargeSize & do
         (self <> svg) ? squareSize (em 2)
         top (em 0.55)
     svg ? do
@@ -43,15 +45,15 @@ iconWithTextStyle = do
     let smallSize = em 1
     let mediumSize = em 1.5
     let largeSize = em 2
-    self |> ".icon" ? do
+    self |> baseClass_ @Icon ? do
         marginLeft nil
-        ".small" & self |~ ".text" ? do
+        class_ SmallSize & self |~ ".text" ? do
             height smallSize
             lineHeight smallSize
-        ".medium" & self |~ ".text" ? do
+        class_ MediumSize & self |~ ".text" ? do
             height mediumSize
             lineHeight mediumSize
-        ".large" & self |~ ".text" ? do
+        class_ LargeSize & self |~ ".text" ? do
             height largeSize
             lineHeight largeSize
     self |> ".text" ? display inlineBlock

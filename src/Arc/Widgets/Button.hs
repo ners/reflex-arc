@@ -10,6 +10,7 @@ import Data.Text (Text)
 import qualified Data.Text as Text
 import Reflex.Dom
 import qualified Reflex.Dom as ReflexDom
+import Data.String (IsString(fromString))
 
 data ButtonVariant = GhostButton | DefaultButton | PrimaryButton | WarningButton | DangerButton
     deriving (Show, Bounded, Enum)
@@ -25,10 +26,15 @@ data Button = Button
 instance Default Button where
     def = Button "" DefaultButton Nothing Nothing False
 
+instance ClassName ButtonVariant
+
+instance ClassName Button where
+    className = className . buttonVariant
+
 button :: DomBuilder t m => Button -> m (Event t ())
 button Button{..} = buttonEl >>= \(e, _) -> return $ domEvent Click e
   where
-    attrs = mkAttrs [Just ("class", tshow buttonVariant), maybeDisabled buttonDisabled]
+    attrs = mkAttrs [Just ("class", className buttonVariant), maybeDisabled buttonDisabled]
     buttonEl = elAttr' "button" attrs $ do
         mapM_ iconEl buttonLeftIcon
         el "span" $ text buttonContent

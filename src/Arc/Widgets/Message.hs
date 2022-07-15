@@ -4,9 +4,9 @@ import Arc.Tokens.Size (SizeToken (SmallSize))
 import Arc.Util
 import Arc.Widgets.Icon
 import Data.Default (Default)
-import Data.Text
 import Reflex.Dom
 import Reflex.Dom.MDI (mdiAlertRhombus)
+import Data.Text (Text)
 
 data MessageVariant = InformationMessage | ErrorMessage | SuccessMessage | WarningMessage
     deriving (Show)
@@ -18,12 +18,18 @@ data Message = Message
     , messageContent :: Text
     }
 
+instance ClassName Message where
+    className = className . messageVariant 
+
+instance BaseClassName Message where
+    baseClassName = "message"
+
 instance Default Message where
     def = Message InformationMessage ""
 
 message :: DomBuilder t m => Message -> m ()
-message Message{..} =
+message m@Message{..} =
     iconWithTextClass
-        ("icon-with-text message " <> className messageVariant)
+        ("icon-with-text " <> fullClassString m)
         (def{iconSize = SmallSize, iconImage = mdiAlertRhombus})
         messageContent
