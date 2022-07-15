@@ -22,6 +22,8 @@ normaliseDocument = do
         lineHeight (unitless 1.15)
         -- Prevent adjustments of font size after orientation changes in iOS.
         key "-webkit-text-size-adjust" (pct 100)
+    -- Correct body height in Safari.
+    body ? height (vh 100)
 
 normaliseSections :: Css
 normaliseSections = do
