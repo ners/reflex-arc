@@ -8,6 +8,8 @@ forms = form ? formStyle
 
 formStyle :: Css
 formStyle = do
+    ".form-field" <> fieldset <> ".buttons" ? do
+        margin2 (em 1) 0
     ".buttons" ? do
-        margin2 (em 2) 0
         textAlign $ alignSide sideRight
+        marginTop (em 2)

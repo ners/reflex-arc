@@ -1,3 +1,5 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+
 module Arc.Util where
 
 import Control.Monad (join)
@@ -11,6 +13,7 @@ import Data.Map.Strict (Map)
 import qualified Data.Map.Strict as Map
 
 import Data.Default (Default)
+import Data.Functor ((<&>))
 import Data.String (IsString)
 import Reflex
 import Reflex.Dom hiding (AttributeMap)
@@ -67,3 +70,35 @@ class WithId f where
 
 class ShowType t where
     showType :: t -> Text
+
+a :: DomBuilder t m => m () -> m (Event t ())
+a w = do
+    (e, _) <- el' "a" w
+    return $ domEvent Click e
+
+update :: (DomBuilder t m, PostBuild t m) => (a -> m ()) -> Dynamic t a -> m ()
+update f d = dyn_ $ f <$> d
+
+class Clickable e where
+    clickableTag :: Text
+    clickableTag = "a"
+    clickableContent :: DomBuilder t m => e -> m ()
+    default clickableContent :: (Show e, DomBuilder t m) => e -> m ()
+    clickableContent = text . tshow
+    clickable :: DomBuilder t m => e -> m (Event t ())
+    clickable e = do
+        (e, _) <- el' (clickableTag @e) (clickableContent e)
+        return $ domEvent Click e
+
+class Eq e => Selectable e where
+    selectableTag :: Text
+    selectableTag = "li"
+    selectableContent :: DomBuilder t m => e -> m (Event t ())
+    default selectableContent :: (Clickable e, DomBuilder t m) => e -> m (Event t ())
+    selectableContent = clickable
+    selectable :: (DomBuilder t m, PostBuild t m) => e -> Dynamic t (Maybe e) -> m (Event t e)
+    default selectable :: (Clickable e, DomBuilder t m, PostBuild t m) => e -> Dynamic t (Maybe e) -> m (Event t e)
+    selectable e d = do
+        let className = d <&> \f -> if Just e == f then "selected" else ""
+        c <- elDynClass (selectableTag @e) className (clickable e)
+        return $ e <$ c

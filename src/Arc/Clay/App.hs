@@ -6,6 +6,7 @@ import Arc.Clay.Fonts
 import Arc.Clay.Form
 import Arc.Clay.Icons
 import Arc.Clay.Inputs
+import Arc.Clay.Layouts
 import Arc.Clay.Normalise
 import Arc.Clay.Util
 import Clay
@@ -20,6 +21,7 @@ appStyle = do
     fieldset_
     forms
     icons
+    layouts
     iconWithTexts
     inputs
     buttons
@@ -42,3 +44,13 @@ bodyStyle = do
     fontFamily ["Inter"] []
     key "font-stretch" $ Value "50%"
     lineHeight $ em 1.5
+    display flex
+    flexDirection column
+    main_ ? mainStyle
+
+mainStyle :: Css
+mainStyle = do
+    flexGrow 1
+    alignItems stretch
+    display flex
+    flexDirection column

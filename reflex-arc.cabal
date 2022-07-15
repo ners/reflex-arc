@@ -34,16 +34,21 @@ library
         Arc.Clay.Inputs.Radio
         Arc.Clay.Inputs.Text
         Arc.Clay.Inputs.Textarea
+        Arc.Clay.Layouts
+        Arc.Clay.Layouts.ListDetail
         Arc.Clay.Normalise
         Arc.Clay.Util
+        Arc.Layouts.ListDetail
         Arc.Layouts.Page
         Arc.Main
+        Arc.Tokens.ArcLogo
         Arc.Tokens.Size
         Arc.Util
         Arc.Widgets.Button
         Arc.Widgets.Checkbox
         Arc.Widgets.Form
         Arc.Widgets.Icon
+        Arc.Widgets.Nav
         Arc.Widgets.OptionGroup
         Arc.Widgets.Svg
         Arc.Widgets.Text
@@ -65,6 +70,9 @@ library
     hs-source-dirs:
         src
     default-extensions:
+        DefaultSignatures
+        LambdaCase
+        MultiParamTypeClasses
         OverloadedStrings
         RankNTypes
         RecordWildCards
@@ -77,11 +85,18 @@ executable reflex-arc
     main-is: Main.hs
     other-modules:
         Page
-        Signup
+        Sections.Buttons
+        Sections.Forms
+        Sections.Icons
+        Sections.Text
+        Style
         Paths_reflex_arc
     hs-source-dirs:
         app
     default-extensions:
+        DefaultSignatures
+        LambdaCase
+        MultiParamTypeClasses
         OverloadedStrings
         RankNTypes
         RecordWildCards

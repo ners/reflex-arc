@@ -1,8 +1,7 @@
 module Arc.Widgets.Svg where
 
-import Arc.Tokens.Size
 import Arc.Util
-
+import Data.Default (Default)
 import Data.Text (Text)
 import qualified Data.Text as Text
 import Reflex.Dom
@@ -26,11 +25,14 @@ data Svg = Svg
     { svgWidth :: Maybe Int
     , svgHeight :: Maybe Int
     , svgViewBox :: ViewBox
-    , svgPath :: Path
+    , svgPaths :: [Path]
     }
 
+instance Default Svg where
+    def = Svg Nothing Nothing (ViewBox 0 0 0 0) []
+
 svg :: DomBuilder t m => Svg -> m ()
-svg Svg{..} = svgEl $ pathEl blank
+svg Svg{..} = svgEl $ mapM_ pathEl svgPaths
   where
     xmlns = "http://www.w3.org/2000/svg"
     svgEl =
@@ -42,4 +44,4 @@ svg Svg{..} = svgEl $ pathEl blank
                 , ("width",) . tshow <$> svgWidth
                 , ("height",) . tshow <$> svgHeight
                 ]
-    pathEl = elAttrNS (Just xmlns) "path" $ mkAttrs [Just ("d", tshow svgPath)]
+    pathEl p = elAttrNS (Just xmlns) "path" (mkAttrs [Just ("d", tshow p)]) blank

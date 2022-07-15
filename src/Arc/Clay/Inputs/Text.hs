@@ -6,7 +6,7 @@ import Clay
 
 textInputStyle :: Css
 textInputStyle = do
-    border (em 0.125) solid (rgb 223 225 230)
+    border (em 0.12) solid (rgb 223 225 230)
     borderRadiusAll (em 0.3)
     padding2 (em 0) (em 0.3)
     transition "border" (ms 100) easeInOut (sec 0)

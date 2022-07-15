@@ -33,6 +33,9 @@ executable:
     - -threaded
 
 default-extensions:
+  - DefaultSignatures
+  - LambdaCase
+  - MultiParamTypeClasses
   - OverloadedStrings
   - RankNTypes
   - RecordWildCards

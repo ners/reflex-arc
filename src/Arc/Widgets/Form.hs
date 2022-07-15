@@ -25,7 +25,7 @@ class Form f where
     formFields :: DomBuilder t m => m (Dynamic t f)
 
 form :: forall f t m. (Form f, DomBuilder t m) => m (Dynamic t f)
-form = el "form" $ do
+form = elAttr "form" ("onsubmit" =: "return false") $ do
     maybe blank (elClass "h2" "title" . text) $ formTitle @f
     maybe blank (divClass "subtitle" . text) $ formSubtitle @f
     formFields @f

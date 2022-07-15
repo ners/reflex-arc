@@ -1,4 +1,4 @@
-module Signup where
+module Sections.Forms where
 
 import Arc.Clay.Buttons (buttonStyle)
 import Arc.Util
@@ -8,6 +8,7 @@ import Arc.Widgets.Form
 import Arc.Widgets.OptionGroup
 import Arc.Widgets.Text
 import Arc.Widgets.Textarea
+import Control.Monad (void)
 import Data.Maybe (catMaybes)
 import Data.Text (Text)
 import Reflex.Dom hiding (button, checkbox, textInput)
@@ -145,3 +146,7 @@ instance Form SignupForm where
                 <*> b
                 <*> n
                 <*> l
+
+formsSection :: DomBuilder t m => m ()
+formsSection = do
+    void $ form @SignupForm
