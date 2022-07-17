@@ -1,6 +1,7 @@
 module Arc.Clay.Message where
 
 import Arc.Clay.Util
+import Arc.Tokens.Colour
 import Arc.Util
 import Arc.Widgets.Message (Message (Message), MessageVariant (..))
 import Clay
@@ -14,4 +15,4 @@ messageStyle = do
     fontSize (pct 75)
     class_ WarningMessage & do
         lineHeight (em 2)
-        color (rgba 255 175 0 1)
+        color $ foregroundColour WarningMessage

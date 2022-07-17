@@ -25,29 +25,29 @@ buttonStyle = do
     self |> (star <> baseClass_ @Icon) ? do
         margin2 (em 0) (em 0.3)
     class_ GhostButton & do
-        color textDefault
-        backgroundColor transparent
+        color $ foregroundColour GhostButton
+        backgroundColor $ backgroundColour GhostButton
         fontWeight normal
         hover & backgroundColor (rgba 9 30 66 0.04)
         active & backgroundColor (rgba 9 30 66 0.08)
     class_ DefaultButton & do
-        color textDefault
-        backgroundColor defaultColour
+        color $ foregroundColour DefaultButton
+        backgroundColor $ backgroundColour DefaultButton
         hover & backgroundColor (rgba 9 30 66 0.08)
         active & backgroundColor (rgba 179 212 255 0.6)
     class_ PrimaryButton & do
-        color textWhite
-        backgroundColor primaryColour
+        color $ foregroundColour PrimaryButton
+        backgroundColor $ backgroundColour PrimaryButton
         hover & backgroundColor (rgb 0 101 255)
         active & backgroundColor (rgb 7 71 166)
     class_ WarningButton & do
-        color textDefaultDark
-        backgroundColor warningColour
+        color $ foregroundColour WarningButton
+        backgroundColor $ backgroundColour WarningButton
         hover & backgroundColor (rgb 255 196 0)
         active & backgroundColor (rgb 255 153 31)
     class_ DangerButton & do
-        color textWhite
-        backgroundColor errorColour
+        color $ foregroundColour DangerButton
+        backgroundColor $ backgroundColour DangerButton
         hover & backgroundColor (rgb 255 86 48)
         active & backgroundColor (rgb 191 38 0)
     disabled & do
