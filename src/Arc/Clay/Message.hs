@@ -15,4 +15,4 @@ messageStyle = do
     fontSize (pct 75)
     class_ WarningMessage & do
         lineHeight (em 2)
-        color $ foregroundColour WarningMessage
+        color $ backgroundColour WarningMessage
