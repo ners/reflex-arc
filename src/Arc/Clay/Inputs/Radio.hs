@@ -1,8 +1,8 @@
 module Arc.Clay.Inputs.Radio where
 
-import Arc.Tokens.Colour
 import Arc.Clay.Inputs.Checkbox
 import Arc.Clay.Util
+import Arc.Tokens.Colour
 import Clay
 
 radioInputStyle :: Css

@@ -1,7 +1,7 @@
 module Arc.Clay.Inputs.Checkbox where
 
-import Arc.Tokens.Colour
 import Arc.Clay.Util
+import Arc.Tokens.Colour
 import Clay
 
 checkboxStyle :: Css

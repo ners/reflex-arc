@@ -3,10 +3,10 @@
 module Arc.Clay.Icons where
 
 import Arc.Clay.Util
+import Arc.Tokens.Size (SizeToken (..))
+import Arc.Widgets.Icon (Icon (..))
 import Clay
 import Clay.Stylesheet (key)
-import Arc.Widgets.Icon (Icon(..))
-import Arc.Tokens.Size (SizeToken(..))
 
 icons :: Css
 icons = baseClass_ @Icon ? iconStyle

@@ -7,11 +7,11 @@ import Clay
 import Clay.Stylesheet (key, prefixed)
 import Clay.Text
 import Data.ByteString (ByteString)
+import Data.String (IsString (fromString))
 import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text (encodeUtf8)
 import qualified Data.Text.Lazy as Text (toStrict)
-import Data.String (IsString (fromString))
 
 renderText :: Css -> Text
 renderText = Text.toStrict . render

@@ -6,11 +6,11 @@ import Arc.Widgets.Icon
 import Control.Monad (forM_, when)
 import Data.Default
 import Data.Maybe (fromJust, isJust)
+import Data.String (IsString (fromString))
 import Data.Text (Text)
 import qualified Data.Text as Text
 import Reflex.Dom
 import qualified Reflex.Dom as ReflexDom
-import Data.String (IsString(fromString))
 
 data ButtonVariant = GhostButton | DefaultButton | PrimaryButton | WarningButton | DangerButton
     deriving (Show, Bounded, Enum)

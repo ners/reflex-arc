@@ -2,7 +2,7 @@ module Arc.Clay.Message where
 
 import Arc.Clay.Util
 import Arc.Util
-import Arc.Widgets.Message (MessageVariant (..), Message (Message))
+import Arc.Widgets.Message (Message (Message), MessageVariant (..))
 import Clay
 import Clay.Stylesheet (key)
 

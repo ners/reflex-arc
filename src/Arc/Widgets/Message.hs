@@ -4,9 +4,9 @@ import Arc.Tokens.Size (SizeToken (SmallSize))
 import Arc.Util
 import Arc.Widgets.Icon
 import Data.Default (Default)
+import Data.Text (Text)
 import Reflex.Dom
 import Reflex.Dom.MDI (mdiAlertRhombus)
-import Data.Text (Text)
 
 data MessageVariant = InformationMessage | ErrorMessage | SuccessMessage | WarningMessage
     deriving (Show)
@@ -19,7 +19,7 @@ data Message = Message
     }
 
 instance ClassName Message where
-    className = className . messageVariant 
+    className = className . messageVariant
 
 instance BaseClassName Message where
     baseClassName = "message"

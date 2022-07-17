@@ -1,10 +1,10 @@
 module Arc.Clay.Buttons where
 
-import Arc.Tokens.Colour
 import Arc.Clay.Util
-import Clay
-import Arc.Widgets.Button (ButtonVariant(..))
+import Arc.Tokens.Colour
+import Arc.Widgets.Button (ButtonVariant (..))
 import Arc.Widgets.Icon
+import Clay
 
 buttons :: Css
 buttons = button ? buttonStyle

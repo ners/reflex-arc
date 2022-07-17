@@ -1,4 +1,5 @@
 module Arc.Tokens.Size where
+
 import Arc.Util
 
 data SizeToken = SmallSize | MediumSize | LargeSize

@@ -6,22 +6,22 @@ import Arc.Widgets.Message (MessageVariant (..))
 import Clay
 
 class ColourToken ct where
-  foregroundColour :: ct -> Color
-  backgroundColour :: ct -> Color
-  backgroundColour = const transparent
+    foregroundColour :: ct -> Color
+    backgroundColour :: ct -> Color
+    backgroundColour = const transparent
 
 instance ColourToken ButtonVariant where
-  foregroundColour PrimaryButton = textWhite
-  foregroundColour WarningButton = textDefaultDark
-  foregroundColour DefaultButton = textDefault
-  foregroundColour DangerButton = textWhite
-  foregroundColour GhostButton = textDefault
+    foregroundColour PrimaryButton = textWhite
+    foregroundColour WarningButton = textDefaultDark
+    foregroundColour DefaultButton = textDefault
+    foregroundColour DangerButton = textWhite
+    foregroundColour GhostButton = textDefault
 
 instance ColourToken MessageVariant where
-  foregroundColour ErrorMessage = textWhite
-  foregroundColour InformationMessage = textDefault
-  foregroundColour SuccessMessage = textWhite
-  foregroundColour WarningMessage = textDefaultDark
+    foregroundColour ErrorMessage = textWhite
+    foregroundColour InformationMessage = textDefault
+    foregroundColour SuccessMessage = textWhite
+    foregroundColour WarningMessage = textDefaultDark
 
 -- Colour values
 
