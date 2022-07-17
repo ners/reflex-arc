@@ -1,6 +1,6 @@
 module Arc.Clay.Inputs.Radio where
 
-import Arc.Clay.Colours
+import Arc.Tokens.Colour
 import Arc.Clay.Inputs.Checkbox
 import Arc.Clay.Util
 import Clay

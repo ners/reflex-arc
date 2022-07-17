@@ -24,7 +24,6 @@ library
     exposed-modules:
         Arc.Clay.App
         Arc.Clay.Buttons
-        Arc.Clay.Colours
         Arc.Clay.Fieldset
         Arc.Clay.Fonts
         Arc.Clay.Form

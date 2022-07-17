@@ -1,6 +1,6 @@
 module Arc.Clay.Inputs.Textarea where
 
-import Arc.Clay.Colours
+import Arc.Tokens.Colour
 import Arc.Clay.Inputs.Text
 import Arc.Clay.Util
 import Clay

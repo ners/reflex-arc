@@ -1,6 +1,6 @@
 module Arc.Clay.Inputs.Checkbox where
 
-import Arc.Clay.Colours
+import Arc.Tokens.Colour
 import Arc.Clay.Util
 import Clay
 
@@ -25,7 +25,7 @@ checkboxStyle = do
         cursor pointer
   where
     borderUnchecked = rgba 223 225 230 1
-    borderChecked = primaryBlue
+    borderChecked = primaryColour
 
 checkboxInputGroupStyle :: Css
 checkboxInputGroupStyle = do
