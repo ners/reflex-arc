@@ -24,6 +24,7 @@ library
     exposed-modules:
         Arc.Clay.App
         Arc.Clay.Buttons
+        Arc.Clay.Code
         Arc.Clay.Colours
         Arc.Clay.Fieldset
         Arc.Clay.Fonts
@@ -46,6 +47,7 @@ library
         Arc.Util
         Arc.Widgets.Button
         Arc.Widgets.Checkbox
+        Arc.Widgets.Code
         Arc.Widgets.Form
         Arc.Widgets.Icon
         Arc.Widgets.Nav
@@ -63,8 +65,10 @@ library
         containers,
         data-default,
         file-embed,
+        ghc-syntax-highlighter,
         reflex,
         reflex-dom,
+        skylighting,
         text,
         web-font-mdi
     hs-source-dirs:
@@ -86,6 +90,7 @@ executable reflex-arc
     other-modules:
         Page
         Sections.Buttons
+        Sections.Code
         Sections.Forms
         Sections.Icons
         Sections.Text
@@ -112,9 +117,11 @@ executable reflex-arc
         containers,
         data-default,
         file-embed,
+        ghc-syntax-highlighter,
         reflex,
         reflex-arc,
         reflex-dom,
+        skylighting,
         text,
         web-font-mdi
     default-language: Haskell2010

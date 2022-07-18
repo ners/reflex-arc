@@ -1,6 +1,7 @@
 module Arc.Clay.App where
 
 import Arc.Clay.Buttons
+import Arc.Clay.Code
 import Arc.Clay.Fieldset
 import Arc.Clay.Fonts
 import Arc.Clay.Form
@@ -19,6 +20,7 @@ appStyle = do
     body ? bodyStyle
     fonts
     fieldset_
+    code_
     forms
     icons
     layouts
