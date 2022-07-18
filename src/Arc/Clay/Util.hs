@@ -65,3 +65,6 @@ mdiFont = do
     fontFamily ["Material Design Icons"] []
     key "-webkit-font-smoothing" $ Value "antialiased"
     key "-moz-osx-font-smoothing" $ Value "grayscale"
+
+charContent :: Char -> Content
+charContent = stringContent . Text.singleton
