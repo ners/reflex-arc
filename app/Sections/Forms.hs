@@ -9,14 +9,14 @@ import Arc.Widgets.OptionGroup
 import Arc.Widgets.Text
 import Arc.Widgets.Textarea
 import Control.Monad (void)
-import Data.Maybe (catMaybes)
+import Data.Maybe (catMaybes, isJust)
 import Data.Text (Text)
 import Reflex.Dom hiding (button, checkbox, textInput)
 
 newtype Username = Username Text
 newtype Password = Password Text
 newtype Email = Email Text
-data Gender = MaleGender | FemaleGender | OtherGender Text
+data Gender = MaleGender | FemaleGender | OtherGender Text deriving (Show)
 newtype Bio = Bio Text
 newtype Newsletter = Newsletter Bool
 newtype Eula = Eula Bool
@@ -41,20 +41,24 @@ instance OptionGroup Gender where
       where
         otherEl ::
             forall t m.
-            DomBuilder t m =>
+            (DomBuilder t m, PostBuild t m) =>
             m (Dynamic t (Maybe Gender))
         otherEl = inputGroup @Gender $ do
             radio <- optionInputEl $ OtherGender "" :: m (Dynamic t (Maybe Gender))
             optionLabelEl $ OtherGender ""
-            genderText <-
-                divClass "input-group" $
-                    textInput $
-                        def
-                            { textInputId = Just "gender-other"
-                            , textInputLabel = Just "Please specify:"
-                            , textInputSize = TextInputInline
-                            }
-            return $ zipDynWith (\g r -> OtherGender g <$ r) genderText radio
+            genderText <- update radio $ \case
+                Just _ ->
+                    divClass "input-group" $
+                        textInput $
+                            def
+                                { textInputId = Just "gender-other"
+                                , textInputLabel = Just "Please specify:"
+                                , textInputSize = TextInputInline
+                                }
+                _ -> return $ constDyn ""
+            return $ return $ Just $ OtherGender ""
+
+--return $ zipDynWith (\g r -> OtherGender g <$ r) genderText radio
 
 instance FormField Username where
     fieldRequired = True
@@ -147,6 +151,6 @@ instance Form SignupForm where
                 <*> n
                 <*> l
 
-formsSection :: DomBuilder t m => m ()
+formsSection :: (DomBuilder t m, PostBuild t m) => m ()
 formsSection = do
     void $ form @SignupForm

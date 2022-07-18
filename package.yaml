@@ -17,8 +17,8 @@ dependencies:
   - file-embed
   - reflex
   - reflex-dom
-  - reflex-dom-mdi
   - text
+  - web-font-mdi
 
 library:
   source-dirs: src

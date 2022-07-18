@@ -59,3 +59,9 @@ tableDisplay = Display "table"
 
 inheritFont :: Required a
 inheritFont = Required inherit Nothing [] []
+
+mdiFont :: Css
+mdiFont = do
+    fontFamily ["Material Design Icons"] []
+    key "-webkit-font-smoothing" $ Value "antialiased"
+    key "-moz-osx-font-smoothing" $ Value "grayscale"

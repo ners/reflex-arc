@@ -10,9 +10,10 @@
       url = "github:reflex-frp/reflex-dom";
       flake = false;
     };
-    material-design = {
-      url = "github:templarian/MaterialDesign";
-      flake = false;
+    web-font-mdi = {
+      url = "github:ners/web-font-mdi";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     jsaddle = {
       url = "github:ghcjs/jsaddle";
@@ -25,6 +26,7 @@
   };
 
   outputs = inputs: inputs.flake-utils.lib.eachDefaultSystem (system:
+    with builtins;
     let
       pkgs = import inputs.nixpkgs { inherit system; };
       haskellPackages = pkgs.haskellPackages;
@@ -34,23 +36,14 @@
       clay = pkgs.callPackage ./nix/clay.nix {
         inherit inputs haskellPackages;
       };
-      reflex-dom-mdi = pkgs.callPackage ./reflex-dom-mdi {
-        inherit reflex-dom;
-        inherit (inputs) material-design;
-      };
       reflex-arc = pkgs.callPackage ./default.nix {
-        inherit reflex-dom reflex-dom-mdi clay;
+        inherit reflex-dom clay;
+        inherit (inputs.web-font-mdi.packages.${system}) web-font-mdi;
       };
-      haskellDeps = drv:
-        builtins.foldl'
-          (acc: type: acc ++ drv.getCabalDeps."${type}HaskellDepends")
-          [ ] [ "executable" "library" "test" ];
+      haskellDeps = drv: concatLists (attrValues drv.getCabalDeps);
     in
     {
-      inherit pkgs;
       packages = {
-        # inherit reflex-dom;
-        inherit reflex-dom-mdi;
         inherit reflex-arc;
         default = reflex-arc;
       };
@@ -67,5 +60,6 @@
       };
 
       # formatter = pkgs.nixfmt;
-    });
+    }
+  );
 }

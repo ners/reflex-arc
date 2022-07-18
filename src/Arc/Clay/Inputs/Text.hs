@@ -17,6 +17,7 @@ textInputStyle = do
         lineHeight $ em 2.5
     ".TextInputInline" & do
         width $ em 10
+        height $ em 2
         margin2 (em 0) (em 0.3)
 
 emailInputStyle :: Css

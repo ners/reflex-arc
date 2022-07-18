@@ -15,7 +15,6 @@ import Arc.Widgets.Svg
 import Control.Monad (forM_, void)
 import Debug.Trace (traceM)
 import Reflex.Dom hiding (button)
-import Reflex.Dom.MDI
 import Sections.Buttons
 import Sections.Forms
 import Sections.Icons
@@ -34,13 +33,14 @@ instance Nav PageSection
 instance ListDetail PageSection where
     listInitial = Just About
     listView d = Just <<$>> nav @PageSection d
-    detailView = update $ \case
-        Just About -> el "div" $ text "Introduction..."
-        Just Buttons -> buttonsSection
-        Just Forms -> formsSection
-        Just Icons -> iconsSection
-        Just Text -> textSection
-        _ -> blank
+    detailView d = void $
+        update d $ \case
+            Just About -> el "div" $ text "Introduction..."
+            Just Buttons -> buttonsSection
+            Just Forms -> formsSection
+            Just Icons -> iconsSection
+            Just Text -> textSection
+            _ -> blank
 
 instance PageLayout MainPage where
     pageHeader = Just $
@@ -49,5 +49,5 @@ instance PageLayout MainPage where
             el "span" $ text "Design System"
     pageMain = listDetail @PageSection
 
-page :: forall w. Widget w ()
+page :: Widget w ()
 page = pageLayout @MainPage
