@@ -35,25 +35,25 @@ instance ColourToken MessageVariant where
 -- Colour values
 
 errorRed :: Color
-errorRed = rgba 222 53 11 1
+errorRed = rgb 222 53 11
 
 primaryBlue :: Color
-primaryBlue = rgba 0 82 204 1
+primaryBlue = rgb 0 82 204
 
 primaryGrey :: Color
-primaryGrey = rgba 9 30 66 0.04
+primaryGrey = rgb 9 30 66
 
 primaryWhite :: Color
-primaryWhite = rgba 255 255 255 1
+primaryWhite = rgb 255 255 255
 
 successGreen :: Color
-successGreen = rgba 0 102 68 1
+successGreen = rgb 0 102 68
 
 warningOrange :: Color
-warningOrange = rgba 255 171 0 1
+warningOrange = rgb 255 171 0
 
 defaultBlack :: Color
-defaultBlack = rgba 66 82 110 1
+defaultBlack = rgb 66 82 110
 
 textDefault :: Color
 textDefault = defaultBlack
@@ -62,7 +62,7 @@ textWhite :: Color
 textWhite = blankColour
 
 textDefaultDark :: Color
-textDefaultDark = rgba 23 43 77 1
+textDefaultDark = rgb 23 43 77
 
 -- Button background colours
 
