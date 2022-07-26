@@ -1,36 +1,12 @@
 module Arc.Tokens.Colour where
 
 import Arc.Clay.Util
-import Arc.Widgets.Button (ButtonVariant (..))
-import Arc.Widgets.Message (MessageVariant (..))
 import Clay
 
 class ColourToken ct where
     foregroundColour :: ct -> Color
     backgroundColour :: ct -> Color
     backgroundColour = const transparent
-
-instance ColourToken ButtonVariant where
-    foregroundColour PrimaryButton = textWhite
-    foregroundColour WarningButton = textDefaultDark
-    foregroundColour DefaultButton = textDefault
-    foregroundColour DangerButton = textWhite
-    foregroundColour GhostButton = textDefault
-    backgroundColour PrimaryButton = primaryColour
-    backgroundColour WarningButton = warningColour
-    backgroundColour DefaultButton = defaultColour
-    backgroundColour DangerButton = errorColour
-    backgroundColour GhostButton = ghostColour
-
-instance ColourToken MessageVariant where
-    foregroundColour ErrorMessage = textWhite
-    foregroundColour InformationMessage = textDefault
-    foregroundColour SuccessMessage = textWhite
-    foregroundColour WarningMessage = textDefaultDark
-    backgroundColour ErrorMessage = errorColour
-    backgroundColour InformationMessage = primaryColour
-    backgroundColour SuccessMessage = successColour
-    backgroundColour WarningMessage = warningColour
 
 -- Colour values
 

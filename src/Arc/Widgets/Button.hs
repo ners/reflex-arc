@@ -1,5 +1,6 @@
 module Arc.Widgets.Button where
 
+import Arc.Tokens.Colour
 import Arc.Tokens.Size
 import Arc.Util
 import Arc.Widgets.Icon
@@ -11,6 +12,18 @@ import Data.Text (Text)
 import qualified Data.Text as Text
 import Reflex.Dom
 import qualified Reflex.Dom as ReflexDom
+
+instance ColourToken ButtonVariant where
+    foregroundColour PrimaryButton = textWhite
+    foregroundColour WarningButton = textDefaultDark
+    foregroundColour DefaultButton = textDefault
+    foregroundColour DangerButton = textWhite
+    foregroundColour GhostButton = textDefault
+    backgroundColour PrimaryButton = primaryColour
+    backgroundColour WarningButton = warningColour
+    backgroundColour DefaultButton = defaultColour
+    backgroundColour DangerButton = errorColour
+    backgroundColour GhostButton = ghostColour
 
 data ButtonVariant = GhostButton | DefaultButton | PrimaryButton | WarningButton | DangerButton
     deriving (Show, Bounded, Enum)
