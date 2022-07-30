@@ -76,8 +76,8 @@ a w = do
     (e, _) <- el' "a" w
     return $ domEvent Click e
 
-update :: (DomBuilder t m, PostBuild t m) => (a -> m ()) -> Dynamic t a -> m ()
-update f d = dyn_ $ f <$> d
+update :: (DomBuilder t m, PostBuild t m) => Dynamic t a -> (a -> m b) -> m (Event t b)
+update d f = dyn $ f <$> d
 
 class Clickable e where
     clickableTag :: Text

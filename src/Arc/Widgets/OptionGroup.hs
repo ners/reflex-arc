@@ -31,7 +31,7 @@ class OptionGroup g where
     optionLabel = tshow
     optionLabelEl :: DomBuilder t m => g -> m ()
     optionLabelEl g = elAttr "label" (mkAttrs [Just ("for", optionId g)]) $ text $ optionLabel g
-    optionInputEl :: DomBuilder t m => g -> m (Dynamic t (Maybe g))
+    optionInputEl :: (DomBuilder t m) => g -> m (Dynamic t (Maybe g))
     optionInputEl g = do
         i <-
             checkbox $
@@ -50,20 +50,20 @@ class OptionGroup g where
         i <- optionInputEl g
         optionLabelEl g
         return i
-    groupInputMultiEl :: DomBuilder t m => m (Dynamic t [g])
+    groupInputMultiEl :: (DomBuilder t m, PostBuild t m) => m (Dynamic t [g])
     default groupInputMultiEl :: (Bounded g, Enum g, DomBuilder t m, PostBuild t m) => m (Dynamic t [g])
     groupInputMultiEl = el "fieldset" $ do
         maybe blank (el "legend" . text) $ groupLegend @g
         inputs :: [Dynamic t (Maybe g)] <- mapM optionInputGroupEl [minBound .. maxBound]
         let checked :: Dynamic t [g] = catMaybes <$> sequence inputs
         return checked
-    groupInputSingleEl :: DomBuilder t m => m (Dynamic t (Maybe g))
+    groupInputSingleEl :: (DomBuilder t m, PostBuild t m) => m (Dynamic t (Maybe g))
     groupInputSingleEl = do
         checked :: Dynamic t [g] <- groupInputMultiEl
         return $ headMaybe <$> checked
 
-radioButtonGroup :: forall g t m. (OptionGroup g, DomBuilder t m) => m (Dynamic t (Maybe g))
+radioButtonGroup :: forall g t m. (OptionGroup g, DomBuilder t m, PostBuild t m) => m (Dynamic t (Maybe g))
 radioButtonGroup = groupInputSingleEl @g
 
-checkboxGroup :: forall g t m. (OptionGroup g, DomBuilder t m) => m (Dynamic t [g])
+checkboxGroup :: forall g t m. (OptionGroup g, DomBuilder t m, PostBuild t m) => m (Dynamic t [g])
 checkboxGroup = groupInputMultiEl @g

@@ -63,29 +63,29 @@
         "type": "github"
       }
     },
-    "material-design": {
+    "mdi": {
       "flake": false,
       "locked": {
-        "lastModified": 1657322027,
-        "narHash": "sha256-FFm089vKRErGk5/G8hW+DchKLKQg3+O7yNmZhhQb9wM=",
-        "owner": "templarian",
+        "lastModified": 1658025621,
+        "narHash": "sha256-KIw8TEpzx/QXUWfYXvFUy9w5sevt0lSImzTeDx+jjqg=",
+        "owner": "Templarian",
         "repo": "MaterialDesign",
-        "rev": "c953ac662ac7d2798c496be4bb90c767d95e31a9",
+        "rev": "3175cefb403dc32e147b240c010f3944a8d8f76c",
         "type": "github"
       },
       "original": {
-        "owner": "templarian",
+        "owner": "Templarian",
         "repo": "MaterialDesign",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1657447684,
-        "narHash": "sha256-FCP9AuU1q6PE3vOeM5SFf58f/UKPBAsoSGDUGamNBbo=",
+        "lastModified": 1658015103,
+        "narHash": "sha256-mO+23f3SO+fBzEvbxRe6GkSB5Xp43CT2sV8Rs8MYdz8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5f43d8b088d3771274bcfb69d3c7435b1121ac88",
+        "rev": "8f485713f5e6b6883a9b6959afa98688360a3ecb",
         "type": "github"
       },
       "original": {
@@ -117,9 +117,33 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "jsaddle": "jsaddle",
-        "material-design": "material-design",
         "nixpkgs": "nixpkgs",
-        "reflex-dom": "reflex-dom"
+        "reflex-dom": "reflex-dom",
+        "web-font-mdi": "web-font-mdi"
+      }
+    },
+    "web-font-mdi": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "mdi": "mdi",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1658164435,
+        "narHash": "sha256-ndOArtQAunJgGM5dXkIFXdVsEX+9rSrxtbCC2HoqvEk=",
+        "owner": "ners",
+        "repo": "web-font-mdi",
+        "rev": "ab6bbe6412802bcc5283d4b62d40a0a1248782fd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ners",
+        "repo": "web-font-mdi",
+        "type": "github"
       }
     }
   },

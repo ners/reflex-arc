@@ -17,8 +17,10 @@ dependencies:
   - file-embed
   - reflex
   - reflex-dom
-  - reflex-dom-mdi
+  - ghc-syntax-highlighter
+  - skylighting
   - text
+  - web-font-mdi
 
 library:
   source-dirs: src

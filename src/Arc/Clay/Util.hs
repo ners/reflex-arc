@@ -69,3 +69,12 @@ class_ c = fromString $ "." <> className @c c
 
 baseClass_ :: forall c s. (BaseClassName c, IsString s) => s
 baseClass_ = fromString $ "." <> baseClassName @c
+
+mdiFont :: Css
+mdiFont = do
+    fontFamily ["Material Design Icons"] []
+    key "-webkit-font-smoothing" $ Value "antialiased"
+    key "-moz-osx-font-smoothing" $ Value "grayscale"
+
+charContent :: Char -> Content
+charContent = stringContent . Text.singleton

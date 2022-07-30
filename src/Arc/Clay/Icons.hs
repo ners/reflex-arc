@@ -16,6 +16,7 @@ iconStyle = do
     display inlineBlock
     position relative
     margin2 (em 0) (em 0.3)
+    mdiFont
     class_ SmallSize & do
         (self <> svg) ? squareSize (em 1)
         top (em 0.125)

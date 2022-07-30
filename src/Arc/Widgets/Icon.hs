@@ -5,6 +5,7 @@ import Arc.Util
 import Arc.Widgets.Svg
 import Data.Default (Default)
 import Data.Text (Text)
+import qualified Data.Text as Text
 import Reflex.Dom
 
 data Icon = Icon
@@ -33,3 +34,6 @@ iconWithTextClass :: DomBuilder t m => Text -> Icon -> Text -> m ()
 iconWithTextClass c i t = elClass "span" c $ do
     icon i
     elClass "span" "text" $ text t
+
+mdiIcon :: Char -> Icon
+mdiIcon c = def{iconImage = text $ Text.singleton c}

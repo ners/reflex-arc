@@ -5,7 +5,7 @@ import Arc.Widgets.Button
 import Arc.Widgets.Icon
 import Control.Monad (forM_, void)
 import Reflex.Dom hiding (button)
-import Reflex.Dom.MDI (mdiStar)
+import Web.Font.MDI
 
 buttonsSection :: DomBuilder t m => m ()
 buttonsSection = do
@@ -18,7 +18,7 @@ buttonsSection = do
         button $ def{buttonVariant = variant, buttonContent = tshow variant, buttonDisabled = True}
     el "h3" $ text "Buttons with icons"
     forM_ [minBound .. maxBound] $ \variant -> el "div" $ do
-        let star = Just $ def{iconImage = mdiStar}
+        let star = Just $ mdiIcon mdiStar
         forM_
             [ (content, leftIcon, rightIcon)
             | content <- ["Button", ""]
