@@ -15,19 +15,10 @@ iconStyle = do
     position relative
     margin2 (em 0) (em 0.3)
     mdiFont
-    ".small" & do
-        (self <> svg) ? squareSize (em 1)
-        top (em 0.125)
-    ".medium" & do
-        (self <> svg) ? squareSize (em 1.5)
-        top (em 0.3)
-    ".large" & do
-        (self <> svg) ? squareSize (em 2)
-        top (em 0.55)
+    ".medium" & fontSize (pct 150)
+    ".large" & fontSize (pct 200)
     svg ? do
-        left nil
-        top nil
-        position absolute
+        squareSize (em 1)
         "path" ? do
             key "fill" $ Value "currentColor"
 
@@ -40,19 +31,13 @@ iconWithTexts = do
 iconWithTextStyle :: Css
 iconWithTextStyle = do
     display inlineBlock
-    position relative
     let smallSize = em 1
     let mediumSize = em 1.5
     let largeSize = em 2
     self |> ".icon" ? do
         marginLeft nil
-        ".small" & self |~ ".text" ? do
-            height smallSize
-            lineHeight smallSize
-        ".medium" & self |~ ".text" ? do
-            height mediumSize
-            lineHeight mediumSize
-        ".large" & self |~ ".text" ? do
-            height largeSize
-            lineHeight largeSize
+        position relative
+        ".medium" & top (em 0.15)
+        ".large" & top (em 0.15)
+    --self |> svg ? position absolute
     self |> ".text" ? display inlineBlock

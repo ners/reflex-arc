@@ -22,6 +22,11 @@ dependencies:
   - text
   - web-font-mdi
 
+when:
+  - condition: os(osx) || os(ios)
+    ghc-options:
+      - -dynamic
+
 library:
   source-dirs: src
 
@@ -31,7 +36,6 @@ executable:
   dependencies:
     - reflex-arc
   ghc-options:
-    - -dynamic
     - -threaded
 
 default-extensions:

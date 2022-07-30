@@ -68,3 +68,6 @@ mdiFont = do
 
 charContent :: Char -> Content
 charContent = stringContent . Text.singleton
+
+cursorNone :: CursorValue Value
+cursorNone = none

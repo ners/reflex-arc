@@ -13,6 +13,7 @@ preStyle = return ()
 
 codeStyle :: Css
 codeStyle = do
+    fontFamily ["Source Code Pro"] []
     ".dt" ? color "#6f42c1"
     ".dv" ? color "#da6c11"
     ".cf" ? do
