@@ -1,7 +1,7 @@
 module Arc.Clay.Inputs.Text where
 
-import Arc.Clay.Colours
 import Arc.Clay.Util
+import Arc.Tokens.Colour
 import Clay
 
 textInputStyle :: Css

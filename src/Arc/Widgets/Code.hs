@@ -55,37 +55,7 @@ class IsToken t where
     tokenClass :: t -> Text
 
 instance IsToken S.TokenType where
-    tokenClass S.AlertTok = "al"
-    tokenClass S.AnnotationTok = "an"
-    tokenClass S.AttributeTok = "at"
-    tokenClass S.BaseNTok = "bn"
-    tokenClass S.BuiltInTok = "bu"
-    tokenClass S.CharTok = "ch"
-    tokenClass S.CommentTok = "co"
-    tokenClass S.CommentVarTok = "cv"
-    tokenClass S.ConstantTok = "cn"
-    tokenClass S.ControlFlowTok = "cf"
-    tokenClass S.DataTypeTok = "dt"
-    tokenClass S.DecValTok = "dv"
-    tokenClass S.DocumentationTok = "do"
-    tokenClass S.ErrorTok = "er"
-    tokenClass S.ExtensionTok = "ex"
-    tokenClass S.FloatTok = "fl"
-    tokenClass S.FunctionTok = "fu"
-    tokenClass S.ImportTok = "im"
-    tokenClass S.InformationTok = "in"
-    tokenClass S.KeywordTok = "kw"
-    tokenClass S.OperatorTok = "op"
-    tokenClass S.OtherTok = "ot"
-    tokenClass S.PreprocessorTok = "pp"
-    tokenClass S.RegionMarkerTok = "re"
-    tokenClass S.SpecialCharTok = "sc"
-    tokenClass S.SpecialStringTok = "ss"
-    tokenClass S.StringTok = "st"
-    tokenClass S.VariableTok = "va"
-    tokenClass S.VerbatimStringTok = "vs"
-    tokenClass S.WarningTok = "wa"
-    tokenClass _ = ""
+    tokenClass = tshow
 
 instance IsToken GS.Token where
     tokenClass GS.CharTok = tokenClass S.CharTok

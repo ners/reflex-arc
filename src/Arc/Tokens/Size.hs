@@ -1,9 +1,11 @@
 module Arc.Tokens.Size where
 
-data SizeToken = SmallSize | MediumSize | LargeSize
-    deriving (Bounded, Enum)
+import Arc.Util
 
-instance Show SizeToken where
-    show SmallSize = "small"
-    show MediumSize = "medium"
-    show LargeSize = "large"
+data SizeToken = SmallSize | MediumSize | LargeSize
+    deriving (Bounded, Enum, Show)
+
+instance ClassName SizeToken where
+    className SmallSize = "small"
+    className MediumSize = "medium"
+    className LargeSize = "large"

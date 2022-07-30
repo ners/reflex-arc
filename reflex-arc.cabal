@@ -25,7 +25,6 @@ library
         Arc.Clay.App
         Arc.Clay.Buttons
         Arc.Clay.Code
-        Arc.Clay.Colours
         Arc.Clay.Fieldset
         Arc.Clay.Fonts
         Arc.Clay.Form
@@ -37,12 +36,14 @@ library
         Arc.Clay.Inputs.Textarea
         Arc.Clay.Layouts
         Arc.Clay.Layouts.ListDetail
+        Arc.Clay.Message
         Arc.Clay.Normalise
         Arc.Clay.Util
         Arc.Layouts.ListDetail
         Arc.Layouts.Page
         Arc.Main
         Arc.Tokens.ArcLogo
+        Arc.Tokens.Colour
         Arc.Tokens.Size
         Arc.Util
         Arc.Widgets.Button
@@ -50,6 +51,7 @@ library
         Arc.Widgets.Code
         Arc.Widgets.Form
         Arc.Widgets.Icon
+        Arc.Widgets.Message
         Arc.Widgets.Nav
         Arc.Widgets.OptionGroup
         Arc.Widgets.Svg

@@ -1,8 +1,8 @@
 module Arc.Clay.Inputs.Checkbox where
 
-import Arc.Clay.Colours
 import Arc.Clay.Util
-import Clay
+import Arc.Tokens.Colour
+import Clay hiding (blue)
 import qualified Data.Text as Text
 import Web.Font.MDI
 
@@ -26,7 +26,9 @@ checkboxStyle = do
         opacity 0.5
   where
     uncheckedColour = rgb 223 225 230
-    checkedColour = primaryBlue
+    borderUnchecked = rgb 223 225 230
+    checkedColour = blue
+    borderChecked = blue
 
 checkboxInputGroupStyle :: Css
 checkboxInputGroupStyle = do

@@ -1,9 +1,13 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+
 module Arc.Clay.Util where
 
+import Arc.Util
 import Clay
 import Clay.Stylesheet (key, prefixed)
 import Clay.Text
 import Data.ByteString (ByteString)
+import Data.String (IsString (fromString))
 import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text (encodeUtf8)
@@ -59,6 +63,12 @@ tableDisplay = Display "table"
 
 inheritFont :: Required a
 inheritFont = Required inherit Nothing [] []
+
+class_ :: forall c s. (ClassName c, IsString s) => c -> s
+class_ c = fromString $ "." <> className @c c
+
+baseClass_ :: forall c s. (BaseClassName c, IsString s) => s
+baseClass_ = fromString $ "." <> baseClassName @c
 
 mdiFont :: Css
 mdiFont = do

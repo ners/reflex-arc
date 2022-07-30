@@ -1,7 +1,9 @@
 module Arc.Clay.Buttons where
 
-import Arc.Clay.Colours
 import Arc.Clay.Util
+import Arc.Tokens.Colour
+import Arc.Widgets.Button (ButtonVariant (..))
+import Arc.Widgets.Icon
 import Clay
 
 buttons :: Css
@@ -20,32 +22,32 @@ buttonStyle = do
     fontWeight $ weight 500
     cursor pointer
     position relative
-    self |> (star <> ".icon") ? do
+    self |> (star <> baseClass_ @Icon) ? do
         margin2 (em 0) (em 0.3)
-    ".GhostButton" & do
-        color $ rgb 66 82 110
-        backgroundColor transparent
+    class_ GhostButton & do
+        color $ foregroundColour GhostButton
+        backgroundColor $ backgroundColour GhostButton
         fontWeight normal
         hover & backgroundColor (rgba 9 30 66 0.04)
         active & backgroundColor (rgba 9 30 66 0.08)
-    ".DefaultButton" & do
-        color $ rgb 66 82 110
+    class_ DefaultButton & do
+        color $ foregroundColour DefaultButton
         backgroundColor $ rgba 9 30 66 0.04
         hover & backgroundColor (rgba 9 30 66 0.08)
         active & backgroundColor (rgba 179 212 255 0.6)
-    ".PrimaryButton" & do
-        color primaryWhite
-        backgroundColor primaryBlue
+    class_ PrimaryButton & do
+        color $ foregroundColour PrimaryButton
+        backgroundColor $ backgroundColour PrimaryButton
         hover & backgroundColor (rgb 0 101 255)
         active & backgroundColor (rgb 7 71 166)
-    ".WarningButton" & do
-        color $ rgb 23 43 77
-        backgroundColor $ rgb 255 171 0
+    class_ WarningButton & do
+        color $ foregroundColour WarningButton
+        backgroundColor $ backgroundColour WarningButton
         hover & backgroundColor (rgb 255 196 0)
         active & backgroundColor (rgb 255 153 31)
-    ".DangerButton" & do
-        color primaryWhite
-        backgroundColor $ rgb 222 53 11
+    class_ DangerButton & do
+        color $ foregroundColour DangerButton
+        backgroundColor $ backgroundColour DangerButton
         hover & backgroundColor (rgb 255 86 48)
         active & backgroundColor (rgb 191 38 0)
     disabled & do

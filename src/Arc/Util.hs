@@ -14,7 +14,7 @@ import qualified Data.Map.Strict as Map
 
 import Data.Default (Default)
 import Data.Functor ((<&>))
-import Data.String (IsString)
+import Data.String (IsString (fromString))
 import Reflex
 import Reflex.Dom hiding (AttributeMap)
 import Reflex.Dynamic
@@ -102,3 +102,19 @@ class Eq e => Selectable e where
         let className = d <&> \f -> if Just e == f then "selected" else ""
         c <- elDynClass (selectableTag @e) className (clickable e)
         return $ e <$ c
+
+class ClassName c where
+    className :: IsString s => c -> s
+    default className :: (Show c, IsString s) => c -> s
+    className = fromString . show
+
+class ClassName c => BaseClassName c where
+    baseClassName :: IsString s => s
+    fullClassName :: IsString s => c -> [s]
+    fullClassName c = [baseClassName @c, className c]
+
+fullClassString :: BaseClassName c => c -> Text
+fullClassString = Text.unwords . fullClassName
+
+fullClassAttr :: BaseClassName c => c -> Maybe (Text, Text)
+fullClassAttr c = Just ("class", fullClassString c)

@@ -13,16 +13,25 @@ data Icon = Icon
     , iconImage :: forall t m. DomBuilder t m => m ()
     }
 
+instance ClassName Icon where
+    className = className . iconSize
+
+instance BaseClassName Icon where
+    baseClassName = "icon"
+
 instance Default Icon where
     def = Icon SmallSize blank
 
 icon :: DomBuilder t m => Icon -> m ()
-icon Icon{..} = span iconImage
+icon i@Icon{..} = span iconImage
   where
-    span = elAttr "span" $ mkAttrs [Just ("role", "img"), Just ("class", "icon " <> tshow iconSize)]
+    span = elAttr "span" $ mkAttrs [Just ("role", "img"), Just ("class", fullClassString i)]
 
 iconWithText :: DomBuilder t m => Icon -> Text -> m ()
-iconWithText i t = elClass "span" "icon-with-text" $ do
+iconWithText = iconWithTextClass "icon-with-text"
+
+iconWithTextClass :: DomBuilder t m => Text -> Icon -> Text -> m ()
+iconWithTextClass c i t = elClass "span" c $ do
     icon i
     elClass "span" "text" $ text t
 

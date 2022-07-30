@@ -1,8 +1,8 @@
 module Arc.Clay.Inputs.Textarea where
 
-import Arc.Clay.Colours
 import Arc.Clay.Inputs.Text
 import Arc.Clay.Util
+import Arc.Tokens.Colour
 import Clay
 import Clay.Stylesheet (key)
 
