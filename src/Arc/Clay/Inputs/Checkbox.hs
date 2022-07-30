@@ -2,7 +2,7 @@ module Arc.Clay.Inputs.Checkbox where
 
 import Arc.Clay.Util
 import Arc.Tokens.Colour
-import Clay
+import Clay hiding (blue)
 
 checkboxStyle :: Css
 checkboxStyle = do
@@ -25,7 +25,7 @@ checkboxStyle = do
         cursor pointer
   where
     borderUnchecked = rgba 223 225 230 1
-    borderChecked = primaryColour
+    borderChecked = blue
 
 checkboxInputGroupStyle :: Css
 checkboxInputGroupStyle = do

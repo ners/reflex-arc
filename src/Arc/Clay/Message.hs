@@ -4,18 +4,18 @@ import Arc.Clay.Util
 import Arc.Tokens.Colour
 import Arc.Util
 import Arc.Widgets.Message (Message (Message), MessageVariant (..))
-import Clay
+import Clay hiding (black, blue, green, grey, orange, red, white)
 import Clay.Stylesheet (key)
 
 instance ColourToken MessageVariant where
-    foregroundColour ErrorMessage = textWhite
-    foregroundColour InformationMessage = textDefault
-    foregroundColour SuccessMessage = textWhite
-    foregroundColour WarningMessage = textDefaultDark
-    backgroundColour ErrorMessage = errorColour
-    backgroundColour InformationMessage = primaryColour
-    backgroundColour SuccessMessage = successColour
-    backgroundColour WarningMessage = warningColour
+    foregroundColour ErrorMessage = white
+    foregroundColour InformationMessage = black
+    foregroundColour SuccessMessage = white
+    foregroundColour WarningMessage = grey
+    backgroundColour ErrorMessage = red
+    backgroundColour InformationMessage = blue
+    backgroundColour SuccessMessage = green
+    backgroundColour WarningMessage = orange
 
 messages :: Css
 messages = baseClass_ @Message ? messageStyle

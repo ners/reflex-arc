@@ -10,55 +10,23 @@ class ColourToken ct where
 
 -- Colour values
 
-errorRed :: Color
-errorRed = rgb 222 53 11
+red :: Color
+red = rgb 222 53 11
 
-primaryBlue :: Color
-primaryBlue = rgb 0 82 204
+blue :: Color
+blue = rgb 0 82 204
 
-primaryGrey :: Color
-primaryGrey = rgb 9 30 66
+grey :: Color
+grey = rgb 9 30 66
 
-primaryWhite :: Color
-primaryWhite = rgb 255 255 255
+white :: Color
+white = rgb 255 255 255
 
-successGreen :: Color
-successGreen = rgb 0 102 68
+green :: Color
+green = rgb 0 102 68
 
-warningOrange :: Color
-warningOrange = rgb 255 171 0
+orange :: Color
+orange = rgb 255 171 0
 
-defaultBlack :: Color
-defaultBlack = rgb 66 82 110
-
-textDefault :: Color
-textDefault = defaultBlack
-
-textWhite :: Color
-textWhite = blankColour
-
-textDefaultDark :: Color
-textDefaultDark = rgb 23 43 77
-
--- Button background colours
-
-blankColour :: Color
-blankColour = primaryWhite
-
-defaultColour :: Color
-defaultColour = primaryGrey
-
-errorColour :: Color
-errorColour = errorRed
-
-ghostColour :: Color
-ghostColour = transparent
-
-primaryColour :: Color
-primaryColour = primaryBlue
-
-successColour :: Color
-successColour = successGreen
-
-warningColour :: Color
-warningColour = warningOrange
+black :: Color
+black = rgb 66 82 110
