@@ -48,26 +48,22 @@ highlightHaskell hs = case GS.tokenizeHaskell hs of
 tokenTag :: IsString s => s
 tokenTag = "span"
 
-token :: (IsToken s, DomBuilder t m) => (s, Text) -> m ()
-token (tokenType, txt) = elClass tokenTag (tokenClass tokenType) $ text txt
+token :: (ClassName s, DomBuilder t m) => (s, Text) -> m ()
+token (tokenType, txt) = elClass tokenTag (className tokenType) $ text txt
 
-class IsToken t where
-    tokenClass :: t -> Text
+instance ClassName S.TokenType
 
-instance IsToken S.TokenType where
-    tokenClass = tshow
-
-instance IsToken GS.Token where
-    tokenClass GS.CharTok = tokenClass S.CharTok
-    tokenClass GS.CommentTok = tokenClass S.CommentTok
-    tokenClass GS.ConstructorTok = tokenClass S.FunctionTok
-    tokenClass GS.IntegerTok = tokenClass S.ConstantTok
-    tokenClass GS.KeywordTok = tokenClass S.KeywordTok
-    tokenClass GS.OperatorTok = tokenClass S.OperatorTok
-    tokenClass GS.OtherTok = tokenClass S.OtherTok
-    tokenClass GS.PragmaTok = tokenClass S.PreprocessorTok
-    tokenClass GS.RationalTok = tokenClass S.FloatTok
-    tokenClass GS.SpaceTok = ""
-    tokenClass GS.StringTok = tokenClass S.StringTok
-    tokenClass GS.SymbolTok = tokenClass S.OperatorTok
-    tokenClass GS.VariableTok = tokenClass S.VariableTok
+instance ClassName GS.Token where
+    className GS.CharTok = className S.CharTok
+    className GS.CommentTok = className S.CommentTok
+    className GS.ConstructorTok = className S.FunctionTok
+    className GS.IntegerTok = className S.ConstantTok
+    className GS.KeywordTok = className S.KeywordTok
+    className GS.OperatorTok = className S.OperatorTok
+    className GS.OtherTok = className S.OtherTok
+    className GS.PragmaTok = className S.PreprocessorTok
+    className GS.RationalTok = className S.FloatTok
+    className GS.SpaceTok = ""
+    className GS.StringTok = className S.StringTok
+    className GS.SymbolTok = className S.OperatorTok
+    className GS.VariableTok = className S.VariableTok

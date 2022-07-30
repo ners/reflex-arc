@@ -90,71 +90,70 @@ codeStyle = do
 
 codeTheme :: Base16 -> Css
 codeTheme Base16{..} = do
-    tokenTag ? do
-        byClass (tokenClass S.AlertTok) & do
-            backgroundColor base08
-            fontWeight bold
-            color "#000000"
-        byClass (tokenClass S.AnnotationTok) & do
-            color base04
-        byClass (tokenClass S.AttributeTok) & do
-            color base0D
-        byClass (tokenClass S.BaseNTok) & do
-            color base09
-        byClass (tokenClass S.BuiltInTok) & do
-            color base0D
-        byClass (tokenClass S.CharTok) & do
-            color base0C
-        byClass (tokenClass S.CommentTok) & do
-            fontStyle italic
-            color base03
-        byClass (tokenClass S.CommentVarTok) & do
-            color base0C
-        byClass (tokenClass S.ConstantTok) & do
-            fontWeight bold
-            color base09
-        byClass (tokenClass S.ControlFlowTok) & do
-            color base09
-        byClass (tokenClass S.DataTypeTok) & do
-            color base0A
-        byClass (tokenClass S.DecValTok) & do
-            color base09
-        byClass (tokenClass S.DocumentationTok) & do
-            color base08
-        byClass (tokenClass S.ErrorTok) & do
-            textDecoration underline
-            color base08
-        byClass (tokenClass S.ExtensionTok) & do
-            fontWeight bold
-            color base0D
-        byClass (tokenClass S.FloatTok) & do
-            color base09
-        byClass (tokenClass S.FunctionTok) & do
-            color base0D
-        byClass (tokenClass S.ImportTok) & do
-            color base0F
-        byClass (tokenClass S.InformationTok) & do
-            color base0C
-        byClass (tokenClass S.KeywordTok) & do
-            fontWeight bold
-            color base0E
-        byClass (tokenClass S.OperatorTok) & do
-            color base05
-        byClass (tokenClass S.OtherTok) & do
-            color base0A
-        byClass (tokenClass S.PreprocessorTok) & do
-            color base0B
-        byClass (tokenClass S.RegionMarkerTok) & do
-            color base07
-        byClass (tokenClass S.SpecialCharTok) & do
-            color base0C
-        byClass (tokenClass S.SpecialStringTok) & do
-            color base0F
-        byClass (tokenClass S.StringTok) & do
-            color base0B
-        byClass (tokenClass S.VariableTok) & do
-            color base08
-        byClass (tokenClass S.VerbatimStringTok) & do
-            color base0B
-        byClass (tokenClass S.WarningTok) & do
-            color base0A
+    class_ S.AlertTok ? do
+        backgroundColor base08
+        fontWeight bold
+        color "#000000"
+    class_ S.AnnotationTok ? do
+        color base04
+    class_ S.AttributeTok ? do
+        color base0D
+    class_ S.BaseNTok ? do
+        color base09
+    class_ S.BuiltInTok ? do
+        color base0D
+    class_ S.CharTok ? do
+        color base0C
+    class_ S.CommentTok ? do
+        fontStyle italic
+        color base03
+    class_ S.CommentVarTok ? do
+        color base0C
+    class_ S.ConstantTok ? do
+        fontWeight bold
+        color base09
+    class_ S.ControlFlowTok ? do
+        color base09
+    class_ S.DataTypeTok ? do
+        color base0A
+    class_ S.DecValTok ? do
+        color base09
+    class_ S.DocumentationTok ? do
+        color base08
+    class_ S.ErrorTok ? do
+        textDecoration underline
+        color base08
+    class_ S.ExtensionTok ? do
+        fontWeight bold
+        color base0D
+    class_ S.FloatTok ? do
+        color base09
+    class_ S.FunctionTok ? do
+        color base0D
+    class_ S.ImportTok ? do
+        color base0F
+    class_ S.InformationTok ? do
+        color base0C
+    class_ S.KeywordTok ? do
+        fontWeight bold
+        color base0E
+    class_ S.OperatorTok ? do
+        color base05
+    class_ S.OtherTok ? do
+        color base0A
+    class_ S.PreprocessorTok ? do
+        color base0B
+    class_ S.RegionMarkerTok ? do
+        color base07
+    class_ S.SpecialCharTok ? do
+        color base0C
+    class_ S.SpecialStringTok ? do
+        color base0F
+    class_ S.StringTok ? do
+        color base0B
+    class_ S.VariableTok ? do
+        color base08
+    class_ S.VerbatimStringTok ? do
+        color base0B
+    class_ S.WarningTok ? do
+        color base0A
