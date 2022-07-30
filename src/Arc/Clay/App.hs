@@ -33,7 +33,7 @@ bodyStyle :: Css
 bodyStyle = do
     fontSize $ px 16
     fontWeight $ weight 400
-    fontFamily ["Source Sans Variable"] []
+    fontFamily ["Source Sans Variable", "Source Sans 3 VF"] [sansSerif]
     key "font-stretch" $ Value "50%"
     lineHeight $ em 1.5
     display flex
