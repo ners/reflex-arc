@@ -4,8 +4,10 @@ module Arc.Clay.Util where
 
 import Arc.Util
 import Clay
-import Clay.Stylesheet (key, prefixed)
+import Clay.Media (screen)
+import Clay.Stylesheet (Feature (..), key, prefixed)
 import Clay.Text
+import Control.Monad (forM_)
 import Data.ByteString (ByteString)
 import Data.String (IsString (fromString))
 import Data.Text (Text)

@@ -11,6 +11,7 @@ import Arc.Clay.Layouts
 import Arc.Clay.Message (messages)
 import Arc.Clay.Normalise
 import Arc.Clay.Util
+import Arc.Tokens.Colour
 import Clay
 import Clay.Stylesheet (key)
 
@@ -38,6 +39,10 @@ bodyStyle = do
     lineHeight $ em 1.5
     display flex
     flexDirection column
+    withColourScheme $ \s -> do
+        let Base16{..} = base16Default s
+        color base05
+        backgroundColor base00
     main_ ? mainStyle
 
 mainStyle :: Css

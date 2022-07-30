@@ -12,7 +12,6 @@ css = do
     header ? do
         fontSize (pct 75)
         h1 ? marginAll nil
-        color $ rgba 0 0 0 0.75
         position relative
         padding2 (em 1) (em 1.5)
         boxShadow . pure $ bsColor (rgba 0 0 0 0.075) $ shadowWithBlur nil (em 0.125) (em 0.25)

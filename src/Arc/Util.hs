@@ -22,8 +22,11 @@ import Reflex.Dynamic
 (<<$>>) :: (Functor f, Functor g) => (a -> b) -> f (g a) -> f (g b)
 (<<$>>) = fmap . fmap
 
+ishow :: (Show a, IsString s) => a -> s
+ishow = fromString . show
+
 tshow :: Show a => a -> Text
-tshow = Text.pack . show
+tshow = ishow
 
 div :: DomBuilder t m => m a -> m a
 div = el "div"
@@ -113,8 +116,8 @@ class ClassName c => BaseClassName c where
     fullClassName :: IsString s => c -> [s]
     fullClassName c = [baseClassName @c, className c]
 
-fullClassString :: BaseClassName c => c -> Text
-fullClassString = Text.unwords . fullClassName
+fullClassString :: IsString s => BaseClassName c => c -> s
+fullClassString = fromString . unwords . fullClassName
 
-fullClassAttr :: BaseClassName c => c -> Maybe (Text, Text)
+fullClassAttr :: IsString s => BaseClassName c => c -> Maybe (s, s)
 fullClassAttr c = Just ("class", fullClassString c)
