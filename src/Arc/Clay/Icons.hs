@@ -16,17 +16,15 @@ iconStyle = do
     display inlineBlock
     position relative
     margin2 (em 0) (em 0.3)
+    verticalAlign middle
     mdiFont
     class_ SmallSize & do
-        (self <> svg) ? squareSize (em 1)
-        top (em 0.125)
+        svg ? squareSize (em 1)
     class_ MediumSize & do
-        (self <> svg) ? squareSize (em 1.5)
-        top (em 0.3)
+        svg ? squareSize (em 1.5)
         fontSize (pct 150)
     class_ LargeSize & do
-        (self <> svg) ? squareSize (em 2)
-        top (em 0.55)
+        svg ? squareSize (em 2)
         fontSize (pct 200)
     svg ? do
         squareSize (em 1)
@@ -55,8 +53,6 @@ iconWithTextStyle = do
         class_ MediumSize & self |~ ".text" ? do
             height mediumSize
             lineHeight mediumSize
-            top (em 0.15)
         class_ LargeSize & self |~ ".text" ? do
             height largeSize
             lineHeight largeSize
-            top (em 0.15)
