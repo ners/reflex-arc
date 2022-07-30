@@ -52,7 +52,7 @@ errorColour :: Color
 errorColour = errorRed
 
 ghostColour :: Color
-ghostColour = primaryGrey
+ghostColour = transparent
 
 primaryColour :: Color
 primaryColour = primaryBlue

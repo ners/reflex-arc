@@ -32,7 +32,7 @@ buttonStyle = do
         active & backgroundColor (rgba 9 30 66 0.08)
     class_ DefaultButton & do
         color $ foregroundColour DefaultButton
-        backgroundColor $ backgroundColour DefaultButton
+        backgroundColor $ rgba 9 30 66 0.04
         hover & backgroundColor (rgba 9 30 66 0.08)
         active & backgroundColor (rgba 179 212 255 0.6)
     class_ PrimaryButton & do
