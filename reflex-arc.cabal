@@ -73,6 +73,8 @@ library
         skylighting,
         text,
         web-font-mdi
+    if os(osx) || os(ios)
+        ghc-options: -dynamic
     hs-source-dirs:
         src
     default-extensions:
@@ -110,7 +112,7 @@ executable reflex-arc
         ScopedTypeVariables
         TupleSections
         TypeApplications
-    ghc-options: -dynamic -threaded
+    ghc-options: -threaded
     build-depends:
         base,
         base64,
@@ -126,4 +128,6 @@ executable reflex-arc
         skylighting,
         text,
         web-font-mdi
+    if os(osx) || os(ios)
+        ghc-options: -dynamic
     default-language: Haskell2010
