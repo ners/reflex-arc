@@ -15,6 +15,8 @@ css = do
         position relative
         padding2 (em 1) (em 1.5)
         boxShadow . pure $ bsColor (rgba 0 0 0 0.075) $ shadowWithBlur nil (em 0.125) (em 0.25)
+        ".text" ? do
+            top (em (-1))
     main_ |> ".list-detail" ? do
         ".list" ? do
             borderRight (em 0.1) solid (rgba 0 0 0 0.1)

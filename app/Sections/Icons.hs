@@ -16,7 +16,7 @@ iconsSection = do
         forM_
             [ (i, content)
             | i <- [mdiIcon mdiAccountCircle]
-            , content <- [Just "with text"]
+            , content <- [Nothing, Just "with text"]
             ]
             $ \(i, content) -> do
                 el tag $ do

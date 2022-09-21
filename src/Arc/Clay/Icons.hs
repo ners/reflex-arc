@@ -15,8 +15,8 @@ iconStyle :: Css
 iconStyle = do
     display inlineBlock
     position relative
-    margin2 (em 0) (em 0.3)
-    verticalAlign middle
+    margin2 (em 0) (em 0.2)
+    lineHeight (em 1)
     mdiFont
     class_ SmallSize & do
         svg ? squareSize (em 1)
@@ -47,12 +47,18 @@ iconWithTextStyle = do
     self |> baseClass_ @Icon ? do
         marginLeft nil
         position relative
-        class_ SmallSize & self |~ ".text" ? do
-            height smallSize
-            lineHeight smallSize
-        class_ MediumSize & self |~ ".text" ? do
-            height mediumSize
-            lineHeight mediumSize
-        class_ LargeSize & self |~ ".text" ? do
-            height largeSize
-            lineHeight largeSize
+        class_ SmallSize & do
+            bottom (em (-0.1))
+            self |~ ".text" ? do
+                height smallSize
+                lineHeight smallSize
+        class_ MediumSize & do
+            bottom (em (-0.15))
+            self |~ ".text" ? do
+                height mediumSize
+                lineHeight mediumSize
+        class_ LargeSize & do
+            bottom (em (-0.2))
+            self |~ ".text" ? do
+                height largeSize
+                lineHeight largeSize
