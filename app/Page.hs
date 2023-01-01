@@ -1,3 +1,4 @@
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
 module Page where
@@ -7,13 +8,9 @@ import Arc.Layouts.Page
 import Arc.Tokens.ArcLogo
 import Arc.Tokens.Size
 import Arc.Util
-import Arc.Widgets.Button
-import Arc.Widgets.Form
 import Arc.Widgets.Icon
 import Arc.Widgets.Nav
-import Arc.Widgets.Svg
-import Control.Monad (forM_, void)
-import Debug.Trace (traceM)
+import Control.Monad (void)
 import Reflex.Dom hiding (button)
 import Sections.Buttons
 import Sections.Code
@@ -25,7 +22,7 @@ import Prelude hiding (div)
 data MainPage
 
 data PageSection = About | Buttons | Forms | Icons | Text | Code
-    deriving (Eq, Ord, Bounded, Enum, Show)
+    deriving stock (Eq, Ord, Bounded, Enum, Show)
 
 instance Clickable PageSection
 instance Selectable PageSection

@@ -29,37 +29,63 @@
     with builtins;
     let
       pkgs = import inputs.nixpkgs { inherit system; };
-      haskellPackages = pkgs.haskellPackages;
-      reflex-dom = pkgs.callPackage ./nix/reflex-dom.nix {
-        inherit inputs haskellPackages;
-      };
-      clay = pkgs.callPackage ./nix/clay.nix {
-        inherit inputs haskellPackages;
-      };
-      reflex-arc = pkgs.callPackage ./default.nix {
-        inherit reflex-dom clay;
-        inherit (inputs.web-font-mdi.packages.${system}) web-font-mdi;
+      lib = inputs.nixpkgs.lib;
+      parsedSystem = lib.systems.parse.mkSystemFromString system;
+      isDarwin = parsedSystem.kernel.name == "darwin";
+      darwinFrameworks = lib.optionals isDarwin (with pkgs.darwin.apple_sdk.frameworks; [
+        Cocoa
+        CoreServices
+        Foundation
+        WebKit
+      ]);
+      darwinOverride = drv: drv.overrideAttrs (attrs: lib.optionalAttrs isDarwin {
+        buildInputs = (attrs.buildInputs or [ ]) ++ darwinFrameworks;
+        NIX_LDFLAGS = "-F${pkgs.darwin.apple_sdk.frameworks.Foundation}/Library/Frameworks -framework Foundation";
+      });
+      inherit (pkgs.haskell.lib) doJailbreak;
+      haskellPackages = pkgs.haskell.packages.ghc92.override {
+        overrides = self: super: {
+          # TODO: GHC 9.4
+          #reflex = super.reflex_0_9_0_0;
+          #hlint = doJailbreak super.hlint_3_5;
+          #time = super.time_1_12_2;
+
+          web-font-mdi = inputs.web-font-mdi.lib.build self;
+
+          clay = (self.callCabal2nix "clay" inputs.clay { }).overrideAttrs (attrs: {
+            patchPhase = ''
+              sed -i 's/, Cursor(..)/&\n, CursorValue(..)/;s/, Display$/&(..)/' src/Clay/Display.hs
+              sed -i 's/, FontWeight$/&(..)/' src/Clay/Font.hs
+              sed -i 's/, Content$/&(..)/' src/Clay/Text.hs
+            '';
+          });
+          jsaddle-wkwebview = darwinOverride (self.callCabal2nix
+            "jsaddle-wkwebview"
+            "${inputs.jsaddle}/jsaddle-wkwebview"
+            { });
+          reflex-arc = darwinOverride (self.callCabal2nix "reflex-arc" ./. { });
+        };
       };
       haskellDeps = drv: concatLists (attrValues drv.getCabalDeps);
     in
     {
-      packages = {
-        inherit reflex-arc;
+      packages = rec {
+        inherit (haskellPackages) reflex-arc;
         default = reflex-arc;
       };
 
       devShells.default = pkgs.mkShell {
-        nativeBuildInputs = [
-          (haskellPackages.ghcWithPackages (ps: haskellDeps reflex-arc))
-          haskellPackages.cabal-install
-          haskellPackages.haskell-language-server
-          haskellPackages.hpack
+        nativeBuildInputs = with haskellPackages; [
+          (ghcWithPackages (ps: haskellDeps reflex-arc))
+          cabal-install
+          haskell-language-server
+          hpack
           pkgs.clang
         ];
-        buildInputs = pkgs.lib.optionals pkgs.stdenv.isDarwin (with pkgs.darwin.apple_sdk.frameworks; [ Foundation ]);
+        buildInputs = darwinFrameworks;
       };
 
-      # formatter = pkgs.nixfmt;
+      formatter = pkgs.nixpkgs-fmt;
     }
   );
 }

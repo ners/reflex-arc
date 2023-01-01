@@ -7,6 +7,39 @@ github: ners/reflex-arc
 category: Graphics
 license-file: LICENCE
 
+language: GHC2021
+
+default-extensions:
+ - ApplicativeDo
+ - DerivingStrategies
+ - DeriveAnyClass
+ - DerivingVia
+ - DefaultSignatures
+ - ExplicitNamespaces
+ - OverloadedStrings
+ - RecordWildCards
+ - DeriveGeneric
+ - DataKinds
+ - TypeFamilies
+
+ghc-options:
+ - -Weverything
+ - -Wno-safe
+ - -Wno-unsafe
+ - -Wno-missing-safe-haskell-mode
+ - -Wno-implicit-prelude
+ - -Wno-missing-kind-signatures
+ - -Wno-missing-export-lists
+ - -Wno-missing-import-lists
+ - -Wno-missed-specialisations
+ - -Wno-all-missed-specialisations
+ - -Wno-orphans
+
+when:
+ - condition: os(darwin) || os(osx) || os(ios)
+   frameworks: Foundation
+   ghc-options: -dynamic
+
 dependencies:
   - base
   - base64
@@ -37,14 +70,3 @@ executable:
     - reflex-arc
   ghc-options:
     - -threaded
-
-default-extensions:
-  - DefaultSignatures
-  - LambdaCase
-  - MultiParamTypeClasses
-  - OverloadedStrings
-  - RankNTypes
-  - RecordWildCards
-  - ScopedTypeVariables
-  - TupleSections
-  - TypeApplications

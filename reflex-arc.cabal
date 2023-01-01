@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.7.
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -73,21 +73,24 @@ library
         skylighting,
         text,
         web-font-mdi
-    if os(osx) || os(ios)
-        ghc-options: -dynamic
     hs-source-dirs:
         src
     default-extensions:
+        ApplicativeDo
+        DerivingStrategies
+        DeriveAnyClass
+        DerivingVia
         DefaultSignatures
-        LambdaCase
-        MultiParamTypeClasses
+        ExplicitNamespaces
         OverloadedStrings
-        RankNTypes
         RecordWildCards
-        ScopedTypeVariables
-        TupleSections
-        TypeApplications
-    default-language: Haskell2010
+        DeriveGeneric
+        DataKinds
+        TypeFamilies
+    ghc-options: -Weverything -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-missing-kind-signatures -Wno-missing-export-lists -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-orphans
+    default-language: GHC2021
+    if os(osx) || os(ios)
+        ghc-options: -dynamic
 
 executable reflex-arc
     main-is: Main.hs
@@ -103,16 +106,18 @@ executable reflex-arc
     hs-source-dirs:
         app
     default-extensions:
+        ApplicativeDo
+        DerivingStrategies
+        DeriveAnyClass
+        DerivingVia
         DefaultSignatures
-        LambdaCase
-        MultiParamTypeClasses
+        ExplicitNamespaces
         OverloadedStrings
-        RankNTypes
         RecordWildCards
-        ScopedTypeVariables
-        TupleSections
-        TypeApplications
-    ghc-options: -threaded
+        DeriveGeneric
+        DataKinds
+        TypeFamilies
+    ghc-options: -Weverything -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-missing-kind-signatures -Wno-missing-export-lists -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-orphans -threaded
     build-depends:
         base,
         base64,
@@ -128,6 +133,6 @@ executable reflex-arc
         skylighting,
         text,
         web-font-mdi
+    default-language: GHC2021
     if os(osx) || os(ios)
         ghc-options: -dynamic
-    default-language: Haskell2010

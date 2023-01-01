@@ -1,6 +1,7 @@
+{-# LANGUAGE LambdaCase #-}
+
 module Sections.Forms where
 
-import Arc.Clay.Buttons (buttonStyle)
 import Arc.Util
 import Arc.Widgets.Button
 import Arc.Widgets.Checkbox
@@ -9,16 +10,23 @@ import Arc.Widgets.OptionGroup
 import Arc.Widgets.Text
 import Arc.Widgets.Textarea
 import Control.Monad (void)
-import Data.Maybe (catMaybes, isJust)
+import Data.Maybe (catMaybes, fromMaybe)
 import Data.Text (Text)
 import Reflex.Dom hiding (button, checkbox, textInput)
 
 newtype Username = Username Text
+
 newtype Password = Password Text
+
 newtype Email = Email Text
-data Gender = MaleGender | FemaleGender | OtherGender Text deriving (Show)
+
+data Gender = MaleGender | FemaleGender | OtherGender Text
+    deriving stock (Show)
+
 newtype Bio = Bio Text
+
 newtype Newsletter = Newsletter Bool
+
 newtype Eula = Eula Bool
 
 instance OptionGroup Gender where
@@ -58,7 +66,7 @@ instance OptionGroup Gender where
                 _ -> return $ constDyn ""
             return $ return $ Just $ OtherGender ""
 
---return $ zipDynWith (\g r -> OtherGender g <$ r) genderText radio
+-- return $ zipDynWith (\g r -> OtherGender g <$ r) genderText radio
 
 instance FormField Username where
     fieldRequired = True
@@ -123,6 +131,7 @@ instance FormField Eula where
 data SignupForm = SignupForm
     { username :: Username
     , email :: Email
+    , gender :: Gender
     , password :: Password
     , bio :: Bio
     , newsletter :: Newsletter
@@ -142,10 +151,12 @@ instance Form SignupForm where
         divClass "buttons" $ do
             button $ def{buttonContent = "Cancel", buttonVariant = GhostButton}
             button $ def{buttonContent = "Submit", buttonVariant = PrimaryButton}
+            pure ()
         return $
             SignupForm
                 <$> u
                 <*> e
+                <*> (fromMaybe (OtherGender "") <$> g)
                 <*> p
                 <*> b
                 <*> n
