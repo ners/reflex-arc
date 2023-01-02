@@ -12,11 +12,12 @@ import Arc.Widgets.Nav
 import Control.Monad (void)
 import Control.Monad.Fix (MonadFix)
 import Reflex.Dom
-import Sections.Buttons
-import Sections.Code
-import Sections.Forms
-import Sections.Icons
-import Sections.Text
+import Sections.About (aboutSection)
+import Sections.Buttons (buttonsSection)
+import Sections.Code (codeSection)
+import Sections.Forms (formsSection)
+import Sections.Icons (iconsSection)
+import Sections.Text (textSection)
 import Prelude hiding (div)
 
 data MainPage
@@ -33,7 +34,7 @@ instance ListDetail PageSection where
     listView d = Just <<$>> nav @PageSection d
     detailView d = void $
         update d $ \case
-            Just About -> el "div" $ text "Introduction..."
+            Just About -> aboutSection
             Just Buttons -> buttonsSection
             Just Forms -> formsSection
             Just Icons -> iconsSection
@@ -45,7 +46,7 @@ data ThemeToggle = ThemeToggle
 
 instance Clickable ThemeToggle where
     clickableClass = "theme"
-    clickableContent ThemeToggle = icon $ mdiIcon mdiBrightness6
+    clickableContent ThemeToggle = icon $ mdiIcon MdiBrightness6
 
 instance PageLayout MainPage ThemeToggle where
     pageHeader = Just $

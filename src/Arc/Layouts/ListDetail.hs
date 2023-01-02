@@ -14,6 +14,7 @@ class ListDetail l where
          . DomBuilder t m
         => PostBuild t m
         => MonadHold t m
+        => MonadFix m
         => Dynamic t (Maybe l)
         -> m (Event t (Maybe l))
     detailView
@@ -21,6 +22,7 @@ class ListDetail l where
          . DomBuilder t m
         => PostBuild t m
         => MonadHold t m
+        => MonadFix m
         => Dynamic t (Maybe l)
         -> m ()
 

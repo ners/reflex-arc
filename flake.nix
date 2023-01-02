@@ -48,7 +48,7 @@
           #hlint = doJailbreak super.hlint_3_5;
           #time = super.time_1_12_2;
 
-          web-font-mdi = inputs.web-font-mdi.lib.build self;
+          web-font-mdi = inputs.web-font-mdi.packages.${system}.default;
 
           clay = (self.callCabal2nix "clay" inputs.clay { }).overrideAttrs (attrs: {
             patchPhase = ''

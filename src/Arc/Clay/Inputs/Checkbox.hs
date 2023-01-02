@@ -14,10 +14,10 @@ checkboxStyle = do
         mdiFont
         fontSize (pct 130)
         transition "color" (ms 100) easeInOut (sec 0)
-        content $ charContent mdiCheckboxBlankOutline
+        content $ charContent $ mdiChar MdiCheckboxBlankOutline
     checked & before & do
         color inputSelectedBorder
-        content $ charContent mdiCheckboxMarkedOutline
+        content $ charContent $ mdiChar MdiCheckboxMarkedOutline
     (self <> sibling label) ? do
         transition "opacity" (ms 100) easeInOut (sec 0)
         cursor pointer

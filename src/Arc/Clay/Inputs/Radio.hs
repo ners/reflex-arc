@@ -9,9 +9,9 @@ radioInputStyle :: Css
 radioInputStyle = do
     checkboxStyle
     before & do
-        content $ charContent mdiRadioboxBlank
+        content $ charContent $ mdiChar MdiRadioboxBlank
     checked & before & do
-        content $ charContent mdiCheckboxMarkedCircleOutline
+        content $ charContent $ mdiChar MdiCheckboxMarkedCircleOutline
 
 radioInputGroupStyle :: Css
 radioInputGroupStyle = checkboxInputGroupStyle

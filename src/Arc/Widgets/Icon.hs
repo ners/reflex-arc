@@ -42,5 +42,5 @@ iconWithTextClass c i t = elClass "span" c $ do
     icon i
     elClass "span" "text" $ text t
 
-mdiIcon :: Char -> Icon
-mdiIcon c = def{iconImage = text $ Text.singleton c}
+mdiIcon :: MDI -> Icon
+mdiIcon mdi = def{iconImage = text $ Text.singleton $ mdiChar mdi}

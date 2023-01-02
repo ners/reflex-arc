@@ -17,7 +17,7 @@ buttonsSection = do
         button $ def{buttonVariant = variant, buttonContent = tshow variant, buttonDisabled = True}
     el "h3" $ text "Buttons with icons"
     forM_ [minBound .. maxBound] $ \variant -> do
-        let star = Just $ mdiIcon mdiStar
+        let star = Just $ mdiIcon MdiStar
         elClass "div" "buttons"
             $ forM_
                 [ (content, leftIcon, rightIcon)

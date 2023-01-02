@@ -2,7 +2,7 @@ module Style where
 
 import Arc.Clay.Util
 import Arc.Tokens.Colour
-import Clay hiding (grey)
+import Clay hiding (blue, grey)
 
 css :: Css
 css = do
@@ -29,7 +29,9 @@ css = do
                 marginTop (em 1)
                 li ? do
                     borderLeft (em 0.2) solid transparent
-                    ".selected" & fontWeight (FontWeight $ Value "500")
+                    ".selected" & do
+                        fontWeight (FontWeight $ Value "500")
+                        borderLeftColor blue
                 a ? do
                     display block
                     lineHeight (em 2)

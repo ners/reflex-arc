@@ -5,27 +5,27 @@ module Arc.Layouts.Page where
 import Control.Monad.Fix (MonadFix)
 import Reflex.Dom
 
-class PageLayout p e where
-    pageHeader :: DomBuilder t m => Maybe (m (Event t e))
+class PageLayout p a where
+    pageHeader :: DomBuilder t m => Maybe (m (Event t a))
     pageHeader = Nothing
     pageMain
         :: DomBuilder t m
         => PostBuild t m
         => MonadHold t m
         => MonadFix m
-        => m (Event t e)
-    pageFooter :: DomBuilder t m => Maybe (m (Event t e))
+        => m (Event t a)
+    pageFooter :: DomBuilder t m => Maybe (m (Event t a))
     pageFooter = Nothing
 
 pageLayout
-    :: forall p e t m
-     . PageLayout p e
+    :: forall p a t m
+     . PageLayout p a
     => DomBuilder t m
     => PostBuild t m
     => MonadHold t m
     => MonadFix m
-    => m (Event t e)
+    => m (Event t a)
 pageLayout = do
-    maybe (pure never) (el "header") $ pageHeader @p @e
-    el "main" $ pageMain @p @e
-    maybe (pure never) (el "footer") $ pageFooter @p @e
+    maybe (pure never) (el "header") $ pageHeader @p @a
+    el "main" $ pageMain @p @a
+    maybe (pure never) (el "footer") $ pageFooter @p @a
