@@ -47,10 +47,11 @@ instance OptionGroup Gender where
             return $ o : mf
         return $ catMaybes <$> sequence options
       where
-        otherEl ::
-            forall t m.
-            (DomBuilder t m, PostBuild t m) =>
-            m (Dynamic t (Maybe Gender))
+        otherEl
+            :: forall t m
+             . DomBuilder t m
+            => PostBuild t m
+            => m (Dynamic t (Maybe Gender))
         otherEl = inputGroup @Gender $ do
             radio <- optionInputEl $ OtherGender "" :: m (Dynamic t (Maybe Gender))
             optionLabelEl $ OtherGender ""

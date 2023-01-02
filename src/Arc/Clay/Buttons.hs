@@ -40,18 +40,20 @@ buttonStyle = do
     forM_ [minBound .. maxBound] $ \(bv :: ButtonVariant) ->
         class_ bv & do
             applyColourScheme bv
-            hover & withColourScheme (\cs -> do
-                let bg = backgroundColourScheme bv cs
-                backgroundColor $ modifyA (+ 0.2) bg
-                )
+            hover
+                & withColourScheme
+                    ( \cs -> do
+                        let bg = backgroundColourScheme bv cs
+                        backgroundColor $ modifyA (+ 0.2) bg
+                    )
     class_ GhostButton & hover & textDecoration underline
     disabled & do
         opacity 0.5
         pointerEvents none
-    where
-        getA (Rgba _ _ _ a) = a
-        getA (Hsla _ _ _ a) = a
-        getA _ = 1
-        modifyA f c
-            | c == transparent = transparent
-            | otherwise = setA (f $ getA c) c
+  where
+    getA (Rgba _ _ _ a) = a
+    getA (Hsla _ _ _ a) = a
+    getA _ = 1
+    modifyA f c
+        | c == transparent = transparent
+        | otherwise = setA (f $ getA c) c

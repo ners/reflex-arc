@@ -1,11 +1,11 @@
-module Arc.Widgets.Icon (
-    module Web.Font.MDI,
-    Icon (..),
-    icon,
-    iconWithText,
-    iconWithTextClass,
-    mdiIcon,
-) where
+module Arc.Widgets.Icon
+    ( module Web.Font.MDI
+    , Icon (..)
+    , icon
+    , iconWithText
+    , iconWithTextClass
+    , mdiIcon
+    ) where
 
 import Arc.Tokens.Size
 import Arc.Util
