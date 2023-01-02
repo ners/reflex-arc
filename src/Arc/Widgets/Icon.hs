@@ -1,6 +1,6 @@
 module Arc.Widgets.Icon (
     module Web.Font.MDI,
-    Icon(..),
+    Icon (..),
     icon,
     iconWithText,
     iconWithTextClass,

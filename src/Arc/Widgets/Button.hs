@@ -1,25 +1,11 @@
 module Arc.Widgets.Button where
 
-import Arc.Tokens.Colour
 import Arc.Tokens.Size
 import Arc.Util
 import Arc.Widgets.Icon
-import Clay (transparent)
 import Data.Default
 import Data.Text (Text)
 import Reflex.Dom
-
-instance ColourToken ButtonVariant where
-    foregroundColour PrimaryButton = white
-    foregroundColour WarningButton = grey
-    foregroundColour DefaultButton = black
-    foregroundColour DangerButton = white
-    foregroundColour GhostButton = black
-    backgroundColour PrimaryButton = blue
-    backgroundColour WarningButton = orange
-    backgroundColour DefaultButton = grey
-    backgroundColour DangerButton = red
-    backgroundColour GhostButton = transparent
 
 data ButtonVariant = GhostButton | DefaultButton | PrimaryButton | WarningButton | DangerButton
     deriving stock (Show, Bounded, Enum)

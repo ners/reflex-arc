@@ -55,7 +55,7 @@ orange :: Color
 orange = rgb 255 171 0
 
 black :: Color
-black = rgb 66 82 110
+black = rgb 23 43 77
 
 data Base16 = Base16
     { base00 :: Color
