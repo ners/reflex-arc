@@ -8,19 +8,26 @@ import Clay hiding (a, black, blue, grey, orange, red, white)
 import Control.Monad (forM_)
 
 buttons :: Css
-buttons = button ? buttonStyle
+buttons = do
+    button ? buttonStyle
+    ".buttons" ? do
+        button ? float floatLeft
+        after & do
+            content $ Content "''"
+            display block
+            clear clearLeft
 
 instance ColourSchemeToken ButtonVariant where
+    backgroundColourScheme DangerButton _ = setA 0.8 red
+    backgroundColourScheme DefaultButton _ = setA 0.1 grey
+    backgroundColourScheme GhostButton _ = transparent
     backgroundColourScheme PrimaryButton _ = setA 0.8 blue
     backgroundColourScheme WarningButton _ = setA 0.8 orange
-    backgroundColourScheme DefaultButton LightColourScheme = setA 0.1 black
-    backgroundColourScheme DefaultButton DarkColourScheme = setA 0.05 white
-    backgroundColourScheme DangerButton _ = setA 0.8 red
-    backgroundColourScheme GhostButton _ = transparent
-    foregroundColourScheme PrimaryButton = const white
     foregroundColourScheme DangerButton = const white
-    foregroundColourScheme WarningButton = const black
-    foregroundColourScheme _ = base05 . base16Default
+    foregroundColourScheme DefaultButton = foregroundColourScheme BaseColour
+    foregroundColourScheme GhostButton = foregroundColourScheme BaseColour
+    foregroundColourScheme PrimaryButton = const white
+    foregroundColourScheme WarningButton = const white
 
 buttonStyle :: Css
 buttonStyle = do
@@ -28,11 +35,11 @@ buttonStyle = do
     borderStyle none
     borderRadiusAll $ em 0.2
     display inlineBlock
-    height $ em 2
-    lineHeight $ em 2
+    height $ em 2.5
+    lineHeight $ em 2.5
     marginAll $ em 0.2
     padding2 (em 0) (em 1)
-    fontWeight $ weight 500
+    fontWeight $ weight 400
     cursor pointer
     position relative
     self |> (star <> baseClass_ @Icon) ? do
@@ -46,6 +53,13 @@ buttonStyle = do
                         let bg = backgroundColourScheme bv cs
                         backgroundColor $ modifyA (+ 0.2) bg
                     )
+            active
+                & withColourScheme
+                    ( \cs -> do
+                        let bg = backgroundColourScheme bv cs
+                        backgroundColor $ modifyA (+ 0.2) bg
+                    )
+    transition "background-color" (ms 100) easeInOut (sec 0)
     class_ GhostButton & hover & textDecoration underline
     disabled & do
         opacity 0.5

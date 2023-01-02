@@ -8,12 +8,16 @@ import Reflex.Dom hiding (TextInput, textInput)
 data TextInputSize = TextInputFull | TextInputInline
     deriving stock (Show)
 
+instance ClassName TextInputSize
+
 data TextInputType = TextInputType | EmailInputType | PasswordInputType
 
 instance Show TextInputType where
     show TextInputType = "text"
     show EmailInputType = "email"
     show PasswordInputType = "password"
+
+instance ClassName TextInputType
 
 data TextInput = TextInput
     { textInputSize :: TextInputSize
@@ -24,6 +28,9 @@ data TextInput = TextInput
     , textInputDisabled :: Bool
     }
 
+instance ClassName TextInput where
+    className TextInput{..} = className textInputSize
+
 instance Default TextInput where
     def = TextInput TextInputFull TextInputType Nothing Nothing Nothing False
 
@@ -32,7 +39,7 @@ instance WithId TextInput where
     defId i = def{textInputId = Just i}
 
 textInput :: DomBuilder t m => TextInput -> m (Dynamic t Text)
-textInput TextInput{..} = do
+textInput ti@TextInput{..} = do
     maybe blank (labelFor textInputId . text) textInputLabel
     i <-
         inputElement $
@@ -41,7 +48,7 @@ textInput TextInput{..} = do
                     . elementConfig_initialAttributes
                     .~ mkAttrs
                         [ Just ("type", tshow textInputType)
-                        , Just ("class", tshow textInputSize)
+                        , Just ("class", className ti)
                         , ("id",) <$> textInputId
                         , ("placeholder",) <$> textInputPlaceholder
                         ]

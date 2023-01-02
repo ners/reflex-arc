@@ -1,28 +1,32 @@
 module Arc.Clay.Inputs.Text where
 
 import Arc.Clay.Util
+import Arc.Tokens.Colour
+import Arc.Widgets.Text (TextInputSize (..))
 import Clay
+import Prelude hiding (rem)
 
 textInputStyle :: Css
 textInputStyle = do
     background transparent
     color inherit
-    border (em 0.12) solid (rgb 223 225 230)
-    borderRadiusAll (em 0.3)
-    padding2 (em 0) (em 0.3)
+    border (rem 0.12) solid inputBorder
+    borderRadiusAll (rem 0.3)
+    padding2 (em 0) (rem 0.5)
     transition "border" (ms 100) easeInOut (sec 0)
-    focus & borderColor (rgb 76 154 255)
-    ".TextInputFull" & do
+    focus & borderColor inputSelectedBorder
+    class_ TextInputFull & do
         width $ pct 100
-        height $ em 2.5
-        lineHeight $ em 2.5
-    ".TextInputInline" & do
-        width $ em 10
-        height $ em 2
-        margin2 (em 0) (em 0.3)
+        height $ rem 2.8
+        lineHeight $ rem 2.8
+    class_ TextInputInline & do
+        width $ rem 10
+        height $ rem 2
+        margin2 (rem 0) (rem 0.3)
 
 emailInputStyle :: Css
 emailInputStyle = textInputStyle
 
 passwordInputStyle :: Css
-passwordInputStyle = textInputStyle
+passwordInputStyle = do
+    textInputStyle

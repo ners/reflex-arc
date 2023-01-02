@@ -3,8 +3,10 @@ module Arc.Widgets.Button where
 import Arc.Tokens.Size
 import Arc.Util
 import Arc.Widgets.Icon
+import Control.Monad (unless)
 import Data.Default
 import Data.Text (Text)
+import Data.Text qualified as Text
 import Reflex.Dom
 
 data ButtonVariant = GhostButton | DefaultButton | PrimaryButton | WarningButton | DangerButton
@@ -32,7 +34,7 @@ button Button{..} = buttonEl >>= \(e, _) -> return $ domEvent Click e
     attrs = mkAttrs [Just ("class", className buttonVariant), maybeDisabled buttonDisabled]
     buttonEl = elAttr' "button" attrs $ do
         mapM_ iconEl buttonLeftIcon
-        el "span" $ text buttonContent
+        unless (Text.null buttonContent) $ el "span" $ text buttonContent
         mapM_ iconEl buttonRightIcon
     iconEl :: Icon -> m ()
     iconEl i = icon $ i{iconSize = SmallSize}

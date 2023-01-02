@@ -8,12 +8,15 @@ import Clay.Stylesheet (key, prefixed)
 import Data.ByteString (ByteString)
 import Data.String (IsString (fromString))
 import Data.Text (Text)
-import Data.Text qualified as Text
+import Data.Text qualified as Text (singleton)
 import Data.Text.Encoding qualified as Text (encodeUtf8)
-import Data.Text.Lazy qualified as Text (toStrict)
+import Data.Text.Lazy qualified as Text (toStrict, unpack)
 
 renderText :: Css -> Text
 renderText = Text.toStrict . render
+
+renderString :: IsString s => Css -> s
+renderString = fromString . Text.unpack . render
 
 renderBS :: Css -> ByteString
 renderBS = Text.encodeUtf8 . renderText

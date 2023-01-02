@@ -18,16 +18,14 @@ iconStyle = do
     margin2 (em 0) (em 0.2)
     lineHeight (em 1)
     mdiFont
-    class_ SmallSize & do
-        svg ? squareSize (em 1)
     class_ MediumSize & do
-        svg ? squareSize (em 1.5)
         fontSize (pct 150)
     class_ LargeSize & do
-        svg ? squareSize (em 2)
         fontSize (pct 200)
     svg ? do
         squareSize (em 1)
+        position relative
+        top $ em 0.1
         "path" ? do
             key "fill" $ Value "currentColor"
 

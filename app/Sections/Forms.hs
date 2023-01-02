@@ -150,8 +150,8 @@ instance Form SignupForm where
         n <- checkboxFormField @Newsletter
         l <- checkboxFormField @Eula
         divClass "buttons" $ do
-            button $ def{buttonContent = "Cancel", buttonVariant = GhostButton}
             button $ def{buttonContent = "Submit", buttonVariant = PrimaryButton}
+            button $ def{buttonContent = "Cancel", buttonVariant = GhostButton}
             pure ()
         return $
             SignupForm

@@ -1,7 +1,7 @@
 module Arc.Tokens.Colour where
 
 import Arc.Util (ishow)
-import Clay hiding (s)
+import Clay hiding (blue, grey, s)
 import Clay.Media (screen)
 import Clay.Stylesheet (Feature (Feature))
 import Control.Monad (forM_)
@@ -37,25 +37,37 @@ applyColourScheme t = withColourScheme $ \s -> do
 -- Colour values
 
 red :: Color
-red = rgb 222 53 11
+red = rgb 255 27 36
 
 blue :: Color
-blue = rgb 0 82 204
+blue = rgb 28 113 255
 
 grey :: Color
-grey = rgb 9 30 66
+grey = rgb 94 92 100
 
 white :: Color
 white = rgb 255 255 255
 
 green :: Color
-green = rgb 0 102 68
+green = rgb 38 162 105
 
 orange :: Color
-orange = rgb 255 171 0
+orange = rgb 255 120 0
 
 black :: Color
-black = rgb 23 43 77
+black = rgb 0 0 0
+
+inputBorder :: Color
+inputBorder = setA 0.4 grey
+
+inputSelectedBorder :: Color
+inputSelectedBorder = blue
+
+data BaseColour = BaseColour
+
+instance ColourSchemeToken BaseColour where
+    foregroundColourScheme BaseColour = base05 . base16Default
+    backgroundColourScheme BaseColour = base00 . base16Default
 
 data Base16 = Base16
     { base00 :: Color

@@ -57,7 +57,7 @@ preStyle = do
 
 codeStyle :: Css
 codeStyle = do
-    fontFamily ["Source Code Pro"] []
+    fontFamily ["Fira Code"] []
     forM_ [minBound .. maxBound] $ \(tt :: S.TokenType) -> do
         class_ tt ? applyColourScheme tt
     class_ S.CommentTok ? do

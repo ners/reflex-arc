@@ -1,5 +1,6 @@
 module Sections.Icons where
 
+import Arc.Tokens.ArcLogo (arcLogoIcon)
 import Arc.Util (tshow)
 import Arc.Widgets.Icon
 import Control.Monad (forM_)
@@ -13,7 +14,7 @@ iconsSection = do
         el "div" $ text $ Text.unwords [tag, tshow size]
         forM_
             [ (i, content)
-            | i <- [mdiIcon mdiAccountCircle]
+            | i <- [mdiIcon mdiAccountCircle, arcLogoIcon]
             , content <- [Nothing, Just "with text"]
             ]
             $ \(i, content) -> do

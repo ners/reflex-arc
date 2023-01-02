@@ -2,20 +2,20 @@ module Arc.Clay.Inputs.Checkbox where
 
 import Arc.Clay.Util
 import Arc.Tokens.Colour
-import Clay hiding (blue)
+import Clay
 import Web.Font.MDI
 
 checkboxStyle :: Css
 checkboxStyle = do
     borderStyle none
-    color uncheckedColour
+    color inputBorder
     before & do
         mdiFont
         fontSize (pct 130)
         transition "color" (ms 100) easeInOut (sec 0)
         content $ charContent mdiCheckboxBlankOutline
     checked & before & do
-        color checkedColour
+        color inputSelectedBorder
         content $ charContent mdiCheckboxMarkedOutline
     (self <> sibling label) ? do
         transition "opacity" (ms 100) easeInOut (sec 0)
@@ -24,12 +24,6 @@ checkboxStyle = do
         & (self <> sibling label) ? do
             cursor notAllowed
             opacity 0.5
-  where
-    uncheckedColour = rgb 223 225 230
-    -- borderUnchecked = rgb 223 225 230
-    checkedColour = blue
-
--- borderChecked = blue
 
 checkboxInputGroupStyle :: Css
 checkboxInputGroupStyle = do

@@ -33,15 +33,12 @@ bodyStyle :: Css
 bodyStyle = do
     fontSize $ px 16
     fontWeight $ weight 400
-    fontFamily ["Source Sans Variable", "Source Sans 3 VF"] [sansSerif]
+    fontFamily ["Fira Sans"] [sansSerif]
     key "font-stretch" $ Value "50%"
     lineHeight $ em 1.5
     display flex
     flexDirection column
-    withColourScheme $ \s -> do
-        let Base16{..} = base16Default s
-        color base05
-        backgroundColor base00
+    applyColourScheme BaseColour
     main_ ? mainStyle
 
 mainStyle :: Css

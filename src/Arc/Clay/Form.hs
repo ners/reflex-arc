@@ -11,5 +11,5 @@ formStyle = do
     ".form-field" <> fieldset <> ".buttons" ? do
         margin2 (em 1) 0
     ".buttons" ? do
-        textAlign $ alignSide sideRight
+        button ? float floatRight
         marginTop (em 2)

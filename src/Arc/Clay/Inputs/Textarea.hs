@@ -10,6 +10,6 @@ textareaStyle = do
     textInputStyle
     display block
     key "resize" noneValue
-    paddingAll (em 0.3)
+    paddingAll (em 0.5)
     width $ pct 100
     minHeight $ em 5
