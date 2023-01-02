@@ -1,12 +1,10 @@
 module Sections.Icons where
 
-import Arc.Tokens.Size
-import Arc.Util
+import Arc.Util (tshow)
 import Arc.Widgets.Icon
 import Control.Monad (forM_)
-import qualified Data.Text as Text
-import Reflex.Dom
-import Web.Font.MDI
+import Data.Text qualified as Text
+import Reflex.Dom hiding (tag)
 
 iconsSection :: DomBuilder t m => m ()
 iconsSection = do

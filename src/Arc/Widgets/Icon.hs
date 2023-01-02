@@ -1,12 +1,19 @@
-module Arc.Widgets.Icon where
+module Arc.Widgets.Icon (
+    module Web.Font.MDI,
+    Icon(..),
+    icon,
+    iconWithText,
+    iconWithTextClass,
+    mdiIcon,
+) where
 
 import Arc.Tokens.Size
 import Arc.Util
-import Arc.Widgets.Svg
 import Data.Default (Default)
 import Data.Text (Text)
-import qualified Data.Text as Text
+import Data.Text qualified as Text
 import Reflex.Dom
+import Web.Font.MDI
 
 data Icon = Icon
     { iconSize :: SizeToken
@@ -23,9 +30,9 @@ instance Default Icon where
     def = Icon SmallSize blank
 
 icon :: DomBuilder t m => Icon -> m ()
-icon i@Icon{..} = span iconImage
+icon i@Icon{..} = span' iconImage
   where
-    span = elAttr "span" $ mkAttrs [Just ("role", "img"), Just ("class", fullClassString i)]
+    span' = elAttr "span" $ mkAttrs [Just ("role", "img"), Just ("class", fullClassString i)]
 
 iconWithText :: DomBuilder t m => Icon -> Text -> m ()
 iconWithText = iconWithTextClass "icon-with-text"

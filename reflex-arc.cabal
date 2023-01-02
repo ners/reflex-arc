@@ -61,12 +61,10 @@ library
         Paths_reflex_arc
     build-depends:
         base,
-        base64,
         bytestring,
         clay,
         containers,
         data-default,
-        file-embed,
         ghc-syntax-highlighter,
         reflex,
         reflex-dom,
@@ -89,8 +87,10 @@ library
         TypeFamilies
     ghc-options: -Weverything -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-missing-kind-signatures -Wno-missing-export-lists -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-orphans
     default-language: GHC2021
-    if os(osx) || os(ios)
+    if os(darwin) || os(osx) || os(ios)
         ghc-options: -dynamic
+        frameworks:
+            Foundation
 
 executable reflex-arc
     main-is: Main.hs
@@ -120,19 +120,12 @@ executable reflex-arc
     ghc-options: -Weverything -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-missing-kind-signatures -Wno-missing-export-lists -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-orphans -threaded
     build-depends:
         base,
-        base64,
-        bytestring,
         clay,
-        containers,
-        data-default,
-        file-embed,
-        ghc-syntax-highlighter,
-        reflex,
         reflex-arc,
         reflex-dom,
-        skylighting,
-        text,
-        web-font-mdi
+        text
     default-language: GHC2021
-    if os(osx) || os(ios)
+    if os(darwin) || os(osx) || os(ios)
         ghc-options: -dynamic
+        frameworks:
+            Foundation

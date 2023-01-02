@@ -3,12 +3,9 @@
 
 module Arc.Widgets.OptionGroup where
 
-import Prelude hiding (div)
-
-import Data.Text (Text)
-import qualified Data.Text as Text
-
 import Data.Maybe (catMaybes)
+import Data.Text (Text)
+import Prelude hiding (div)
 
 import Arc.Util
 import Arc.Widgets.Checkbox
@@ -51,7 +48,7 @@ class OptionGroup g where
         optionLabelEl g
         return i
     groupInputMultiEl :: (DomBuilder t m, PostBuild t m) => m (Dynamic t [g])
-    default groupInputMultiEl :: (Bounded g, Enum g, DomBuilder t m, PostBuild t m) => m (Dynamic t [g])
+    default groupInputMultiEl :: (Bounded g, Enum g, DomBuilder t m) => m (Dynamic t [g])
     groupInputMultiEl = el "fieldset" $ do
         maybe blank (el "legend" . text) $ groupLegend @g
         inputs :: [Dynamic t (Maybe g)] <- mapM optionInputGroupEl [minBound .. maxBound]

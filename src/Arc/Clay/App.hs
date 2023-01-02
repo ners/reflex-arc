@@ -10,9 +10,8 @@ import Arc.Clay.Inputs
 import Arc.Clay.Layouts
 import Arc.Clay.Message (messages)
 import Arc.Clay.Normalise
-import Arc.Clay.Util
 import Arc.Tokens.Colour
-import Clay
+import Clay hiding (s)
 import Clay.Stylesheet (key)
 
 appStyle :: Css

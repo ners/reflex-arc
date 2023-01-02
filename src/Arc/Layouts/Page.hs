@@ -2,7 +2,6 @@
 
 module Arc.Layouts.Page where
 
-import Data.Default (Default)
 import Reflex.Dom
 
 class PageLayout p where

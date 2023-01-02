@@ -2,7 +2,6 @@ module Arc.Widgets.Textarea where
 
 import Arc.Util
 import Data.Default (Default)
-import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Reflex.Dom hiding (TextArea)
 

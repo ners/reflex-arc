@@ -3,10 +3,6 @@
 
 module Arc.Layouts.ListDetail where
 
-import Control.Monad (void)
-import Control.Monad.Fix (MonadFix)
-import Data.Default (Default)
-import Data.Maybe (fromMaybe)
 import Reflex.Dom
 
 class ListDetail l where

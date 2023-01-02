@@ -3,17 +3,14 @@
 module Arc.Clay.Util where
 
 import Arc.Util
-import Clay
-import Clay.Media (screen)
-import Clay.Stylesheet (Feature (..), key, prefixed)
-import Clay.Text
-import Control.Monad (forM_)
+import Clay hiding (s)
+import Clay.Stylesheet (key, prefixed)
 import Data.ByteString (ByteString)
 import Data.String (IsString (fromString))
 import Data.Text (Text)
-import qualified Data.Text as Text
-import qualified Data.Text.Encoding as Text (encodeUtf8)
-import qualified Data.Text.Lazy as Text (toStrict)
+import Data.Text qualified as Text
+import Data.Text.Encoding qualified as Text (encodeUtf8)
+import Data.Text.Lazy qualified as Text (toStrict)
 
 renderText :: Css -> Text
 renderText = Text.toStrict . render

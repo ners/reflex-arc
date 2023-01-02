@@ -45,7 +45,7 @@ normaliseGrouping = do
         -- Add the correct box sizing in Firefox.
         boxSizing contentBox
         height nil
-        --Show the overflow in Edge and IE.
+        -- Show the overflow in Edge and IE.
         overflow visible
 
     pre ? do

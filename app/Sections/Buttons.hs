@@ -3,9 +3,8 @@ module Sections.Buttons where
 import Arc.Util
 import Arc.Widgets.Button
 import Arc.Widgets.Icon
-import Control.Monad (forM_, void)
+import Control.Monad (forM_)
 import Reflex.Dom hiding (button)
-import Web.Font.MDI
 
 buttonsSection :: DomBuilder t m => m ()
 buttonsSection = do

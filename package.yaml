@@ -40,33 +40,29 @@ when:
    frameworks: Foundation
    ghc-options: -dynamic
 
-dependencies:
-  - base
-  - base64
-  - bytestring
-  - clay
-  - containers
-  - data-default
-  - file-embed
-  - reflex
-  - reflex-dom
-  - ghc-syntax-highlighter
-  - skylighting
-  - text
-  - web-font-mdi
-
-when:
-  - condition: os(osx) || os(ios)
-    ghc-options:
-      - -dynamic
-
 library:
   source-dirs: src
+  dependencies:
+    - base
+    - bytestring
+    - clay
+    - containers
+    - data-default
+    - reflex
+    - reflex-dom
+    - ghc-syntax-highlighter
+    - skylighting
+    - text
+    - web-font-mdi
 
 executable:
   main: Main.hs
   source-dirs: app
   dependencies:
+    - base
+    - clay
     - reflex-arc
+    - reflex-dom
+    - text
   ghc-options:
     - -threaded

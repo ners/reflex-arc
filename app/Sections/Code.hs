@@ -1,7 +1,7 @@
 module Sections.Code where
 
 import Arc.Widgets.Code
-import qualified Data.Text as Text
+import Data.Text qualified as Text
 import Reflex.Dom
 
 codeSection :: DomBuilder t m => m ()

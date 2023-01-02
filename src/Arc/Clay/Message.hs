@@ -2,10 +2,8 @@ module Arc.Clay.Message where
 
 import Arc.Clay.Util
 import Arc.Tokens.Colour
-import Arc.Util
-import Arc.Widgets.Message (Message (Message), MessageVariant (..))
+import Arc.Widgets.Message
 import Clay hiding (black, blue, green, grey, orange, red, white)
-import Clay.Stylesheet (key)
 
 instance ColourToken MessageVariant where
     foregroundColour ErrorMessage = white

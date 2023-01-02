@@ -5,10 +5,9 @@ import Control.Monad (forM_)
 import Data.Default (Default)
 import Data.String (IsString)
 import Data.Text (Text)
-import qualified Data.Text as Text
-import qualified GHC.SyntaxHighlighter as GS
+import GHC.SyntaxHighlighter qualified as GS
 import Reflex.Dom
-import qualified Skylighting as S
+import Skylighting qualified as S
 
 data CodeBlock = CodeBlock
     { codeBlockLanguage :: Maybe Text

@@ -3,7 +3,7 @@ module Arc.Widgets.Svg where
 import Arc.Util
 import Data.Default (Default)
 import Data.Text (Text)
-import qualified Data.Text as Text
+import Data.Text qualified as Text
 import Reflex.Dom
 
 data ViewBox = ViewBox
@@ -31,10 +31,10 @@ data Svg = Svg
 instance Default Svg where
     def = Svg Nothing Nothing (ViewBox 0 0 0 0) []
 
-svg :: DomBuilder t m => Svg -> m ()
+svg :: forall t m. DomBuilder t m => Svg -> m ()
 svg Svg{..} = svgEl $ mapM_ pathEl svgPaths
   where
-    xmlns = "http://www.w3.org/2000/svg"
+    xmlns = "http://www.w3.org/2000/svg" :: Text
     svgEl =
         elAttrNS
             (Just xmlns)
@@ -44,4 +44,5 @@ svg Svg{..} = svgEl $ mapM_ pathEl svgPaths
                 , ("width",) . tshow <$> svgWidth
                 , ("height",) . tshow <$> svgHeight
                 ]
+    pathEl :: Path -> m ()
     pathEl p = elAttrNS (Just xmlns) "path" (mkAttrs [Just ("d", tshow p)]) blank

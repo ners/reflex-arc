@@ -1,7 +1,7 @@
 module Arc.Tokens.Colour where
 
 import Arc.Util (ishow)
-import Clay
+import Clay hiding (s)
 import Clay.Media (screen)
 import Clay.Stylesheet (Feature (Feature))
 import Control.Monad (forM_)
@@ -19,7 +19,7 @@ class ColourSchemeToken ct where
     default backgroundColourScheme :: ct -> ColourScheme -> Color
     backgroundColourScheme _ _ = transparent
 
-data ColourScheme = LightColourScheme | DarkColourScheme deriving (Eq)
+data ColourScheme = LightColourScheme | DarkColourScheme deriving stock (Eq)
 
 instance Show ColourScheme where
     show LightColourScheme = "light"
@@ -80,6 +80,7 @@ base16Default :: ColourScheme -> Base16
 base16Default LightColourScheme = base16DefaultLight
 base16Default DarkColourScheme = base16DefaultDark
 
+base16DefaultDark :: Base16
 base16DefaultDark =
     Base16
         { base00 = "#181818"
@@ -100,6 +101,7 @@ base16DefaultDark =
         , base0F = "#a16946"
         }
 
+base16DefaultLight :: Base16
 base16DefaultLight =
     Base16
         { base00 = "#f8f8f8"

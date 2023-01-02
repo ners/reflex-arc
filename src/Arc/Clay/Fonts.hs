@@ -1,7 +1,6 @@
 module Arc.Clay.Fonts where
 
-import Arc.Clay.Util
-import Clay
+import Clay hiding (content, name)
 import Clay.Stylesheet (key)
 
 fonts :: Css
@@ -28,9 +27,9 @@ fonts = do
         "Lora"
         "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
   where
-    --srcUrl c = key "src" $ mconcat [urlContent c, formatContent "woff2", techContent "variations"]
+    -- srcUrl c = key "src" $ mconcat [urlContent c, formatContent "woff2", techContent "variations"]
     srcUrl c = key "src" $ urlContent c
-    --woff2 = ("data:application/font-woff2;charset=utf-8;base64," <>) . BS.encodeBase64
+    -- woff2 = ("data:application/font-woff2;charset=utf-8;base64," <>) . BS.encodeBase64
     face name content = fontFace $ do
         fontFamily [name] []
         srcUrl content

@@ -1,10 +1,7 @@
 module Style where
 
-import Arc.Clay.Fonts
-import Arc.Clay.Normalise
 import Arc.Clay.Util
 import Clay
-import Clay.Font
 
 css :: Css
 css = do

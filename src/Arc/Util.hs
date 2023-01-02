@@ -6,18 +6,14 @@ import Control.Monad (join)
 import Data.Foldable
 import Data.Maybe
 
-import Data.Text (Text)
-import qualified Data.Text as Text
-
 import Data.Map.Strict (Map)
-import qualified Data.Map.Strict as Map
+import Data.Map.Strict qualified as Map
+import Data.Text (Text)
 
-import Data.Default (Default)
 import Data.Functor ((<&>))
 import Data.String (IsString (fromString))
 import Reflex
 import Reflex.Dom hiding (AttributeMap)
-import Reflex.Dynamic
 
 (<<$>>) :: (Functor f, Functor g) => (a -> b) -> f (g a) -> f (g b)
 (<<$>>) = fmap . fmap
@@ -54,10 +50,10 @@ headMaybe :: [a] -> Maybe a
 headMaybe [] = Nothing
 headMaybe (x : _) = Just x
 
-mkAttrs :: (Ord k, IsString k, IsString v) => [Maybe (k, v)] -> Map k v
+mkAttrs :: (Ord k) => [Maybe (k, v)] -> Map k v
 mkAttrs = Map.fromList . catMaybes
 
-mkDynAttrs :: (Ord k, IsString k, IsString v) => Reflex t => [Maybe (k, v)] -> Dynamic t (Map k v)
+mkDynAttrs :: (Ord k) => Reflex t => [Maybe (k, v)] -> Dynamic t (Map k v)
 mkDynAttrs = constDyn . mkAttrs
 
 toMaybe :: Bool -> a -> Maybe a
@@ -90,8 +86,8 @@ class Clickable e where
     clickableContent = text . tshow
     clickable :: DomBuilder t m => e -> m (Event t ())
     clickable e = do
-        (e, _) <- el' (clickableTag @e) (clickableContent e)
-        return $ domEvent Click e
+        (e', _) <- el' (clickableTag @e) (clickableContent e)
+        return $ domEvent Click e'
 
 class Eq e => Selectable e where
     selectableTag :: Text
@@ -102,8 +98,8 @@ class Eq e => Selectable e where
     selectable :: (DomBuilder t m, PostBuild t m) => e -> Dynamic t (Maybe e) -> m (Event t e)
     default selectable :: (Clickable e, DomBuilder t m, PostBuild t m) => e -> Dynamic t (Maybe e) -> m (Event t e)
     selectable e d = do
-        let className = d <&> \f -> if Just e == f then "selected" else ""
-        c <- elDynClass (selectableTag @e) className (clickable e)
+        let className' = d <&> \f -> if Just e == f then "selected" else ""
+        c <- elDynClass (selectableTag @e) className' (clickable e)
         return $ e <$ c
 
 class ClassName c where

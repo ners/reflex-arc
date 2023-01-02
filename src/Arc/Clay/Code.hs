@@ -2,11 +2,10 @@ module Arc.Clay.Code where
 
 import Arc.Clay.Util
 import Arc.Tokens.Colour
-import Arc.Widgets.Code
-import Clay
-import Clay.Media (maxWidth, screen)
-import Clay.Stylesheet (Feature (..), MediaType (..), rule)
-import qualified Skylighting as S
+import Arc.Util (ClassName)
+import Arc.Widgets.Code ()
+import Clay hiding (s)
+import Skylighting qualified as S
 
 instance ColourSchemeToken S.TokenType where
     backgroundColourScheme S.AlertTok = base08 . base16Default
@@ -31,6 +30,7 @@ instance ColourSchemeToken S.TokenType where
     foregroundColourScheme S.ImportTok = base0F . base16Default
     foregroundColourScheme S.InformationTok = base0C . base16Default
     foregroundColourScheme S.KeywordTok = base0E . base16Default
+    foregroundColourScheme S.NormalTok = base0A . base16Default
     foregroundColourScheme S.OperatorTok = base05 . base16Default
     foregroundColourScheme S.OtherTok = base0A . base16Default
     foregroundColourScheme S.PreprocessorTok = base0B . base16Default
@@ -55,7 +55,8 @@ preStyle = do
 
 codeStyle :: Css
 codeStyle = do
-    let colourClass s = class_ s ? applyColourScheme s
+    let colourClass :: (ClassName t, ColourSchemeToken t) => t -> Css
+        colourClass s = class_ s ? applyColourScheme s
     fontFamily ["Source Code Pro"] []
     mapM_
         colourClass

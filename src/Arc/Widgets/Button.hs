@@ -5,14 +5,9 @@ import Arc.Tokens.Size
 import Arc.Util
 import Arc.Widgets.Icon
 import Clay (transparent)
-import Control.Monad (forM_, when)
 import Data.Default
-import Data.Maybe (fromJust, isJust)
-import Data.String (IsString (fromString))
 import Data.Text (Text)
-import qualified Data.Text as Text
 import Reflex.Dom
-import qualified Reflex.Dom as ReflexDom
 
 instance ColourToken ButtonVariant where
     foregroundColour PrimaryButton = white
@@ -27,7 +22,7 @@ instance ColourToken ButtonVariant where
     backgroundColour GhostButton = transparent
 
 data ButtonVariant = GhostButton | DefaultButton | PrimaryButton | WarningButton | DangerButton
-    deriving (Show, Bounded, Enum)
+    deriving stock (Show, Bounded, Enum)
 
 data Button = Button
     { buttonContent :: Text
@@ -45,7 +40,7 @@ instance ClassName ButtonVariant
 instance ClassName Button where
     className = className . buttonVariant
 
-button :: DomBuilder t m => Button -> m (Event t ())
+button :: forall t m. DomBuilder t m => Button -> m (Event t ())
 button Button{..} = buttonEl >>= \(e, _) -> return $ domEvent Click e
   where
     attrs = mkAttrs [Just ("class", className buttonVariant), maybeDisabled buttonDisabled]
@@ -53,4 +48,5 @@ button Button{..} = buttonEl >>= \(e, _) -> return $ domEvent Click e
         mapM_ iconEl buttonLeftIcon
         el "span" $ text buttonContent
         mapM_ iconEl buttonRightIcon
+    iconEl :: Icon -> m ()
     iconEl i = icon $ i{iconSize = SmallSize}

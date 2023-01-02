@@ -1,7 +1,6 @@
 module Arc.Widgets.Checkbox where
 
 import Data.Text (Text)
-import qualified Data.Text as Text
 
 import Arc.Util
 import Data.Default (Default)
@@ -11,6 +10,7 @@ data CheckboxType = CheckboxType | RadioType | SwitchType
 
 instance ShowType CheckboxType where
     showType CheckboxType = "checkbox"
+    showType SwitchType = "checkbox"
     showType RadioType = "radio"
 
 data Checkbox = Checkbox

@@ -2,11 +2,11 @@ module Arc.Widgets.Text where
 
 import Arc.Util
 import Data.Default (Default)
-import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Reflex.Dom hiding (TextInput, textInput)
 
-data TextInputSize = TextInputFull | TextInputInline deriving (Show)
+data TextInputSize = TextInputFull | TextInputInline
+    deriving stock (Show)
 
 data TextInputType = TextInputType | EmailInputType | PasswordInputType
 

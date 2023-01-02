@@ -3,7 +3,6 @@
 module Arc.Widgets.Nav where
 
 import Arc.Util
-import Data.Default
 import Reflex.Dom
 
 class Selectable n => Nav n where

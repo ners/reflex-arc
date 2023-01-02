@@ -2,7 +2,6 @@
 
 module Arc.Widgets.Form where
 
-import Arc.Util
 import Data.Text (Text)
 import Reflex.Dom hiding (Checkbox)
 

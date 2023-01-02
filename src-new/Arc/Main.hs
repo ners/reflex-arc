@@ -205,7 +205,7 @@ arcMain :: (forall x. Widget x ()) -> IO ()
 arcMain w = run $
     withJSContextSingleton $ \jsSing -> do
         doc <- currentDocumentUnchecked
-        --headElement <- getHeadUnchecked doc
-        --setInnerHTML headElement ("<link rel=\"stylesheet\" href=\"style.css\">" :: Text)
+        -- headElement <- getHeadUnchecked doc
+        -- setInnerHTML headElement ("<link rel=\"stylesheet\" href=\"style.css\">" :: Text)
         body <- getBodyUnchecked doc
         attachWidget body jsSing w
