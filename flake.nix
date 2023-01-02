@@ -1,23 +1,21 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-    reflex-dom = {
-      url = "github:reflex-frp/reflex-dom";
-      flake = false;
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
     web-font-mdi = {
       url = "github:ners/web-font-mdi";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-    };
-    jsaddle = {
-      url = "github:ghcjs/jsaddle";
-      flake = false;
     };
     clay = {
       url = "github:sebastiaanvisser/clay";
@@ -42,7 +40,7 @@
         buildInputs = (attrs.buildInputs or [ ]) ++ darwinFrameworks;
         NIX_LDFLAGS = "-F${pkgs.darwin.apple_sdk.frameworks.Foundation}/Library/Frameworks -framework Foundation";
       });
-      inherit (pkgs.haskell.lib) doJailbreak;
+      inherit (pkgs.haskell.lib) doJailbreak markUnbroken;
       haskellPackages = pkgs.haskell.packages.ghc92.override {
         overrides = self: super: {
           # TODO: GHC 9.4
@@ -59,30 +57,62 @@
               sed -i 's/, Content$/&(..)/' src/Clay/Text.hs
             '';
           });
-          jsaddle-wkwebview = darwinOverride (self.callCabal2nix
-            "jsaddle-wkwebview"
-            "${inputs.jsaddle}/jsaddle-wkwebview"
-            { });
+
           reflex-arc = darwinOverride (self.callCabal2nix "reflex-arc" ./. { });
         };
       };
-      haskellDeps = drv: concatLists (attrValues drv.getCabalDeps);
     in
-    {
-      packages = rec {
-        inherit (haskellPackages) reflex-arc;
-        default = reflex-arc;
+    rec {
+      checks = {
+        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run rec {
+          src = ./.;
+          settings.ormolu.defaultExtensions = [
+            "ApplicativeDo"
+            "DataKinds"
+            "DefaultSignatures"
+            "DeriveAnyClass"
+            "DeriveGeneric"
+            "DerivingStrategies"
+            "DerivingVia"
+            "ExplicitNamespaces"
+            "ImportQualifiedPost"
+            "OverloadedStrings"
+            "RecordWildCards"
+            "TypeFamilies"
+          ];
+          tools = {
+            fourmolu = haskellPackages.fourmolu;
+            nix-linter = haskellPackages.nix-linter;
+          };
+          hooks = {
+            hlint.enable = true;
+            nixpkgs-fmt.enable = true;
+            #nix-linter.enable = true;
+            statix.enable = true;
+            fourmolu.enable = true;
+            cabal-fmt.enable = true;
+            shellcheck.enable = true;
+          };
+        };
       };
 
-      devShells.default = pkgs.mkShell {
-        nativeBuildInputs = with haskellPackages; [
-          (ghcWithPackages (ps: haskellDeps reflex-arc))
+      packages = {
+        inherit (haskellPackages) reflex-arc;
+        default = packages.reflex-arc;
+      };
+
+      devShells.default = haskellPackages.shellFor {
+        packages = _: [ packages.default ];
+        nativeBuildInputs = with pkgs; with haskellPackages; [
           cabal-install
+          clang
           haskell-language-server
           hpack
-          pkgs.clang
         ];
-        buildInputs = darwinFrameworks;
+        buildInputs = darwinFrameworks ++ [
+          inputs.pre-commit-hooks.defaultPackage.${system}
+        ];
+        inherit (inputs.self.checks.${system}.pre-commit-check) shellHook;
       };
 
       formatter = pkgs.nixpkgs-fmt;
