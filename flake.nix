@@ -106,6 +106,7 @@
         nativeBuildInputs = with pkgs; with haskellPackages; [
           cabal-install
           clang
+          fourmolu
           haskell-language-server
           hpack
         ];

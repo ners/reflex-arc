@@ -56,8 +56,11 @@ normaliseGrouping = do
 
 normaliseText :: Css
 normaliseText = do
-    -- Remove the gray background on active links in IE 10.
-    a ? backgroundColor transparent
+    a ? do
+        -- Remove the gray background on active links in IE 10.
+        backgroundColor transparent
+        -- Use the pointer cursor
+        cursor pointer
 
     abbr ? "[title]" & do
         -- Remove the bottom border in Chrome 57-

@@ -26,7 +26,7 @@ buttonsSection = do
                 , rightIcon <- [Nothing, star]
                 ]
             $ \(content, leftIcon, rightIcon) -> do
-                button $
+                button
                     def
                         { buttonVariant = variant
                         , buttonContent = content

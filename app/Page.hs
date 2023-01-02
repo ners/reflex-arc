@@ -1,5 +1,4 @@
 {-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 
 module Page where
 
@@ -11,7 +10,8 @@ import Arc.Util
 import Arc.Widgets.Icon
 import Arc.Widgets.Nav
 import Control.Monad (void)
-import Reflex.Dom hiding (button)
+import Control.Monad.Fix (MonadFix)
+import Reflex.Dom
 import Sections.Buttons
 import Sections.Code
 import Sections.Forms
@@ -41,12 +41,26 @@ instance ListDetail PageSection where
             Just Code -> codeSection
             _ -> blank
 
-instance PageLayout MainPage where
+data ThemeToggle = ThemeToggle
+
+instance Clickable ThemeToggle where
+    clickableClass = "theme"
+    clickableContent ThemeToggle = icon $ mdiIcon mdiBrightness6
+
+instance PageLayout MainPage ThemeToggle where
     pageHeader = Just $
         el "h1" $ do
             iconWithText (arcLogoIcon{iconSize = MediumSize}) "Reflex Arc"
             el "span" $ text "Design System"
-    pageMain = listDetail @PageSection
+            clickable ThemeToggle >>= (\e -> pure $ ThemeToggle <$ e)
+    pageMain = do
+        listDetail @PageSection
+        pure never
 
-page :: Widget w ()
-page = pageLayout @MainPage
+page
+    :: DomBuilder t m
+    => PostBuild t m
+    => MonadHold t m
+    => MonadFix m
+    => m ()
+page = void $ pageLayout @MainPage @ThemeToggle

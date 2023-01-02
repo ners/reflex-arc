@@ -81,12 +81,14 @@ update d f = dyn $ f <$> d
 class Clickable e where
     clickableTag :: Text
     clickableTag = "a"
+    clickableClass :: Text
+    clickableClass = ""
     clickableContent :: DomBuilder t m => e -> m ()
     default clickableContent :: (Show e, DomBuilder t m) => e -> m ()
     clickableContent = text . tshow
     clickable :: DomBuilder t m => e -> m (Event t ())
     clickable e = do
-        (e', _) <- el' (clickableTag @e) (clickableContent e)
+        (e', _) <- elClass' (clickableTag @e) (clickableClass @e) (clickableContent e)
         return $ domEvent Click e'
 
 class Eq e => Selectable e where
