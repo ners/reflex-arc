@@ -7,6 +7,7 @@ import Web.Font.MDI
 
 checkboxStyle :: Css
 checkboxStyle = do
+    width $ em 2
     borderStyle none
     color inputBorder
     before & do
@@ -21,9 +22,10 @@ checkboxStyle = do
         transition "opacity" (ms 100) easeInOut (sec 0)
         cursor pointer
     disabled
-        & (self <> sibling label) ? do
-            cursor notAllowed
-            opacity 0.5
+        & (self <> sibling label)
+            ? do
+                cursor notAllowed
+                opacity 0.5
 
 checkboxInputGroupStyle :: Css
 checkboxInputGroupStyle = do
