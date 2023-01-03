@@ -8,7 +8,7 @@ import Reflex.Dom
 class Grid g a where
     gridItems :: [g]
     gridElement :: DomBuilder t m => m (Event t a) -> m (Event t a)
-    gridElement = elClass "span" "cell"
+    gridElement = elClass "div" "cell"
     gridContent :: DomBuilder t m => g -> m (Event t a)
 
 grid

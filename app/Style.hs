@@ -38,8 +38,19 @@ css = do
                     paddingLeft (em 1)
                     minWidth (em 10)
                     hover & backgroundColor (setA 0.1 grey)
-        ".detail" ? do
+        self |> ".detail" ? do
             paddingAll (em 2)
+    ".tabs" |> ".detail" ? do
+        paddingTop (em 1)
+    ".grid" |> ".cell" ? do
+        display inlineBlock
+        fontSize (em 2)
+        lineHeight (em 2)
+        paddingAll (em 0.5)
+        marginAll (em 0.1)
+        borderRadiusAll (em 0.2)
+        cursor pointer
+        hover & backgroundColor (setA 0.1 grey)
     form ? do
         maxWidth (em 30)
         margin2 nil auto
