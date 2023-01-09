@@ -4,27 +4,21 @@ module Sections.Icons where
 
 import Arc.Layouts.Grid
 import Arc.Layouts.Tabs
-import Arc.Tokens.ArcLogo (arcLogoIcon)
+import Arc.Tokens.Size (SizeToken)
 import Arc.Util
 import Arc.Widgets.Icon
 import Arc.Widgets.Nav
 import Control.Monad (forM_, void)
 import Control.Monad.Fix (MonadFix)
-import Data.Text qualified as Text
 import Reflex.Dom hiding (tag)
 
 data IconSection = IconExplorer | IconExamples
     deriving stock (Eq, Bounded, Enum)
+    deriving anyclass (Clickable, Selectable, Nav)
 
-instance Show IconSection where
-    show IconExplorer = "Icon explorer"
-    show IconExamples = "Examples"
-
-instance Clickable IconSection
-
-instance Selectable IconSection
-
-instance Nav IconSection
+instance ToElement IconSection where
+    toElement IconExplorer = text "Icon explorer"
+    toElement IconExamples = text "Examples"
 
 instance Tabs IconSection where
     initialTab = Just IconExplorer
@@ -49,25 +43,23 @@ deriving stock instance Enum MDI
 
 instance Grid MDI () where
     gridItems = take 100 [minBound .. maxBound]
-    gridContent mdi = never <$ icon (mdiIcon mdi)
+    gridContent mdi = never <$ icon mdi
 
 iconExplorer :: DomBuilder t m => m ()
 iconExplorer = () <$ grid @MDI @()
 
 iconExamples :: DomBuilder t m => m ()
 iconExamples = do
-    forM_ [(tag, size) | tag <- ["h1", "h2", "h3", "div"], size <- [minBound .. maxBound]] $ \(tag, size) -> do
+    forM_ ["h1", "h2", "h3", "div"] $ \tag -> do
         el "hr" blank
-        el "div" $ text $ Text.unwords [tag, tshow size]
+        el "div" $ text tag
         forM_
-            [ (i, content)
-            | i <- [mdiIcon MdiAccountCircle, arcLogoIcon]
-            , content <- [Nothing, Just "with text"]
+            [ (i, size)
+            | i <- [MdiAccountCircle]
+            , size <- [minBound @SizeToken .. maxBound]
             ]
-            $ \(i, content) -> do
+            $ \(i, size) -> do
                 el tag $ do
-                    let icn = i{iconSize = size}
-                    case content of
-                        Just t -> iconWithText icn t
-                        Nothing -> icon icn
-                    el "span" $ text "surrounding text"
+                    icon (size, i)
+                    text $ tshow size
+                    iconWithText (size, i) "with text"

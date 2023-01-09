@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-partial-fields #-}
+
 module Arc.Widgets.Svg where
 
 import Arc.Util
@@ -16,26 +18,31 @@ data ViewBox = ViewBox
 instance Show ViewBox where
     show (ViewBox{..}) = show minX <> " " <> show minY <> " " <> show width <> " " <> show height
 
-newtype Path = Path Text
-
-instance Show Path where
-    show (Path p) = Text.unpack p
+data SvgElement
+    = Path
+        { fill :: Maybe Text
+        , d :: [[Text]]
+        }
+    | Polygon
+        { fill :: Maybe Text
+        , points :: [(Double, Double)]
+        }
 
 data Svg = Svg
     { svgWidth :: Maybe Int
     , svgHeight :: Maybe Int
     , svgViewBox :: ViewBox
-    , svgPaths :: [Path]
+    , svgElements :: [SvgElement]
     }
 
 instance Default Svg where
     def = Svg Nothing Nothing (ViewBox 0 0 0 0) []
 
 svg :: forall t m. DomBuilder t m => Svg -> m ()
-svg Svg{..} = svgEl $ mapM_ pathEl svgPaths
+svg Svg{..} = svg' $ mapM_ svgEl svgElements
   where
     xmlns = "http://www.w3.org/2000/svg" :: Text
-    svgEl =
+    svg' =
         elAttrNS
             (Just xmlns)
             "svg"
@@ -44,5 +51,14 @@ svg Svg{..} = svgEl $ mapM_ pathEl svgPaths
                 , ("width",) . tshow <$> svgWidth
                 , ("height",) . tshow <$> svgHeight
                 ]
-    pathEl :: Path -> m ()
-    pathEl p = elAttrNS (Just xmlns) "path" (mkAttrs [Just ("d", tshow p)]) blank
+
+    mkStyle :: SvgElement -> Maybe (Text, Text)
+    mkStyle e = (\f -> ("style", "fill:" <> f)) <$> fill e
+
+    svgEl :: SvgElement -> m ()
+    svgEl p@Path{..} = elAttrNS (Just xmlns) "path" (mkAttrs [Just ("d", d'), mkStyle p]) blank
+      where
+        d' = Text.intercalate " " $ Text.intercalate "," <$> d
+    svgEl p@Polygon{..} = elAttrNS (Just xmlns) "polygon" (mkAttrs [Just ("points", Text.unwords points'), mkStyle p]) blank
+      where
+        points' = (\(x, y) -> tshow x <> "," <> tshow y) <$> points

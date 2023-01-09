@@ -1,46 +1,50 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+
 module Arc.Widgets.Icon
     ( module Web.Font.MDI
     , Icon (..)
-    , icon
     , iconWithText
     , iconWithTextClass
-    , mdiIcon
     ) where
 
 import Arc.Tokens.Size
 import Arc.Util
-import Data.Default (Default)
 import Data.Text (Text)
-import Data.Text qualified as Text
 import Reflex.Dom
 import Web.Font.MDI
 
-data Icon = Icon
-    { iconSize :: SizeToken
-    , iconImage :: forall t m. DomBuilder t m => m ()
-    }
+class Icon i where
+    iconSize :: i -> SizeToken
+    iconSize _ = MediumSize
+    iconClass :: i -> Text
+    iconClass i = "icon " <> className (iconSize i)
+    iconContent :: DomBuilder t m => i -> m ()
+    default iconContent :: (ToElement i, DomBuilder t m) => i -> m ()
+    iconContent = toElement
+    icon :: DomBuilder t m => i -> m ()
+    icon i = elAttr "span" attrs $ iconContent i
+      where
+        attrs = mkAttrs [Just ("role", "img"), Just ("class", iconClass i)]
 
-instance ClassName Icon where
-    className = className . iconSize
-
-instance BaseClassName Icon where
-    baseClassName = "icon"
-
-instance Default Icon where
-    def = Icon SmallSize blank
-
-icon :: DomBuilder t m => Icon -> m ()
-icon i@Icon{..} = span' iconImage
-  where
-    span' = elAttr "span" $ mkAttrs [Just ("role", "img"), Just ("class", fullClassString i)]
-
-iconWithText :: DomBuilder t m => Icon -> Text -> m ()
+iconWithText :: Icon i => DomBuilder t m => i -> Text -> m ()
 iconWithText = iconWithTextClass "icon-with-text"
 
-iconWithTextClass :: DomBuilder t m => Text -> Icon -> Text -> m ()
+iconWithTextClass :: Icon i => DomBuilder t m => Text -> i -> Text -> m ()
 iconWithTextClass c i t = elClass "span" c $ do
     icon i
     elClass "span" "text" $ text t
 
-mdiIcon :: MDI -> Icon
-mdiIcon mdi = def{iconImage = text $ Text.singleton $ mdiChar mdi}
+instance Icon i => Icon (Maybe i) where
+    iconContent = maybe blank iconContent
+
+instance Icon i => Icon (SizeToken, i) where
+    iconSize = fst
+    iconContent = iconContent . snd
+
+instance Icon () where
+    icon () = blank
+
+instance ToElement MDI where
+    toElement = toElement . mdiChar
+
+instance Icon MDI

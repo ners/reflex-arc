@@ -48,9 +48,10 @@ library:
     - clay
     - containers
     - data-default
+    - extra
+    - ghc-syntax-highlighter
     - reflex
     - reflex-dom
-    - ghc-syntax-highlighter
     - skylighting
     - text
     - web-font-mdi
@@ -61,6 +62,7 @@ executable:
   dependencies:
     - base
     - clay
+    - file-embed
     - reflex-arc
     - reflex-dom
     - text

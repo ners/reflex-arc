@@ -16,7 +16,7 @@ instance ColourToken MessageVariant where
     backgroundColour WarningMessage = orange
 
 messages :: Css
-messages = baseClass_ @Message ? messageStyle
+messages = ".message" ? messageStyle
 
 messageStyle :: Css
 messageStyle = do

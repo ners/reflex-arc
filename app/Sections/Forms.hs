@@ -12,7 +12,7 @@ import Arc.Widgets.Textarea
 import Control.Monad (void)
 import Data.Maybe (catMaybes, fromMaybe)
 import Data.Text (Text)
-import Reflex.Dom hiding (button, checkbox, textInput)
+import Reflex.Dom hiding (Submit, button, checkbox, textInput)
 
 newtype Username = Username Text
 
@@ -71,7 +71,7 @@ instance OptionGroup Gender where
 
 instance FormField Username where
     fieldRequired = True
-    fieldInputElement = Username <<$>> textInput c
+    fieldInputElement = Username <$$> textInput c
       where
         c =
             def
@@ -81,7 +81,7 @@ instance FormField Username where
 
 instance FormField Email where
     fieldRequired = True
-    fieldInputElement = Email <<$>> emailInput c
+    fieldInputElement = Email <$$> emailInput c
       where
         c =
             def
@@ -91,7 +91,7 @@ instance FormField Email where
 
 instance FormField Password where
     fieldRequired = True
-    fieldInputElement = Password <<$>> passwordInput c
+    fieldInputElement = Password <$$> passwordInput c
       where
         c =
             def
@@ -101,7 +101,7 @@ instance FormField Password where
 
 instance FormField Bio where
     fieldRequired = False
-    fieldInputElement = Bio <<$>> textarea c
+    fieldInputElement = Bio <$$> textarea c
       where
         c =
             def
@@ -111,7 +111,7 @@ instance FormField Bio where
 
 instance FormField Newsletter where
     fieldRequired = False
-    fieldInputElement = Newsletter <<$>> checkbox c
+    fieldInputElement = Newsletter <$$> checkbox c
       where
         c =
             def
@@ -121,7 +121,7 @@ instance FormField Newsletter where
 
 instance FormField Eula where
     fieldRequired = True
-    fieldInputElement = Eula <<$>> checkbox c
+    fieldInputElement = Eula <$$> checkbox c
       where
         c =
             def
@@ -139,6 +139,16 @@ data SignupForm = SignupForm
     , eula :: Eula
     }
 
+data FormButton = Submit | Cancel
+    deriving stock (Show, Bounded, Enum)
+
+instance Button FormButton () where
+    buttonVariant Submit = PrimaryButton
+    buttonVariant Cancel = GhostButton
+    buttonDisabled _ = pure False
+
+instance ButtonGroup FormButton ()
+
 instance Form SignupForm where
     formTitle = Just "Sign up"
     formFields = do
@@ -149,10 +159,7 @@ instance Form SignupForm where
         b <- formField @Bio
         n <- checkboxFormField @Newsletter
         l <- checkboxFormField @Eula
-        divClass "buttons" $ do
-            button $ def{buttonContent = "Submit", buttonVariant = PrimaryButton}
-            button $ def{buttonContent = "Cancel", buttonVariant = GhostButton}
-            pure ()
+        buttonGroup @FormButton @()
         return $
             SignupForm
                 <$> u

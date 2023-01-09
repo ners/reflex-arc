@@ -1,6 +1,5 @@
 module Arc.Clay.Layouts.Grid where
 
-import Arc.Clay.Util
 import Clay
 
 grid :: Css

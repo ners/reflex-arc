@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nix-filter.url = "github:numtide/nix-filter";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -40,9 +41,15 @@
         buildInputs = (attrs.buildInputs or [ ]) ++ darwinFrameworks;
         NIX_LDFLAGS = "-F${pkgs.darwin.apple_sdk.frameworks.Foundation}/Library/Frameworks -framework Foundation";
       });
-      inherit (pkgs.haskell.lib) doJailbreak markUnbroken;
+      inherit;
+      src = inputs.nix-filter.lib {
+        root = ./.;
+        include = [ "app" "src" "package.yaml" ];
+      };
       haskellPackages = pkgs.haskell.packages.ghc92.override {
-        overrides = self: super: {
+        overrides = self: super: with pkgs.haskell.lib; {
+          reflex-arc = darwinOverride (self.callCabal2nix "reflex-arc" src { });
+
           # TODO: GHC 9.4
           #reflex = super.reflex_0_9_0_0;
           #hlint = doJailbreak super.hlint_3_5;
@@ -57,8 +64,6 @@
               sed -i 's/, Content$/&(..)/' src/Clay/Text.hs
             '';
           });
-
-          reflex-arc = darwinOverride (self.callCabal2nix "reflex-arc" ./. { });
         };
       };
     in
@@ -97,8 +102,8 @@
       };
 
       packages = {
-        inherit (haskellPackages) reflex-arc;
-        default = packages.reflex-arc;
+        inherit haskellPackages;
+        default = haskellPackages.reflex-arc;
       };
 
       devShells.default = haskellPackages.shellFor {

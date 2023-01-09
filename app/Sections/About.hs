@@ -1,5 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
-
 module Sections.About where
 
 import Arc.Layouts.Tabs
@@ -11,18 +9,11 @@ import Reflex.Dom
 
 data About = Introduction | Test1 | Test2
     deriving stock (Show, Eq, Bounded, Enum)
-
-instance Clickable About
-
-instance Selectable About
-
-instance Nav About
+    deriving anyclass (ToElement, Clickable, Selectable, Nav)
 
 instance Tabs About where
     initialTab = Just Introduction
-    tabView d = void $ update d $ \case
-        Just t -> text $ tshow t
-        Nothing -> pure ()
+    tabView d = void $ update d $ maybe blank $ text . tshow
 
 aboutSection
     :: forall t m

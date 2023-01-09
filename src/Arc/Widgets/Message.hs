@@ -1,34 +1,29 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+
 module Arc.Widgets.Message where
 
-import Arc.Tokens.Size (SizeToken (SmallSize))
 import Arc.Util
 import Arc.Widgets.Icon
-import Data.Default (Default)
-import Data.Text (Text)
 import Reflex.Dom
 
 data MessageVariant = InformationMessage | ErrorMessage | SuccessMessage | WarningMessage
     deriving stock (Show)
+    deriving anyclass (ClassName)
 
-instance ClassName MessageVariant
+instance ToElement MessageVariant where
+    toElement InformationMessage = icon MdiInformation
+    toElement ErrorMessage = icon MdiCloseCircle
+    toElement SuccessMessage = icon MdiCheckCircle
+    toElement WarningMessage = icon MdiAlertCircle
 
-data Message = Message
-    { messageVariant :: MessageVariant
-    , messageContent :: Text
-    }
+instance Icon MessageVariant
 
-instance ClassName Message where
-    className = className . messageVariant
-
-instance BaseClassName Message where
-    baseClassName = "message"
-
-instance Default Message where
-    def = Message InformationMessage ""
-
-message :: DomBuilder t m => Message -> m ()
-message m@Message{..} =
-    iconWithTextClass
-        ("icon-with-text " <> fullClassString m)
-        (def{iconSize = SmallSize}) -- , iconImage = mdiAlertRhombus}) TODO
-        messageContent
+class Show e => Message e where
+    messageVariant :: e -> MessageVariant
+    messageVariant = const InformationMessage
+    message :: forall i t m. (Icon i, DomBuilder t m) => e -> m ()
+    message m =
+        iconWithTextClass
+            ("icon-with-text message" <> className (messageVariant m))
+            (messageVariant m)
+            (tshow m)

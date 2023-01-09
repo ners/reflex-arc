@@ -40,6 +40,8 @@ css = do
                     hover & backgroundColor (setA 0.1 grey)
         self |> ".detail" ? do
             paddingAll (em 2)
+    -- ".detail.Code" ? do
+    --    display flex
     ".tabs" |> ".detail" ? do
         paddingTop (em 1)
     ".grid" |> ".cell" ? do

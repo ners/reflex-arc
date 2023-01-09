@@ -2,47 +2,48 @@ module Arc.Clay.Code where
 
 import Arc.Clay.Util
 import Arc.Tokens.Colour
-import Arc.Widgets.Code ()
-import Clay hiding (s)
+import Arc.Widgets.Code
+import Clay hiding (grey)
+import Clay.Stylesheet (key)
 import Control.Monad (forM_)
-import Skylighting qualified as S
 
-deriving stock instance Bounded S.TokenType
-
-instance ColourSchemeToken S.TokenType where
-    backgroundColourScheme S.AlertTok = base08 . base16Default
+instance ColourSchemeToken TokenType where
+    backgroundColourScheme AlertTok = base08 . base16Default
+    backgroundColourScheme ErrorTok = base08 . base16Default
     backgroundColourScheme _ = const transparent
-    foregroundColourScheme S.AlertTok = base05 . base16Default
-    foregroundColourScheme S.AnnotationTok = base04 . base16Default
-    foregroundColourScheme S.AttributeTok = base0D . base16Default
-    foregroundColourScheme S.BaseNTok = base09 . base16Default
-    foregroundColourScheme S.BuiltInTok = base0D . base16Default
-    foregroundColourScheme S.CharTok = base0C . base16Default
-    foregroundColourScheme S.CommentTok = base03 . base16Default
-    foregroundColourScheme S.CommentVarTok = base0C . base16Default
-    foregroundColourScheme S.ConstantTok = base09 . base16Default
-    foregroundColourScheme S.ControlFlowTok = base09 . base16Default
-    foregroundColourScheme S.DataTypeTok = base0A . base16Default
-    foregroundColourScheme S.DecValTok = base09 . base16Default
-    foregroundColourScheme S.DocumentationTok = base08 . base16Default
-    foregroundColourScheme S.ErrorTok = base08 . base16Default
-    foregroundColourScheme S.ExtensionTok = base0D . base16Default
-    foregroundColourScheme S.FloatTok = base09 . base16Default
-    foregroundColourScheme S.FunctionTok = base0D . base16Default
-    foregroundColourScheme S.ImportTok = base0F . base16Default
-    foregroundColourScheme S.InformationTok = base0C . base16Default
-    foregroundColourScheme S.KeywordTok = base0E . base16Default
-    foregroundColourScheme S.NormalTok = base0A . base16Default
-    foregroundColourScheme S.OperatorTok = base05 . base16Default
-    foregroundColourScheme S.OtherTok = base0A . base16Default
-    foregroundColourScheme S.PreprocessorTok = base0B . base16Default
-    foregroundColourScheme S.RegionMarkerTok = base07 . base16Default
-    foregroundColourScheme S.SpecialCharTok = base0C . base16Default
-    foregroundColourScheme S.SpecialStringTok = base0F . base16Default
-    foregroundColourScheme S.StringTok = base0B . base16Default
-    foregroundColourScheme S.VariableTok = base08 . base16Default
-    foregroundColourScheme S.VerbatimStringTok = base0B . base16Default
-    foregroundColourScheme S.WarningTok = base0A . base16Default
+    foregroundColourScheme CharTok = base08 . base16Default
+    foregroundColourScheme KeywordTok = base0E . base16Default
+    foregroundColourScheme DataTypeTok = base0A . base16Default
+    foregroundColourScheme DecValTok = base09 . base16Default
+    foregroundColourScheme BaseNTok = base09 . base16Default
+    foregroundColourScheme FloatTok = base09 . base16Default
+    foregroundColourScheme ConstantTok = base09 . base16Default
+    foregroundColourScheme SpecialCharTok = base0F . base16Default
+    foregroundColourScheme StringTok = base0B . base16Default
+    foregroundColourScheme VerbatimStringTok = base0B . base16Default
+    foregroundColourScheme SpecialStringTok = base0B . base16Default
+    foregroundColourScheme ImportTok = base0D . base16Default
+    foregroundColourScheme CommentTok = base03 . base16Default
+    foregroundColourScheme DocumentationTok = base08 . base16Default
+    foregroundColourScheme AnnotationTok = base0F . base16Default
+    foregroundColourScheme CommentVarTok = base03 . base16Default
+    foregroundColourScheme OtherTok = base05 . base16Default
+    foregroundColourScheme FunctionTok = base0D . base16Default
+    foregroundColourScheme VariableTok = base08 . base16Default
+    foregroundColourScheme ControlFlowTok = base0E . base16Default -- TODO
+    foregroundColourScheme OperatorTok = base05 . base16Default
+    foregroundColourScheme BuiltInTok = base0D . base16Default
+    foregroundColourScheme ExtensionTok = base05 . base16Default -- TODO
+    foregroundColourScheme PreprocessorTok = base0A . base16Default
+    foregroundColourScheme AttributeTok = base0A . base16Default
+    foregroundColourScheme RegionMarkerTok = base05 . base16Default -- TODO
+    foregroundColourScheme InformationTok = base05 . base16Default -- TODO
+    foregroundColourScheme WarningTok = base08 . base16Default
+    foregroundColourScheme AlertTok = base00 . base16Default
+    foregroundColourScheme ErrorTok = base00 . base16Default
+    foregroundColourScheme NormalTok = base05 . base16Default
+
+-- foregroundColourScheme _ = undefined
 
 code_ :: Css
 code_ = do
@@ -52,19 +53,34 @@ code_ = do
 preStyle :: Css
 preStyle = do
     padding2 (em 0.5) (em 1)
+    overflow auto
     ".code" & do
         withColourScheme $ backgroundColor . base00 . base16Default
+        key "counter-reset" $ Value "line 0"
+        display grid
+        gridTemplateColumns [minContent, fr 1]
+        -- grid - auto - rows : 1 em
+        -- gridGap (em 0.3)
+        ".line-number" ? do
+            color $ setA 0.5 grey
+            textAlign $ other $ Value "right"
+            fontSize (pct 90)
+            marginRight (em 1)
+            before & do
+                key "counter-increment" $ Value "line"
+                content $ Content "counter(line)"
 
 codeStyle :: Css
 codeStyle = do
+    self <> "*" ? userSelect selectText
     fontFamily ["Fira Code"] []
-    forM_ [minBound .. maxBound] $ \(tt :: S.TokenType) -> do
+    forM_ [minBound @TokenType .. maxBound] $ \tt -> do
         class_ tt ? applyColourScheme tt
-    class_ S.CommentTok ? do
+    class_ CommentTok ? do
         fontStyle italic
-    class_ S.ErrorTok ? do
+    class_ ErrorTok ? do
         textDecoration underline
-    class_ S.ExtensionTok ? do
+    class_ ExtensionTok ? do
         fontWeight bold
-    class_ S.KeywordTok ? do
+    class_ KeywordTok ? do
         fontWeight bold

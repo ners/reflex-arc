@@ -4,6 +4,7 @@
 module Arc.Layouts.ListDetail where
 
 import Control.Monad.Fix (MonadFix)
+import Data.Text (Text)
 import Reflex.Dom
 
 class ListDetail l where
@@ -25,6 +26,15 @@ class ListDetail l where
         => MonadFix m
         => Dynamic t (Maybe l)
         -> m ()
+    detailClassName
+        :: forall t m
+         . DomBuilder t m
+        => PostBuild t m
+        => MonadHold t m
+        => MonadFix m
+        => Dynamic t (Maybe l)
+        -> Dynamic t (Maybe Text)
+    detailClassName _ = pure Nothing
 
 listDetail
     :: forall l t m
@@ -35,6 +45,7 @@ listDetail
     => MonadFix m
     => m ()
 listDetail = divClass "list-detail" $ mdo
-    list <- elClass "aside" "list" $ listView @l listCurrent
-    listCurrent <- holdDyn (listInitial @l) list
-    elClass "article" "detail" $ detailView @l listCurrent
+    list :: Event t (Maybe l) <- elClass "aside" "list" $ listView @l listCurrent
+    listCurrent :: Dynamic t (Maybe l) <- holdDyn (listInitial @l) list
+    let cn = detailClassName @l @t @m listCurrent
+    elDynClass "article" ("detail" <> (maybe "" (" " <>) <$> cn)) $ detailView @l listCurrent

@@ -3,7 +3,6 @@ module Arc.Clay.Buttons where
 import Arc.Clay.Util
 import Arc.Tokens.Colour
 import Arc.Widgets.Button (ButtonVariant (..))
-import Arc.Widgets.Icon
 import Clay hiding (a, black, blue, grey, orange, red, white)
 import Control.Monad (forM_)
 
@@ -42,9 +41,9 @@ buttonStyle = do
     fontWeight $ weight 400
     cursor pointer
     position relative
-    self |> (star <> baseClass_ @Icon) ? do
+    self |> star ? do
         margin2 (em 0) (em 0.3)
-    forM_ [minBound .. maxBound] $ \(bv :: ButtonVariant) ->
+    forM_ [minBound @ButtonVariant .. maxBound] $ \bv ->
         class_ bv & do
             applyColourScheme bv
             hover
